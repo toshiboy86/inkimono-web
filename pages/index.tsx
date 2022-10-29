@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Inquiry from '../components/Inquiry'
 import ImageGrid from '../components/ImageGrid'
+import { useLocale } from '../src/hooks/useLocale'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -30,6 +31,7 @@ const tempMediaImages = [
 ]
 
 const Home: NextPage = () => {
+  const { wi18n } = useLocale()
   return (
     <div>
       <Box
