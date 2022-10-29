@@ -9,11 +9,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Link from 'next/link'
 import { convertFirstLetterCapital } from '../src/utils'
 
-const pages = ['service', 'portfolio', 'inquiry'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['service', 'portfolio', 'inquiry']
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -30,7 +29,6 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -80,9 +78,14 @@ const ResponsiveAppBar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" component="a" href={page}>{convertFirstLetterCapital(page)}</Typography>
+                  <Link href={page}>
+                    <Typography textAlign="center">{convertFirstLetterCapital(page)}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
+              <MenuItem key={'日本語'} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center" component="a" href={'日本語'} color={'rgb(197, 74, 25)'}>日本語</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Typography
@@ -105,14 +108,23 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                component="a" href={page}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {convertFirstLetterCapital(page)}
-              </Button>
+              <Link href={page} key={page}>
+                <Button
+                  key={page}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {convertFirstLetterCapital(page)}
+                </Button>
+              </Link>
             ))}
+            <Link href={'/ja'}>
+              <Button
+                key={'日本語'}
+                sx={{ my: 2, color: 'rgb(197, 74, 25)', display: 'block', fontWeight: 'bold' }}
+              >
+                {convertFirstLetterCapital('日本語')}
+              </Button>
+            </Link>
           </Box>
         </Toolbar>
       </Container>

@@ -12,14 +12,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+import Link from 'next/link'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { useLocale } from '../src/hooks/useLocale'
 
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -38,14 +36,15 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function RecipeReviewCard() {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(false)
+  const { wi18n } = useLocale()
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const reserveIcon = () => {
-    return <div><a href='http:/service'><CalendarMonthIcon /></a></div>
+    return <Link href='/service'><CalendarMonthIcon /></Link>
   }
 
 
@@ -76,7 +75,7 @@ export default function RecipeReviewCard() {
       </CardContent>
       <CardActions disableSpacing>
         <Box mb={2} ml={1} textAlign={'center'}>
-          <Button variant="contained">see more portfolo</Button>
+          <Link href='/service'><Button variant="contained">{ wi18n().t('general.see_more_portfolio')}</Button></Link>
         </Box>
         <ExpandMore
           expand={expanded}

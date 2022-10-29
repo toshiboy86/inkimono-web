@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import Inquiry from '../components/Inquiry'
 import ImageGrid from '../components/ImageGrid'
 import { useLocale } from '../src/hooks/useLocale'
+import Link from 'next/link'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -140,7 +141,7 @@ const Home: NextPage = () => {
           </Typography>
             <ImageGrid images={tempImages} props={{ sx: { backgroundColor: 'black' } }} isModal={false}/>
           <Box mt={2} textAlign={'center'}>
-            <Button variant="contained">see more portfolo</Button>
+            <Link href='/service'><Button variant="contained">see more portfolo</Button></Link>
           </Box>
         </Box> 
         <Box sx={{ mt: 6 }}>
@@ -149,7 +150,7 @@ const Home: NextPage = () => {
           </Typography>
             <ImageGrid images={tempMediaImages} props={{ sx: { backgroundColor: 'black' } }} isModal={false}/>
           <Box mt={2} textAlign={'center'}>
-            <Button variant="contained">see more portfolo</Button>
+            <Link href='/service'><Button variant="contained">see more portfolo</Button></Link>
           </Box>
         </Box> 
       </Container>
