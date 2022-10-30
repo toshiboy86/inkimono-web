@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import Image from 'next/image'
 import type { FC } from 'react'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
@@ -28,20 +29,25 @@ const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: 
     setModalImage('')
   };
 
+  const myLoader = ({ src, quality }) => {
+    return `http://images.ctfassets.net/ofubuqdlqhhx/${src}?q=${quality || 75}`
+  }
+
   return (
     <Grid container spacing={1} height={'auto'} p={3} mt={2} {...props}>
       {images.map((img: string) => {
         return (
           <Grid item xs={12} md={4} key={img}>
-            <Box
-              onClick={() => { if(isModal) handleOpen(img)}}
-              component='img'
-              sx={{
-                width: '100%',
-                'object-fit': 'cover',
-              }}
-              src={img}>
-            </Box>
+            <Image
+              onClick={() => { if(isModal) handleOpen(`http://images.ctfassets.net/ofubuqdlqhhx/${img}`)}}
+              loader={myLoader}
+              src={img}
+              alt={`Portfolio picture: ${img}`}
+              width={800}
+              height={1300}
+              loading='lazy'
+              objectFit='cover'
+            />
           </Grid>
         )
       })}

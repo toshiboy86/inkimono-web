@@ -3,16 +3,17 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import ImageGrid from '../components/ImageGrid'
+import { fetchPortfolioImages } from '../src/repositories'
 
-const tempImages = [
-  'https://images.ctfassets.net/ofubuqdlqhhx/4fkQlqZy9BLuco0Bs9kD4T/3f46ed1c5d3587c635dfad97c676cfb0/IMG_3084.jpg?w=700&h=1000',
-  'https://images.ctfassets.net/ofubuqdlqhhx/6xIdA4q6Zny74jF0dAoyeC/200887b6f8c2e2e40008d0ff7d56de3b/IMG_3483.jpg?w=700&h=1000',
-  'https://images.ctfassets.net/ofubuqdlqhhx/7AftOo5oh0mGD44ITtxZMT/651559ed5c63598ea5dac534d183141c/IMG_1518.jpg?w=700&h=1000',
-  'https://images.ctfassets.net/ofubuqdlqhhx/6xIdA4q6Zny74jF0dAoyeC/200887b6f8c2e2e40008d0ff7d56de3b/IMG_3483.jpg?w=700&h=1000',
-  'https://images.ctfassets.net/ofubuqdlqhhx/2eTBQr8uFFbNXoIv8TZqK/d9e696ae5ae403931149e18f91aa4f78/IMG_8828.jpg?w=700&h=1000'
-]
+export async function getServerSideProps() {
+  const urls = await fetchPortfolioImages()
+  // const a = new URL(urls)
+  console.log(urls)
+  return { props: { imageUrls: urls.map((i) => i.replace('//images.ctfassets.net/ofubuqdlqhhx/', '')) } }
+  // return { props: { imageUrls: urls } }
+}
 
-const Portfolio: NextPage = () => {
+const Portfolio = (props: { imageUrls: string[] }) => {
   return (
     <div>
       <Box
@@ -37,7 +38,7 @@ const Portfolio: NextPage = () => {
         </Container>
       </Box>
       <Container maxWidth="lg">
-        <ImageGrid images={tempImages} />
+        <ImageGrid images={props.imageUrls} />
       </Container>
     </div>
   )
