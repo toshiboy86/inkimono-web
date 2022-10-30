@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRouter } from 'next/router'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,10 +12,13 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link'
 import { convertFirstLetterCapital } from '../src/utils'
+import { useLocale } from '../src/hooks/useLocale'
 
 const pages = ['service', 'portfolio', 'inquiry']
 
 const ResponsiveAppBar = () => {
+  const { getCurrentLocale, getNextLocale, wi18n } = useLocale()
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -24,7 +28,7 @@ const ResponsiveAppBar = () => {
   const handleCloseNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(null);
   };
-
+console.log('getCurrentLocale()', getCurrentLocale())
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -78,13 +82,15 @@ const ResponsiveAppBar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link href={page}>
+                  <Link href={page} locale={getCurrentLocale()}>
                     <Typography textAlign="center">{convertFirstLetterCapital(page)}</Typography>
                   </Link>
                 </MenuItem>
               ))}
-              <MenuItem key={'日本語'} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center" component="a" href={'日本語'} color={'rgb(197, 74, 25)'}>日本語</Typography>
+              <MenuItem key={getNextLocale()} onClick={handleCloseNavMenu}>
+                <Link href={useRouter().pathname} locale={getNextLocale()}>
+                  <Typography textAlign="center" color={'rgb(197, 74, 25)'}>{convertFirstLetterCapital(wi18n().t('links.nextLocale'))}</Typography>
+                </Link>
               </MenuItem>
             </Menu>
           </Box>
@@ -108,7 +114,7 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link href={page} key={page}>
+              <Link href={page} key={page} locale={getCurrentLocale()}>
                 <Button
                   key={page}
                   sx={{ my: 2, color: 'white', display: 'block' }}
@@ -117,12 +123,12 @@ const ResponsiveAppBar = () => {
                 </Button>
               </Link>
             ))}
-            <Link href={'/ja'}>
+            <Link href={useRouter().pathname} locale={getNextLocale()}>
               <Button
-                key={'日本語'}
+                key={wi18n().t('links.nextLocale')}
                 sx={{ my: 2, color: 'rgb(197, 74, 25)', display: 'block', fontWeight: 'bold' }}
               >
-                {convertFirstLetterCapital('日本語')}
+                {convertFirstLetterCapital(wi18n().t('links.nextLocale'))}
               </Button>
             </Link>
           </Box>

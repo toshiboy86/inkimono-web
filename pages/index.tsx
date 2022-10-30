@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container'
@@ -10,7 +11,6 @@ import { styled } from '@mui/material/styles';
 import Inquiry from '../components/Inquiry'
 import ImageGrid from '../components/ImageGrid'
 import { useLocale } from '../src/hooks/useLocale'
-import Link from 'next/link'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -32,7 +32,7 @@ const tempMediaImages = [
 ]
 
 const Home: NextPage = () => {
-  const { wi18n } = useLocale()
+  const { getCurrentLocale, wi18n } = useLocale()
   return (
     <div>
       <Box
@@ -141,7 +141,7 @@ const Home: NextPage = () => {
           </Typography>
             <ImageGrid images={tempImages} props={{ sx: { backgroundColor: 'black' } }} isModal={false}/>
           <Box mt={2} textAlign={'center'}>
-            <Link href='/service'><Button variant="contained">see more portfolo</Button></Link>
+            <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">see more portfolo</Button></Link>
           </Box>
         </Box> 
         <Box sx={{ mt: 6 }}>
@@ -150,7 +150,7 @@ const Home: NextPage = () => {
           </Typography>
             <ImageGrid images={tempMediaImages} props={{ sx: { backgroundColor: 'black' } }} isModal={false}/>
           <Box mt={2} textAlign={'center'}>
-            <Link href='/service'><Button variant="contained">see more portfolo</Button></Link>
+            <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">see more portfolo</Button></Link>
           </Box>
         </Box> 
       </Container>

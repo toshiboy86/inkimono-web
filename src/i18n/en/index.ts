@@ -4,7 +4,8 @@ export const en = {
       home: "Home",
       about: "About",
       en: "English",
-      ja: "Japanese"
+      ja: "Japanese",
+      nextLocale: '日本語',
     },
     meta: {
       title: "Inkimono|Photoshoot & professional kimono styling experience by Tokyo portrait photographer Stasia Matsumoto",

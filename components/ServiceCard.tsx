@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -37,14 +37,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function RecipeReviewCard() {
   const [expanded, setExpanded] = React.useState(false)
-  const { wi18n } = useLocale()
+  const { getCurrentLocale, wi18n } = useLocale()
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const reserveIcon = () => {
-    return <Link href='/service'><CalendarMonthIcon /></Link>
+    return <Link href='/service' locale={getCurrentLocale()}><CalendarMonthIcon /></Link>
   }
 
 
@@ -75,7 +75,7 @@ export default function RecipeReviewCard() {
       </CardContent>
       <CardActions disableSpacing>
         <Box mb={2} ml={1} textAlign={'center'}>
-          <Link href='/service'><Button variant="contained">{ wi18n().t('general.see_more_portfolio')}</Button></Link>
+          <Link href='/portfolio' locale={getCurrentLocale()}><Button variant="contained">{ wi18n().t('general.see_more_portfolio')}</Button></Link>
         </Box>
         <ExpandMore
           expand={expanded}

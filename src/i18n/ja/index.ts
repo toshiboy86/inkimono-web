@@ -4,7 +4,8 @@ export const ja = {
       home: "ほーむ",
       about: "あばうと",
       en: "英語",
-      ja: "日本語"
+      ja: "日本語",
+      nextLocale: 'English',
     },
     meta: {
       title: "Inkimono|東京ポートレート・フォトグラファーである松本スターシャ(Stasia)による写真撮影&着物・着付け体験",
