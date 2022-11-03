@@ -3,19 +3,35 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
+import CardContent from '@mui/material/CardContent';
 import Inquiry from '../components/Inquiry'
 import ServiceCard from '../components/ServiceCard'
 import TopImage from '../components/TopImage'
+import { fetchServices, fetchServiceCategories } from '../src/repositories'
+import { TService } from '../types/'
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  textAlign: 'center',
-  backgroundColor: 'initial',
-}));
+export async function getServerSideProps() {
+  const services = await fetchServices()
+  let group_service: Record<string, TService[]> = {}
+  services.forEach((e) => {
+    if (!group_service[e.fields.serviceCategory.sys.id]) {
+      group_service = { ...group_service, [e.fields.serviceCategory.sys.id]: [e] }
+    } else {
+      group_service[e.fields.serviceCategory.sys.id].push(e)
+    }
+  })
+  
+  const categories = await fetchServiceCategories()
+  
+  return {
+    props: {
+      service: group_service,
+      category: categories,
+    }
+  }
+}
 
-const Service: NextPage = () => {
+const Service = (props: { service: Record<string, TService[]>, category}) => {
   return (
     <div>
       <TopImage title='Service' />
@@ -85,39 +101,36 @@ const Service: NextPage = () => {
             </Box>
           </Grid>
         </Grid>
-        
+        {props.category.map((cat) => {
+          return (
+            <>
+            <Typography variant="h5" sx={{ textAlign: 'center', mt: 8 }} key={cat.sys.id}>
+              {cat.fields.title}
+            </Typography>
+            <Grid container spacing={1} sx={{ mt: 3 }} key={cat.sys.id}>
+              {props.service[cat.sys.id].map((s) => {
+                return (
+                  <>
+                  <Grid item xs={12} md={4}>
+                    <ServiceCard service={s}></ServiceCard>
+                  </Grid>
+                  </>
+                )
+              })}
+            </Grid>
+            </>
+          )
+        })}
         <Typography variant="h5" sx={{ textAlign: 'center', mt: 8 }}>
-          KIMONO EXPERIENCE + PHOTOSHOOT
+          Options
         </Typography>
         <Grid container spacing={1} sx={{ mt: 3 }}>
           <Grid item xs={12} md={4}>
-            <ServiceCard></ServiceCard>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ServiceCard></ServiceCard>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ServiceCard></ServiceCard>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ServiceCard></ServiceCard>
-          </Grid>
-        </Grid>
-        <Typography variant="h5" sx={{ textAlign: 'center', mt: 8 }}>
-          KIMONO EXPERIENCE + PHOTOSHOOT
-        </Typography>
-        <Grid container spacing={1} sx={{ mt: 3 }}>
-          <Grid item xs={12} md={4}>
-            <ServiceCard></ServiceCard>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ServiceCard></ServiceCard>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ServiceCard></ServiceCard>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ServiceCard></ServiceCard>
+            <CardContent>
+              <Typography paragraph sx={{ borderBottom: '1px solid' }} key='d'>helo</Typography>
+              <Typography paragraph sx={{ borderBottom: '1px solid' }} key='aaaa'>helo</Typography>
+              <Typography paragraph sx={{ borderBottom: '1px solid' }} key='zzzzz'>helo</Typography>
+            </CardContent>
           </Grid>
         </Grid>
       </Container>

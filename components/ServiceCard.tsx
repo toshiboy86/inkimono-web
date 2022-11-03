@@ -7,18 +7,15 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useLocale } from '../src/hooks/useLocale'
 
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { useLocale } from '../src/hooks/useLocale'
+import { TService } from '../types/'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -35,10 +32,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function RecipeReviewCard() {
+export default function ServiceCard(props: {service: TService}) {
   const [expanded, setExpanded] = React.useState(false)
-  const { getCurrentLocale, wi18n } = useLocale()
-
+  const { getCurrentLocale, wi18n } = useLocale()  
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -46,13 +42,11 @@ export default function RecipeReviewCard() {
   const reserveIcon = () => {
     return <Link href='/service' locale={getCurrentLocale()}><CalendarMonthIcon /></Link>
   }
-
-
   return (
     <Card>
       <CardHeader
-        title="INDIVIDUAL KIMONO PHOTOSHOOT"
-        subheader="¥ 48,000"
+        title={props.service.fields.title_en}
+        subheader={`¥${props.service.fields.price}`}
         action={ reserveIcon() }
       />
       <CardMedia
@@ -62,16 +56,17 @@ export default function RecipeReviewCard() {
         alt="Paella dish"
       />
       <CardContent>
-        <Box>
-          <Typography variant="body2" color="text.secondary">
-            Personalized styling using only authentic vintage kimono*
-          </Typography>
-        </Box>
-        <Box mt={2}>
-          <Typography variant="body2" color="text.secondary">
-            40~professionally edited photos with printing rights(digital files only)
-          </Typography>
-        </Box>
+        {props.service.fields.description_ja.content.map((e, i) => {
+          return (
+            <>
+            <Box mt={ i > 0 ? 2: 0}>
+              <Typography variant="body2" color="text.secondary">
+                {e.content.map((f) => f.value).join('')}
+              </Typography>
+            </Box>
+            </>
+          )
+        })}
       </CardContent>
       <CardActions disableSpacing>
         <Box mb={2} ml={1} textAlign={'center'}>
@@ -86,35 +81,19 @@ export default function RecipeReviewCard() {
           <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph sx={{ borderBottom: '1px solid' }}>Method:</Typography>
-          <Typography paragraph sx={{ borderBottom: '1px solid' }}>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
-          </Typography>
-          <Typography paragraph sx={{ borderBottom: '1px solid' }}>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-            medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-            occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-            large plate and set aside, leaving chicken and chorizo in the pan. Add
-            pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-            stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph sx={{ borderBottom: '1px solid' }}>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is absorbed,
-            15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-            mussels, tucking them down into the rice, and cook again without
-            stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography sx={{ borderBottom: '1px solid' }}>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
+      {props.service.fields.serviceDetails && 
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            {
+              props.service.fields.serviceDetails.map((e) => {
+                return (
+                  <Typography paragraph sx={{ borderBottom: '1px solid' }} key={e.fields.title_en}>{e.fields.title_en}</Typography>
+                )
+              })
+            }
+          </CardContent>
+        </Collapse>
+      }
     </Card>
   );
 }
