@@ -7,10 +7,7 @@ import { fetchPortfolioImages } from '../src/repositories'
 
 export async function getServerSideProps() {
   const urls = await fetchPortfolioImages()
-  // const a = new URL(urls)
-  console.log(urls)
-  return { props: { imageUrls: urls.map((i) => i.replace('//images.ctfassets.net/ofubuqdlqhhx/', '')) } }
-  // return { props: { imageUrls: urls } }
+  return { props: { imageUrls: urls } }
 }
 
 const Portfolio = (props: { imageUrls: string[] }) => {

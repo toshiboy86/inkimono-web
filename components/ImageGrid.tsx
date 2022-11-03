@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: boolean}> = ({ images, props, isModal=true }) => {
+const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: boolean, height?: number}> = ({ images, props, isModal=true, height }) => {
   const [modalImage, setModalImage] = useState('')
   const [open, setOpen] = useState(false)
   const handleOpen = (image: string) => {
@@ -30,7 +30,7 @@ const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: 
   };
 
   const myLoader = ({ src, quality }) => {
-    return `http://images.ctfassets.net/ofubuqdlqhhx/${src}?q=${quality || 75}`
+    return `${src}?w=700&h=1000&q=${quality || 75}`
   }
 
   return (
@@ -43,8 +43,8 @@ const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: 
               loader={myLoader}
               src={img}
               alt={`Portfolio picture: ${img}`}
-              width={800}
-              height={1300}
+              width={700}
+              height={height || 1000}
               loading='lazy'
               objectFit='cover'
             />

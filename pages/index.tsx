@@ -11,6 +11,7 @@ import { styled } from '@mui/material/styles';
 import Inquiry from '../components/Inquiry'
 import ImageGrid from '../components/ImageGrid'
 import { useLocale } from '../src/hooks/useLocale'
+import { getRandomImages } from '../src/repositories'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -18,12 +19,11 @@ const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'initial',
 }));
 
-const tempImages = [
-  'https://images.ctfassets.net/ofubuqdlqhhx/4fkQlqZy9BLuco0Bs9kD4T/3f46ed1c5d3587c635dfad97c676cfb0/IMG_3084.jpg?w=700&h=1000',
-  'https://images.ctfassets.net/ofubuqdlqhhx/2eTBQr8uFFbNXoIv8TZqK/d9e696ae5ae403931149e18f91aa4f78/IMG_8828.jpg?w=700&h=1000',
-  'https://images.ctfassets.net/ofubuqdlqhhx/2eTBQr8uFFbNXoIv8TZqK/d9e696ae5ae403931149e18f91aa4f78/IMG_8828.jpg?w=700&h=1000'
-]
-
+export async function getServerSideProps() {
+  const urls = await getRandomImages(3)
+  return { props: { imageUrls: urls } }
+  // return { props: { imageUrls: urls.map((i) => i.replace('//images.ctfassets.net/ofubuqdlqhhx/', '')) } }
+}
 
 const tempMediaImages = [
   'https://firebasestorage.googleapis.com/v0/b/inkimono-7d929.appspot.com/o/media%2FScreenshot%202022-05-21%20at%2020.50.56.png?alt=media&token=f52baaf4-6710-4aa3-a16a-94e11c4f36d9?w=700&h=1000',
@@ -31,7 +31,7 @@ const tempMediaImages = [
   'https://firebasestorage.googleapis.com/v0/b/inkimono-7d929.appspot.com/o/media%2FScreenshot%202022-05-21%20at%2020.53.07.png?alt=media&token=6888132e-76b1-4812-9c6f-89176fa206cb?w=700&h=1000'
 ]
 
-const Home: NextPage = () => {
+const Home = (props: { imageUrls: string[] }) => {
   const { getCurrentLocale, wi18n } = useLocale()
   return (
     <div>
@@ -139,7 +139,7 @@ const Home: NextPage = () => {
           <Typography variant="h4">
             Portfolio
           </Typography>
-            <ImageGrid images={tempImages} props={{ sx: { backgroundColor: 'black' } }} isModal={false}/>
+          <ImageGrid images={props.imageUrls} props={{ sx: { backgroundColor: 'black' } }} isModal={false}/>
           <Box mt={2} textAlign={'center'}>
             <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">see more portfolo</Button></Link>
           </Box>
@@ -148,7 +148,7 @@ const Home: NextPage = () => {
           <Typography variant="h4">
             Media
           </Typography>
-            <ImageGrid images={tempMediaImages} props={{ sx: { backgroundColor: 'black' } }} isModal={false}/>
+          <ImageGrid images={tempMediaImages} props={{ sx: { backgroundColor: 'black', heigh: '180px' } }} isModal={false} height={400}/>
           <Box mt={2} textAlign={'center'}>
             <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">see more portfolo</Button></Link>
           </Box>
