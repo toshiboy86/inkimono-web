@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Inquiry from '../components/Inquiry'
 import ServiceCard from '../components/ServiceCard'
+import TopImage from '../components/TopImage'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -17,27 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const Service: NextPage = () => {
   return (
     <div>
-      <Box
-        sx={{
-          backgroundImage: `url(//www.inkimono.com/img/slider-bg.jpg)`,
-          'object-fit': 'cover',
-          'height': {
-            xs: '300px',
-            lg: '350px',
-          }
-        }}>
-        <Container>
-          <Box>
-            <Box textAlign={'center'} pt={18} sx={{ verticalAlign: 'middle', color: '#f8fffc', fontWeight: '900'}}>
-              <Box sx={{ backgroundColor: 'rgba(48, 37, 37, 0.7)' }}>
-                <Typography variant="h4">
-                  Service
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
+      <TopImage title='Service' />
       <Container maxWidth="lg">
         <Grid container spacing={1} sx={{ mt: 3 }}>
           <Grid item xs={12} md={7}>

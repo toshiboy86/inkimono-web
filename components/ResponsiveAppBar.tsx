@@ -28,7 +28,7 @@ const ResponsiveAppBar = () => {
   const handleCloseNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(null);
   };
-console.log('getCurrentLocale()', getCurrentLocale())
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

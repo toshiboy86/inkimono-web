@@ -22,7 +22,6 @@ const Item = styled(Paper)(({ theme }) => ({
 export async function getServerSideProps() {
   const urls = await getRandomImages(3)
   return { props: { imageUrls: urls } }
-  // return { props: { imageUrls: urls.map((i) => i.replace('//images.ctfassets.net/ofubuqdlqhhx/', '')) } }
 }
 
 const tempMediaImages = [
