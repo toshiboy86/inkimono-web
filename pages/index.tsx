@@ -13,12 +13,6 @@ import ImageGrid from '../components/ImageGrid'
 import { useLocale } from '../src/hooks/useLocale'
 import { getRandomImages } from '../src/repositories'
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  textAlign: 'center',
-  backgroundColor: 'initial',
-}));
-
 export async function getServerSideProps() {
   const urls = await getRandomImages(3)
   return { props: { imageUrls: urls } }

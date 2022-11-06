@@ -7,11 +7,13 @@ import CardContent from '@mui/material/CardContent';
 import Inquiry from '../components/Inquiry'
 import ServiceCard from '../components/ServiceCard'
 import TopImage from '../components/TopImage'
-import { fetchServices, fetchServiceCategories } from '../src/repositories'
+import { fetchServices, fetchServiceCategories, fetchServiceOptions } from '../src/repositories'
+import { useLocale } from '../src/hooks/useLocale'
 import { TService } from '../types/'
 
 export async function getServerSideProps() {
   const services = await fetchServices()
+
   let group_service: Record<string, TService[]> = {}
   services.forEach((e) => {
     if (!group_service[e.fields.serviceCategory.sys.id]) {
@@ -22,16 +24,20 @@ export async function getServerSideProps() {
   })
   
   const categories = await fetchServiceCategories()
-  
+  const options = await fetchServiceOptions()
+  console.log(options)
   return {
     props: {
       service: group_service,
       category: categories,
+      option: options,
     }
   }
 }
 
-const Service = (props: { service: Record<string, TService[]>, category}) => {
+const Service = (props: { service: Record<string, TService[]>}) => {
+  const { getWordsOnLocale } = useLocale()
+
   return (
     <div>
       <TopImage title='Service' />
@@ -104,7 +110,7 @@ const Service = (props: { service: Record<string, TService[]>, category}) => {
         {props.category.map((cat) => {
           return (
             <>
-            <Typography variant="h5" sx={{ textAlign: 'center', mt: 8 }} key={cat.sys.id}>
+            <Typography variant="h5" sx={{ textAlign: 'center', mt: 8, mb: 6 }} key={cat.sys.id}>
               {cat.fields.title}
             </Typography>
             <Grid container spacing={1} sx={{ mt: 3 }} key={cat.sys.id}>
@@ -125,11 +131,15 @@ const Service = (props: { service: Record<string, TService[]>, category}) => {
           Options
         </Typography>
         <Grid container spacing={1} sx={{ mt: 3 }}>
-          <Grid item xs={12} md={4}>
+          <Grid item>
             <CardContent>
-              <Typography paragraph sx={{ borderBottom: '1px solid' }} key='d'>helo</Typography>
-              <Typography paragraph sx={{ borderBottom: '1px solid' }} key='aaaa'>helo</Typography>
-              <Typography paragraph sx={{ borderBottom: '1px solid' }} key='zzzzz'>helo</Typography>
+              {
+                props.option.map((opt) => {
+                  return (
+                    <Typography paragraph sx={{ borderBottom: '1px solid' }} key={opt.sys.id}>{getWordsOnLocale(opt.fields, 'body')}</Typography>
+                  )
+                })
+              }
             </CardContent>
           </Grid>
         </Grid>

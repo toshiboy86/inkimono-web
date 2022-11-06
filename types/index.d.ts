@@ -28,6 +28,13 @@ export type TService = {
     price: number
     description_en: { content: [{content: [{value: string}]}] },
     description_ja: { content: [{content: [{value: string}]}] },
+    mainImage: {
+      fields: {
+        file: {
+          url: string
+        }
+      }
+    }
     // serviceCategory: {
     //   metadata: { tags: [] },
     //   sys: {

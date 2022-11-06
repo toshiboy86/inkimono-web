@@ -21,9 +21,15 @@ export const useLocale = () => {
     const locale = router.locale as lang
     return locale || 'en'
   }
+
+  const getWordsOnLocale = (obj: any, key: string): any => {
+    return obj[`${key}_${getCurrentLocale()}`] || ''
+  }
+
   return {
     getCurrentLocale,
     getNextLocale,
+    getWordsOnLocale,
     wi18n
   }
 }

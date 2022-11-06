@@ -34,29 +34,30 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function ServiceCard(props: {service: TService}) {
   const [expanded, setExpanded] = React.useState(false)
-  const { getCurrentLocale, wi18n } = useLocale()  
+  const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
   const handleExpandClick = () => {
     setExpanded(!expanded);
-  };
+  }
 
-  const reserveIcon = () => {
-    return <Link href='/service' locale={getCurrentLocale()}><CalendarMonthIcon /></Link>
+  const showReservationIcon = (url?: string) => {
+    if (!url) return
+    return <Link href={url} locale={getCurrentLocale()}><CalendarMonthIcon /></Link>
   }
   return (
     <Card>
       <CardHeader
-        title={props.service.fields.title_en}
+        title={getWordsOnLocale(props.service.fields, 'title')}
         subheader={`¥${props.service.fields.price}`}
-        action={ reserveIcon() }
+        action={ showReservationIcon(props.service.fields.reservation_url) }
       />
       <CardMedia
         component="img"
         height="550"
-        image="https://firebasestorage.googleapis.com/v0/b/inkimono-7d929.appspot.com/o/service%2Fkimono_couple.jpg?alt=media&token=68d54fa9-f793-4af0-9733-7ef08c9e493f"
+        image={props.service.fields.mainImage?.fields.file.url || 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg'}
         alt="Paella dish"
       />
       <CardContent>
-        {props.service.fields.description_ja.content.map((e, i) => {
+        {getWordsOnLocale(props.service.fields, 'description').content.map((e, i: number) => {
           return (
             <>
             <Box mt={ i > 0 ? 2: 0}>
@@ -87,7 +88,7 @@ export default function ServiceCard(props: {service: TService}) {
             {
               props.service.fields.serviceDetails.map((e) => {
                 return (
-                  <Typography paragraph sx={{ borderBottom: '1px solid' }} key={e.fields.title_en}>{e.fields.title_en}</Typography>
+                  <Typography paragraph sx={{ borderBottom: '1px solid' }} key={e.fields.title_en}>{getWordsOnLocale(e.fields, 'title')}</Typography>
                 )
               })
             }
