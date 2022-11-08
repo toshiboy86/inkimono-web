@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={theme}><ResponsiveAppBar/><Component {...pageProps} /></ThemeProvider>
     <Box textAlign={'center'} pt={6} pb={6} sx={{ backgroundColor: '#f5f5f5', width: '100%', marginLeft: 'auto', marginRight: 'auto',}}>
       <Stack direction="row" justifyContent={'center'} spacing={2}>
-        <Item><Link href='/#aboutme' locale={getCurrentLocale()}>About Me</Link></Item>
+        <Item><Link href='/' locale={getCurrentLocale()}>About Me</Link></Item>
         <Item><Link href='/inquiry' locale={getCurrentLocale()}>Contact Me</Link></Item>
         <Item><Link href='/portfolio' locale={getCurrentLocale()}>Portfolio</Link></Item>
         <Item><Link href='/service' locale={getCurrentLocale()}>Service</Link></Item>

@@ -54,7 +54,7 @@ export default function ServiceCard(props: {service: TService}) {
         component="img"
         height="550"
         image={props.service.fields.mainImage?.fields.file.url || 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg'}
-        alt="Paella dish"
+        alt="Service image"
       />
       <CardContent>
         {getWordsOnLocale(props.service.fields, 'description').content.map((e, i: number) => {
