@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import Image from 'next/image'
+import Image, { ImageLoaderProps } from 'next/image'
 import type { FC } from 'react'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
@@ -29,7 +29,7 @@ const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: 
     setModalImage('')
   };
 
-  const myLoader = ({ src, quality }) => {
+  const myLoader = ({ src, quality }: ImageLoaderProps) => {
     return `${src}?w=700&h=1000&q=${quality || 75}`
   }
 

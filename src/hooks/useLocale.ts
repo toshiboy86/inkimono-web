@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { i18n } from '../../src/i18n'
 
-type lang = 'en' | 'ja'
+export type lang = 'en' | 'ja'
 
 export const useLocale = () => {
   const router = useRouter()

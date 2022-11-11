@@ -15,7 +15,7 @@ export async function getServerSideProps() {
   const services = await fetchServices()
 
   let group_service: Record<string, TService[]> = {}
-  services.forEach((e) => {
+  services.forEach((e: TService) => {
     if (!group_service[e.fields.serviceCategory.sys.id]) {
       group_service = { ...group_service, [e.fields.serviceCategory.sys.id]: [e] }
     } else {
@@ -23,7 +23,7 @@ export async function getServerSideProps() {
     }
   })
   
-  const categories = await fetchServiceCategories()
+  const categories = await fetchServiceCategories() as TService['fields']['serviceCategory'][]
   const options = await fetchServiceOptions()
   return {
     props: {
@@ -34,7 +34,11 @@ export async function getServerSideProps() {
   }
 }
 
-const Service = (props: { service: Record<string, TService[]>}) => {
+const Service = (props: {
+  service: Record<string, TService[]>,
+  category: TService['fields']['serviceCategory'][]
+  option: { sys: { id: number}, fields: { title: string }}[]
+}) => {
   const { getWordsOnLocale, wi18n } = useLocale()
 
   return (

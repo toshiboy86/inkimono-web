@@ -35,6 +35,14 @@ export type TService = {
         }
       }
     }
+    serviceCategory: {
+      sys: {
+        id: number
+      }
+      fields: {
+        title: string
+      }
+    } 
     // serviceCategory: {
     //   metadata: { tags: [] },
     //   sys: {

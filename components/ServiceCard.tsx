@@ -21,6 +21,12 @@ interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
+interface IServices {
+  content: [
+    {value: string[]}
+  ]
+}
+
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -57,7 +63,7 @@ export default function ServiceCard(props: {service: TService}) {
         alt="Service image"
       />
       <CardContent>
-        {getWordsOnLocale(props.service.fields, 'description').content.map((e, i: number) => {
+        {getWordsOnLocale(props.service.fields, 'description').content.map((e: IServices, i: number) => {
           return (
             <>
             <Box mt={ i > 0 ? 2: 0}>

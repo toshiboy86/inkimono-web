@@ -9,7 +9,7 @@ import CardMedia from '@mui/material/CardMedia'
 import { Button } from '@mui/material';
 import Inquiry from '../components/Inquiry'
 import ImageGrid from '../components/ImageGrid'
-import { useLocale } from '../src/hooks/useLocale'
+import { lang, useLocale } from '../src/hooks/useLocale'
 import { getRandomImages } from '../src/repositories'
 import { fetchDescriptions } from '../src/repositories'
 
@@ -26,7 +26,9 @@ const tempMediaImages = [
   'https://firebasestorage.googleapis.com/v0/b/inkimono-7d929.appspot.com/o/media%2FScreenshot%202022-05-21%20at%2020.53.07.png?alt=media&token=6888132e-76b1-4812-9c6f-89176fa206cb?w=700&h=1000'
 ]
 
-const Home = (props: { imageUrls: string[], description, aboutMe }) => {
+const Home = (props: { imageUrls: string[], aboutMe: {
+    [K in lang]: string;
+  } }) => {
   const { getCurrentLocale, wi18n } = useLocale()
   return (
     <div>
