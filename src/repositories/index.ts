@@ -1,6 +1,5 @@
 const contentful = require("contentful")
 
-// require('dotenv').config()
 const CTF_SPACE_ID = process.env.CTF_SPACE_ID
 const CTF_CDA_ACCESS_TOKEN = process.env.CTF_CDA_ACCESS_TOKEN
 
@@ -65,6 +64,16 @@ export const fetchServiceOptions = () => {
   return Promise.all([
     client.getEntries({
       'content_type':'serviceOption',
+    })
+  ]).then((entries) => {
+    return entries[0].items
+  }).catch(console.error)
+}
+
+export const fetchDescriptions = () => {
+  return Promise.all([
+    client.getEntries({
+      'content_type':'description',
     })
   ]).then((entries) => {
     return entries[0].items
