@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import Head from 'next/head'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container'
@@ -25,7 +25,6 @@ export async function getServerSideProps() {
   
   const categories = await fetchServiceCategories()
   const options = await fetchServiceOptions()
-  console.log(options)
   return {
     props: {
       service: group_service,
@@ -36,38 +35,47 @@ export async function getServerSideProps() {
 }
 
 const Service = (props: { service: Record<string, TService[]>}) => {
-  const { getWordsOnLocale } = useLocale()
+  const { getWordsOnLocale, wi18n } = useLocale()
 
   return (
     <div>
+      <Head>
+        <title>{wi18n().t('meta.service_title')}</title>
+        <meta property="og:title" content={wi18n().t('meta.service_title')} />
+        <meta property="og:description" content={wi18n().t('meta.service_description')} />
+        {/* <meta property="og:image" content={data.thumbnailUrl} /> */}
+        <meta name="twitter:card" content={wi18n().t('meta.service_description')}/>
+      </Head>
       <TopImage title='Service' />
       <Container maxWidth="lg">
         <Grid container spacing={1} sx={{ mt: 3 }}>
           <Grid item xs={12} md={7}>
             <Typography variant="h4">
-              About My Service
+              {wi18n().t('general.about_my_service')}
             </Typography>
             <Box
               sx={{ pt: 3 }}
             >
               <Typography variant="body1" color="text.secondary">
-              Inspired by the rich world of kimono patterns, fascinating history, colours and tradition, I decided to share my skills and knowledge with others. In November 2018 I created INKIMONO.
-
-              I offer kimono experience with a professional portrait photoshoot on location. I offer personalized styling ― I will choose a full kimono outfit based on your personal style, favorite colours, style, any requests you may have.
-
-              I often add some historical and cultural background of kimono while dressing! I believe that knowing what you wear, where it came from, what’s the story behind it, makes you appreciate it more and get even closer to Japanese culture. With my photoshoots I can also offer hairstyling (done by me) and a makeup option (done by a makeup artist).
+                {wi18n().t('service.about_1')}
+                <br /><br />
+                {wi18n().t('service.about_2')}
+                <br /><br />
+                {wi18n().t('service.about_3')}
               </Typography>
+              <br />
             </Box>
             <Box mt={4}>
               <Typography variant="h5">
-                Quality
+                {wi18n().t('general.quality')}
               </Typography>
               <Box
                 sx={{ pt: 3 }}
               >
                 <Typography variant="body1" color="text.secondary">
-                  I use only authentic, often antique and vintage silk kimono and obi.
-                  For portrait photoshoots I use Canon 6 EOS Mark II. I edit photos using Adobe Lightroom Photoshop and provide professionaly edited high resolution images.
+                  {wi18n().t('service.quality_1')}
+                  <br />
+                  {wi18n().t('service.quality_2')}
                 </Typography>
               </Box>
             </Box>
@@ -90,19 +98,19 @@ const Service = (props: { service: Record<string, TService[]>}) => {
         <Grid container spacing={1} sx={{ mt: 3 }}>
           <Grid item>
             <Typography variant="h4">
-              CHOOSE YOUR PLAN
+              {wi18n().t('service.plan_top_1')}
             </Typography>
             <Box
               sx={{ pt: 3 }}
             >
               <Typography variant="body1" color="text.secondary">
-              (for friends, partners etc) based on your personal style, things and colors you like, and any requests you may have.
-              Please note that unedited data is not provided under any circumstances -- only edited photos.
-              If you'd like to bring your own kimono for the photoshoot -- rates will remain the same.
-
-              I open my schedule for bookings about 6 weeks in advance.
-              If you try to book and it shows you there are no available times, it means I am fully booked 6 weeks in advance and haven't opened my next schedule yet.
-              If you'd like to get information about schedule openings or pre-bookings, please send an e-mail!
+                {wi18n().t('service.plan_top_4')}
+                <br />
+                {wi18n().t('service.plan_top_6')}
+                <br />
+                {wi18n().t('service.plan_top_7')}
+                <br />
+                {wi18n().t('service.plan_top_8')}
               </Typography>
             </Box>
           </Grid>

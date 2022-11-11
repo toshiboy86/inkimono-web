@@ -1,21 +1,23 @@
-import type { NextPage } from 'next'
 import Link from 'next/link'
+import Head from 'next/head'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import CardMedia from '@mui/material/CardMedia'
 import { Button } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import Inquiry from '../components/Inquiry'
 import ImageGrid from '../components/ImageGrid'
 import { useLocale } from '../src/hooks/useLocale'
 import { getRandomImages } from '../src/repositories'
+import { fetchDescriptions } from '../src/repositories'
+
 
 export async function getServerSideProps() {
   const urls = await getRandomImages(3)
-  return { props: { imageUrls: urls } }
+  const description = await fetchDescriptions()
+  return { props: { imageUrls: urls, aboutMe: {en: JSON.stringify(description[0].fields.aboutme_en), ja: JSON.stringify(description[0].fields.aboutme_ja)}, description } }
 }
 
 const tempMediaImages = [
@@ -24,10 +26,17 @@ const tempMediaImages = [
   'https://firebasestorage.googleapis.com/v0/b/inkimono-7d929.appspot.com/o/media%2FScreenshot%202022-05-21%20at%2020.53.07.png?alt=media&token=6888132e-76b1-4812-9c6f-89176fa206cb?w=700&h=1000'
 ]
 
-const Home = (props: { imageUrls: string[] }) => {
+const Home = (props: { imageUrls: string[], description, aboutMe }) => {
   const { getCurrentLocale, wi18n } = useLocale()
   return (
     <div>
+      <Head>
+        <title>{wi18n().t('meta.title')}</title>
+        <meta property="og:title" content={wi18n().t('meta.title')} />
+        <meta property="og:description" content={wi18n().t('meta.description')} />
+        {/* <meta property="og:image" content={data.thumbnailUrl} /> */}
+        <meta name="twitter:card" content={wi18n().t('meta.description')}/>
+      </Head>
       <Box
         sx={{
           backgroundImage: `url(//www.inkimono.com/img/slider-bg.jpg)`,
@@ -42,12 +51,11 @@ const Home = (props: { imageUrls: string[] }) => {
             <Box textAlign={'center'} pt={9} sx={{ display: 'table-cell', verticalAlign: 'middle', color: '#f8fffc', fontWeight: '900'}}>
             <Box p={1} mt={4} mb={4} sx={{ backgroundColor: 'rgba(48, 37, 37, 0.7)' }}>
               <Typography variant="h4">
-                KIMONO STYLING, LECTURE & PHOTOSHOOT
+                {wi18n().t('index.top_title')}
               </Typography>
             </Box>
               <Box p={1} mt={4} mb={4} lineHeight={2} sx={{ backgroundColor: 'rgba(48, 37, 37, 0.7)' }}>
-                I can also offer kimono dressing (kitsuke) service, before a party or an event.
-                I can do yukata, casual kimono, formal kimono, hakama, furisode, kurotomesode, men’s kimono and hakama, bridal kimono. Hairstyling available. Please inquire!
+                {wi18n().t('index.about_top')}
               </Box>
             </Box>
           </Box>
@@ -57,20 +65,14 @@ const Home = (props: { imageUrls: string[] }) => {
         <Grid container spacing={1} sx={{ mt: 3 }}>
           <Grid item xs={12} md={7}>
             <Typography variant="h4">
-                ABOUT ME
+              {wi18n().t('index.about_title')}
             </Typography>
             <Box
               sx={{ pt: 3 }}
             >
-              <Typography variant="body1" color="text.secondary">
-                abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef
-                i.e. Immediately after login to Startrail PORT from ios Safari, visiting to the dashboard page brings you back to login page withoull create the URL that opens the content inside MetaMask browser. However the problem
-                abcdefabcdefabcdefabcdef
-
-                abcdefabcdefabcdef
-                abcdefabcdefabcdefabcdef
-                abcdefabcdef
-              </Typography>
+            <Box fontSize={16} color="text.secondary">
+              {documentToReactComponents(JSON.parse(props.aboutMe[getCurrentLocale()]))}
+            </Box>
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>
@@ -92,17 +94,11 @@ const Home = (props: { imageUrls: string[] }) => {
             <Typography
                 variant="h4"
               >
-                MY STUDIO IN ASAKUSA
+              {wi18n().t('index.studio_title')}
             </Typography>
             <Box sx={{ pt: 3 }}>
               <Typography variant="body1" color="text.secondary">
-                abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef
-                i.e. Immediately after login to Startrail PORT from ios Safari, visiting to the dashboard page brings you back to login page withoull create the URL that opens the content inside MetaMask browser. However the problem
-                abcdefabcdefabcdefabcdef
-
-                abcdefabcdefabcdef
-                abcdefabcdefabcdefabcdef
-                abcdefabcdef
+                {wi18n().t('index.studio_me_1')}
               </Typography>
             </Box>
             <Box mt={4} mr={2}>
@@ -130,20 +126,20 @@ const Home = (props: { imageUrls: string[] }) => {
         </Grid>
         <Box sx={{ mt: 6 }}>
           <Typography variant="h4">
-            Portfolio
+            {wi18n().t('general.portfolio')}
           </Typography>
           <ImageGrid images={props.imageUrls} props={{ sx: { backgroundColor: 'black' } }} isModal={false}/>
           <Box mt={2} textAlign={'center'}>
-            <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">see more portfolo</Button></Link>
+            <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">{wi18n().t('general.see_portfolio')}</Button></Link>
           </Box>
         </Box> 
         <Box sx={{ mt: 6 }}>
           <Typography variant="h4">
-            Media
+            {wi18n().t('index.about_media')}
           </Typography>
           <ImageGrid images={tempMediaImages} props={{ sx: { backgroundColor: 'black', heigh: '180px' } }} isModal={false} height={400}/>
           <Box mt={2} textAlign={'center'}>
-            <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">see more portfolo</Button></Link>
+            <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">{wi18n().t('general.see_portfolio')}</Button></Link>
           </Box>
         </Box> 
       </Container>

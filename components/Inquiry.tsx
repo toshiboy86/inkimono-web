@@ -2,20 +2,22 @@ import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { Button } from '@mui/material'
+import { useLocale } from '../src/hooks/useLocale'
 
 const Inquiry = () => {
+  const { wi18n } = useLocale()
   return (
     <Container>
       <Box>
         <Box textAlign={'center'} pt={9} sx={{ display: 'table-cell', verticalAlign: 'middle', color: '#f8fffc', fontWeight: '900'}}>
           <Typography variant="h4">
-              Inquiry
+            {wi18n().t('general.inquiry')}
           </Typography>
           <Box mt={4} mb={4}>
-          I can also offer kimono dressing (kitsuke) service, before a party or an event.
-          I can do yukata, casual kimono, formal kimono, hakama, furisode, kurotomesode, men’s kimono and hakama, bridal kimono. Hairstyling available.Please inquire!
+          <p>{wi18n().t('index.inquiry_body_1')}</p>
+          <p>{wi18n().t('index.inquiry_body_2')}</p>
           </Box>
-            <Button variant="contained">Inquiry</Button>
+            <Button variant="contained">{wi18n().t('general.inquiry')}</Button>
           </Box>
         </Box>
     </Container>
