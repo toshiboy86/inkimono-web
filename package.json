@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
+    "@contentful/rich-text-react-renderer": "^15.12.1",
     "@mui/icons-material": "^5.8.4",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
