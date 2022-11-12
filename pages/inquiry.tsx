@@ -16,6 +16,7 @@ const Portfolio: NextPage = () => {
         <meta property="og:title" content={wi18n().t('meta.inquiry_title')} />
         <meta property="og:description" content={wi18n().t('meta.inquiry_description')} />
         <meta name="twitter:card" content={wi18n().t('meta.inquiry_description')}/>
+        <meta property="og:image" content='//inkimono.com/img/wrapper-img.jpg' />
       </Head>
       <Box>
         <Box textAlign={'center'}  mt={4} mb={4}>

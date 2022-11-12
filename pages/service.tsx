@@ -47,7 +47,7 @@ const Service = (props: {
         <title>{wi18n().t('meta.service_title')}</title>
         <meta property="og:title" content={wi18n().t('meta.service_title')} />
         <meta property="og:description" content={wi18n().t('meta.service_description')} />
-        {/* <meta property="og:image" content={data.thumbnailUrl} /> */}
+        <meta property="og:image" content='//inkimono.com/img/wrapper-img.jpg' />
         <meta name="twitter:card" content={wi18n().t('meta.service_description')}/>
       </Head>
       <TopImage title='Service' />
@@ -164,7 +164,6 @@ const Service = (props: {
           backgroundBlendMode: 'multiply',
           'object-fit': 'cover',
           'height': {
-            xs: '300px',
             lg: '300px',
           }
         }}>
