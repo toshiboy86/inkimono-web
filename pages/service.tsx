@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container'
@@ -7,8 +8,8 @@ import CardContent from '@mui/material/CardContent';
 import Inquiry from '../components/Inquiry'
 import ServiceCard from '../components/ServiceCard'
 import TopImage from '../components/TopImage'
-import { fetchServices, fetchServiceCategories, fetchServiceOptions } from '../src/repositories'
-import { useLocale } from '../src/hooks/useLocale'
+import { fetchDescriptions, fetchServices, fetchServiceCategories, fetchServiceOptions } from '../src/repositories'
+import { lang, useLocale } from '../src/hooks/useLocale'
 import { TService } from '../types/'
 
 export async function getServerSideProps() {
@@ -25,21 +26,27 @@ export async function getServerSideProps() {
   
   const categories = await fetchServiceCategories() as TService['fields']['serviceCategory'][]
   const options = await fetchServiceOptions()
+  const description = await fetchDescriptions()
+
   return {
     props: {
       service: group_service,
       category: categories,
       option: options,
+      chooseYourPlan: {en: JSON.stringify(description[0].fields.chooseYourPlan_en), ja: JSON.stringify(description[0].fields.chooseYourPlan_ja)},
     }
   }
 }
 
 const Service = (props: {
   service: Record<string, TService[]>,
-  category: TService['fields']['serviceCategory'][]
-  option: { sys: { id: number}, fields: { title: string }}[]
+  category: TService['fields']['serviceCategory'][],
+  option: { sys: { id: number}, fields: { title: string }}[],
+  chooseYourPlan: {
+    [K in lang]: string;
+  }
 }) => {
-  const { getWordsOnLocale, wi18n } = useLocale()
+  const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
 
   return (
     <div>
@@ -99,7 +106,7 @@ const Service = (props: {
           </Grid>
         </Grid>
 
-        <Grid container spacing={1} sx={{ mt: 3 }}>
+        <Grid container spacing={1} textAlign='center' sx={{ mt: 3 }}>
           <Grid item>
             <Typography variant="h4">
               {wi18n().t('service.plan_top_1')}
@@ -107,15 +114,9 @@ const Service = (props: {
             <Box
               sx={{ pt: 3 }}
             >
-              <Typography variant="body1" color="text.secondary">
-                {wi18n().t('service.plan_top_4')}
-                <br />
-                {wi18n().t('service.plan_top_6')}
-                <br />
-                {wi18n().t('service.plan_top_7')}
-                <br />
-                {wi18n().t('service.plan_top_8')}
-              </Typography>
+            <Box fontSize={16} color="text.secondary">
+              {documentToReactComponents(JSON.parse(props.chooseYourPlan[getCurrentLocale()]))}
+            </Box>
             </Box>
           </Grid>
         </Grid>

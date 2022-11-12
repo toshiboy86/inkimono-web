@@ -72,9 +72,9 @@ const Home = (props: { imageUrls: string[], aboutMe: {
             <Box
               sx={{ pt: 3 }}
             >
-            <Box fontSize={16} color="text.secondary">
-              {documentToReactComponents(JSON.parse(props.aboutMe[getCurrentLocale()]))}
-            </Box>
+              <Box fontSize={16} color="text.secondary">
+                {documentToReactComponents(JSON.parse(props.aboutMe[getCurrentLocale()]))}
+              </Box>
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>
