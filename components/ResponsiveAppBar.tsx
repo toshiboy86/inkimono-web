@@ -14,7 +14,23 @@ import Link from 'next/link'
 import { convertFirstLetterCapital } from '../src/utils'
 import { useLocale } from '../src/hooks/useLocale'
 
-const pages = ['service', 'portfolio', 'inquiry']
+const pages = [
+  {
+    link: '',
+    text: 'home'
+  },
+  {
+  link: 'service',
+  text: 'service'
+},
+{
+  link: 'portfolio',
+  text: 'portfolio'
+},
+{
+  link: 'inquiry',
+  text: 'inquiry'
+}]
 
 const ResponsiveAppBar = () => {
   const { getCurrentLocale, getNextLocale, wi18n } = useLocale()
@@ -81,9 +97,9 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Link href={page} locale={getCurrentLocale()}>
-                    <Typography textAlign="center">{convertFirstLetterCapital(page)}</Typography>
+                <MenuItem key={page.text} onClick={handleCloseNavMenu}>
+                  <Link href={page.link} locale={getCurrentLocale()}>
+                    <Typography textAlign="center">{convertFirstLetterCapital(page.text)}</Typography>
                   </Link>
                 </MenuItem>
               ))}
@@ -98,7 +114,7 @@ const ResponsiveAppBar = () => {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -114,12 +130,12 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link href={page} key={page} locale={getCurrentLocale()}>
+              <Link href={page.link} key={page.text} locale={getCurrentLocale()}>
                 <Button
-                  key={page}
+                  key={page.text}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                  {convertFirstLetterCapital(page)}
+                  {convertFirstLetterCapital(page.text)}
                 </Button>
               </Link>
             ))}
