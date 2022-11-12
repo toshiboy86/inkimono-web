@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -5,7 +6,7 @@ import { Button } from '@mui/material'
 import { useLocale } from '../src/hooks/useLocale'
 
 const Inquiry = () => {
-  const { wi18n } = useLocale()
+  const { getCurrentLocale, wi18n } = useLocale()
   return (
     <Container>
       <Box>
@@ -14,10 +15,10 @@ const Inquiry = () => {
             {wi18n().t('general.inquiry')}
           </Typography>
           <Box mt={4} mb={4}>
-          <p>{wi18n().t('index.inquiry_body_1')}</p>
-          <p>{wi18n().t('index.inquiry_body_2')}</p>
+            <p>{wi18n().t('index.inquiry_body_1')}</p>
+            <p>{wi18n().t('index.inquiry_body_2')}</p>
           </Box>
-            <Button variant="contained">{wi18n().t('general.inquiry')}</Button>
+          <Link href='/inquiry' locale={getCurrentLocale()}><Button variant="contained">{wi18n().t('general.inquiry')}</Button></Link>
           </Box>
         </Box>
     </Container>
