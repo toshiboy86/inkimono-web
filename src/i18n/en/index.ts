@@ -38,7 +38,7 @@ export const en = {
       quality: "Quality",
       contact_me: "Contact Me",
       shop: "Shop",
-      reserve: "Reserve"
+      reserve: "Check Availability"
     },
     home: {
       title: "Hello,World!",

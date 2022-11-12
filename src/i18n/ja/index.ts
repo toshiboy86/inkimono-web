@@ -36,7 +36,7 @@ export const ja = {
       quality: "品質について",
       contact_me: "お問い合わせ",
       shop: "ショップ",
-      reserve: "予約"
+      reserve: "空きを確認"
     },
     home: {
       title: "Hello,World!",
