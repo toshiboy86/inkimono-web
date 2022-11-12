@@ -111,7 +111,7 @@ const ResponsiveAppBar = () => {
             </Menu>
           </Box>
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             href="/"
@@ -142,7 +142,8 @@ const ResponsiveAppBar = () => {
             <Link href={useRouter().pathname} locale={getNextLocale()}>
               <Button
                 key={wi18n().t('links.nextLocale')}
-                sx={{ my: 2, color: 'rgb(197, 74, 25)', display: 'block', fontWeight: 'bold' }}
+                color="secondary"
+                sx={{ my: 2, display: 'block', fontWeight: 'bold' }}
               >
                 {convertFirstLetterCapital(wi18n().t('links.nextLocale'))}
               </Button>
