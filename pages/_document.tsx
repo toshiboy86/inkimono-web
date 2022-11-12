@@ -6,7 +6,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="InKimono favicon" href="/favicon.ico" />
 				</Head>
         <body>
           <Box id="background"/>
