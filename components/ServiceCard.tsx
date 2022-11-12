@@ -14,6 +14,7 @@ import Link from 'next/link'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PortraitIcon from '@mui/icons-material/Portrait';
 import { useLocale } from '../src/hooks/useLocale'
 import { TService } from '../types/'
 
@@ -47,8 +48,9 @@ export default function ServiceCard(props: {service: TService}) {
 
   const showReservationIcon = (url?: string) => {
     if (!url) return
-    return <Link href={url} locale={getCurrentLocale()}><CalendarMonthIcon /></Link>
+    return <Box mt={1} ml={3}><a target='_blank' rel="noreferrer" href={url}><CalendarMonthIcon fontSize='large' color="secondary"/></a></Box>
   }
+
   return (
     <Card>
       <CardHeader
@@ -76,8 +78,11 @@ export default function ServiceCard(props: {service: TService}) {
         })}
       </CardContent>
       <CardActions disableSpacing>
-        <Box mb={2} ml={1} textAlign={'center'}>
-          <Link href='/portfolio' locale={getCurrentLocale()}><Button variant="contained">{ wi18n().t('general.see_more_portfolio')}</Button></Link>
+        <Box mb={2} ml={1} textAlign={'center'} display={props.service.fields.reservation_url ? 'block' : 'none' }>
+          <a target='_blank' rel="noreferrer" href={props.service.fields.reservation_url || '/'}><Button variant="contained">{ wi18n().t('general.reserve')}</Button></a>
+        </Box>
+        <Box mb={1.5} ml={1} textAlign={'center'}>
+        <Link href='/portfolio' locale={getCurrentLocale()}><PortraitIcon fontSize='large' /></Link>
         </Box>
         <ExpandMore
           expand={expanded}
