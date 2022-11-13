@@ -24,7 +24,7 @@ interface IPortfolioImage {
 
 export const fetchPortfolioImages = (): Promise<string[]> => {
   return Promise.all([
-    client.getAssets({limit: 10}) //500
+    client.getAssets({limit: 500})
   ]).then((entries) => {
     const portfolioTagAssets = entries[0].items.filter((i: IPortfolioImage) => i.metadata.tags.length > 0 && i.metadata.tags.filter((t) => t.sys.id === 'portfolio') )
     return portfolioTagAssets.map((e: { fields: { file: { url: string }}}) => `https:${e.fields.file.url}`)
