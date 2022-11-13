@@ -131,7 +131,7 @@ const Service = (props: {
                 return (
                   <>
                   <Grid item xs={12} md={4}>
-                    <ServiceCard service={s}></ServiceCard>
+                    <ServiceCard service={s} key={s.fields.title}></ServiceCard>
                   </Grid>
                   </>
                 )
