@@ -87,7 +87,7 @@ const Home = (props: { imageUrls: string[], aboutMe: {
                   lg: '700px',
                 }
               }}
-              src='//inkimono.com/img/wrapper-img.jpg'>
+              src='/wrapper-img.jpg'>
             </Box>
           </Grid>
         </Grid>
@@ -122,7 +122,7 @@ const Home = (props: { imageUrls: string[], aboutMe: {
                 lg: '700px',
               }
             }}
-            src='https://inkimono.com/img/studio.jpg'>
+            src='/studio.jpg'>
             </Box>
           </Grid>
         </Grid>
