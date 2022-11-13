@@ -132,7 +132,7 @@ const Home = (props: { imageUrls: string[], aboutMe: {
           </Typography>
           <ImageGrid images={props.imageUrls} props={{ sx: { backgroundColor: 'black' } }} isModal={false}/>
           <Box mt={2} textAlign={'center'}>
-            <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">{wi18n().t('general.see_portfolio')}</Button></Link>
+            <Link href='/portfolio' locale={getCurrentLocale()}><Button variant="contained">{wi18n().t('general.see_portfolio')}</Button></Link>
           </Box>
         </Box> 
         <Box sx={{ mt: 6 }}>
@@ -141,7 +141,7 @@ const Home = (props: { imageUrls: string[], aboutMe: {
           </Typography>
           <ImageGrid images={tempMediaImages} props={{ sx: { backgroundColor: 'black', heigh: '180px' } }} isModal={false} height={400}/>
           <Box mt={2} textAlign={'center'}>
-            <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">{wi18n().t('general.see_portfolio')}</Button></Link>
+            <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">{wi18n().t('general.view_service')}</Button></Link>
           </Box>
         </Box> 
       </Container>
