@@ -41,7 +41,7 @@ const Home = (props: { imageUrls: string[], aboutMe: {
       </Head>
       <Box
         sx={{
-          backgroundImage: `url(//www.inkimono.com/img/slider-bg.jpg)`,
+          backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
           'object-fit': 'cover',
           'height': {
             xs: 'auto',
@@ -148,7 +148,7 @@ const Home = (props: { imageUrls: string[], aboutMe: {
       <Box
         mt={8}
         sx={{
-          backgroundImage: `url(//www.inkimono.com/img/slider-bg.jpg)`,
+          backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
           backgroundColor: 'rgba(48, 37, 37,0.9)',
           backgroundBlendMode: 'multiply',
           'object-fit': 'cover',

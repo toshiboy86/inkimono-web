@@ -7,7 +7,7 @@ const TopImage: FC<{title: string}> = ({ title }) => {
   return (
     <Box
         sx={{
-          backgroundImage: `url(//www.inkimono.com/img/slider-bg.jpg)`,
+          backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
           'object-fit': 'cover',
           'height': {
             xs: '300px',
