@@ -1,8 +1,14 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import InstagramIcon from '@mui/icons-material/Instagram'
+import Facebook from '@mui/icons-material/Facebook'
+import Twitter from '@mui/icons-material/Twitter'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import CardMedia from '@mui/material/CardMedia'
@@ -25,6 +31,15 @@ const tempMediaImages = [
   'https://firebasestorage.googleapis.com/v0/b/inkimono-7d929.appspot.com/o/media%2FScreenshot%202022-05-21%20at%2020.51.32.png?alt=media&token=ce54f899-10f8-4fd8-b7b1-20025f5bed71?w=700&h=1000',
   'https://firebasestorage.googleapis.com/v0/b/inkimono-7d929.appspot.com/o/media%2FScreenshot%202022-05-21%20at%2020.53.07.png?alt=media&token=6888132e-76b1-4812-9c6f-89176fa206cb?w=700&h=1000'
 ]
+
+const Item = styled(Paper)(({ theme }) => ({
+  // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  // ...theme.typography.body2,
+  // padding: theme.spacing(1),
+  boxShadow: 'none',
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 const Home = (props: { imageUrls: string[], aboutMe: {
     [K in lang]: string;
@@ -75,6 +90,15 @@ const Home = (props: { imageUrls: string[], aboutMe: {
               <Box fontSize={16} color="text.secondary">
                 {documentToReactComponents(JSON.parse(props.aboutMe[getCurrentLocale()]))}
               </Box>
+              <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                spacing={{ xs: 1, sm: 2, md: 4 }}
+              >
+                <Item><a target='_blank' rel="noreferrer" href='https://instagram.com/stasia.matsumoto'><Box><InstagramIcon /><Box>@stasia.matsumoto</Box></Box></a></Item>
+                <Item><a target='_blank' rel="noreferrer" href='https://www.instagram.com/inkimono'><Box><InstagramIcon /><Box>@InKimono</Box></Box></a></Item>
+                <Item><a target='_blank' rel="noreferrer" href='https://www.facebook.com/profile.php?id=100010395427461'><Box><Facebook /><Box>@stasia.matsumoto</Box></Box></a></Item>
+                <Item><a target='_blank' rel="noreferrer" href='https://twitter.com/inkimono1'><Box><Twitter /><Box>@inkimono1</Box></Box></a></Item>
+              </Stack>
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>
