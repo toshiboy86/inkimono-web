@@ -14,8 +14,8 @@ export const en = {
       service_description: "Authentic kimono service details -- personalized kimono styling using only authentic vintage kimono, history and cultural explanation in Asakusa, Tokyo Japan",
       portfolio_title: "Inkimono|Photoshoot & professional kimono styling portfolio by Tokyo portrait photographer Stasia Matsumoto",
       portfolio_description: "Authentic kimono portfolio -- personalized kimono styling using only authentic vintage kimono, history and cultural explanation in Asakusa, Tokyo Japan",
-      contact_title: "Inkimono|Photoshoot & professional kimono styling contact me by Tokyo portrait photographer Stasia Matsumoto",
-      contact_description: "Authentic kimono portfolio -- contact me personalized kimono styling using only authentic vintage kimono, history and cultural explanation in Asakusa, Tokyo Japan",
+      inquiry_title: "Inkimono|Photoshoot & professional kimono styling contact me by Tokyo portrait photographer Stasia Matsumoto",
+      inquiry_description: "Authentic kimono portfolio -- contact me personalized kimono styling using only authentic vintage kimono, history and cultural explanation in Asakusa, Tokyo Japan",
       blog_title: "Inkimono|Kimono photo blog with history, tpo and culture by Tokyo portrait photographer Stasia Matsumoto",
       blog_description: "Kimono blog -- kabuki, history, tpo, yoshiwara, oiran, edo, meiji, taisyo kimono, history and cultural explanation in Asakusa, Tokyo Japan"
     },
