@@ -57,7 +57,7 @@ const Service = (props: {
         <meta property="og:image" content='//inkimono.com/img/wrapper-img.jpg' />
         <meta name="twitter:card" content={wi18n().t('meta.service_description')}/>
       </Head>
-      <TopImage title='Service' />
+      <TopImage title='Plans & Pricing' />
       <Container maxWidth="lg">
         <Grid container spacing={1} sx={{ mt: 3 }}>
           <Grid item xs={12} md={7}>

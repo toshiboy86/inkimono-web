@@ -21,7 +21,7 @@ const pages = [
   },
   {
   link: 'service',
-  text: 'service'
+  text: 'Plans & Pricing'
 },
 {
   link: 'portfolio',

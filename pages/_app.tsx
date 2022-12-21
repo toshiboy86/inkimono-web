@@ -37,9 +37,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Box textAlign={'center'} pt={6} pb={6} sx={{ backgroundColor: '#f5f5f5', width: '100%', marginLeft: 'auto', marginRight: 'auto',}}>
       <Stack direction="row" justifyContent={'center'} spacing={2}>
         <Item><Link href='/' locale={getCurrentLocale()}>About Me</Link></Item>
+        <Item><Link href='/service' locale={getCurrentLocale()}>Plans & Pricing</Link></Item>
         <Item><Link href='/inquiry' locale={getCurrentLocale()}>Contact Me</Link></Item>
         <Item><Link href='/portfolio' locale={getCurrentLocale()}>Portfolio</Link></Item>
-        <Item><Link href='/service' locale={getCurrentLocale()}>Service</Link></Item>
+        
       </Stack>
       <Box mt={4} color={'#919191'}>Copyright © Design & Developed by InKimono. All rights reserved.</Box>
     </Box>
