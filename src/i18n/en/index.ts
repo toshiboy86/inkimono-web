@@ -31,7 +31,7 @@ export const en = {
       inquiry: "Inquiry",
       service: "Plans & Pricing",
       portfolio: "Portfolio",
-      about_my_service: "About Plans",
+      about_my_service: "About My Service",
       inc_tax: "All Tax Included",
       per_person: "per person",
       check_schedule: "check_schedule",
