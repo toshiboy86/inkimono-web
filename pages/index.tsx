@@ -135,6 +135,9 @@ const Home = (props: { imageUrls: string[], aboutMe: {
                 sx={{ border: 0 }}
               ></CardMedia>
             </Box>
+            <Box mt={6} textAlign={'center'}>
+              <Link href='/service' locale={getCurrentLocale()}><Button variant="contained">{wi18n().t('general.view_service')}</Button></Link>
+            </Box>
           </Grid>
           <Grid item xs={12} md={5}>
             <Box
