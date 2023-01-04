@@ -51,7 +51,7 @@ const Home = (props: { imageUrls: string[], aboutMe: {
         <title>{wi18n().t('meta.title')}</title>
         <meta property="og:title" content={wi18n().t('meta.title')} />
         <meta property="og:description" content={wi18n().t('meta.description')} />
-        <meta property="og:image" content='//inkimono.com/img/wrapper-img.jpg' />
+        <meta property="og:image" content='/wrapper-img.jpg' />
         <meta name="twitter:card" content={wi18n().t('meta.description')}/>
       </Head>
       <Box
