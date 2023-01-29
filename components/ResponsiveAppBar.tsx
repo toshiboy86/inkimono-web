@@ -30,7 +30,12 @@ const pages = [
 {
   link: 'inquiry',
   text: 'inquiry'
-}]
+},
+{
+  link: 'faq',
+  text: 'faq'
+}
+]
 
 const ResponsiveAppBar = () => {
   const { getCurrentLocale, getNextLocale, wi18n } = useLocale()

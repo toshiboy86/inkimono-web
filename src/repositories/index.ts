@@ -91,3 +91,13 @@ export const fetchDescriptions = () => {
     return entries[0].items
   }).catch(console.error)
 }
+
+export const fetchQuestionAndAnswer = () => {
+  return Promise.all([
+    client.getEntries({
+      'content_type':'question',
+    })
+  ]).then((entries) => {
+    return entries[0].items
+  }).catch(console.error)
+}

@@ -16,6 +16,8 @@ export const ja = {
       portfolio_description: "本物の着物着付け体験を記録したポートフォリオ。あなたの個性、好きな色から全身のコーディネイトを考えて着付け、写真を撮影します",
       inquiry_title: "Inkimono|東京ポートレート・フォトグラファーである松本スターシャ(Stasia)による着付けと写真の連絡はこちらまで",
       inquiry_description: "本物の着物着付け体験したい方は連絡ください。あなたの個性、好きな色から全身のコーディネイトを考えて着付け、写真を撮影します",
+      faq_title: "Inkimono|東京ポートレート・フォトグラファーである松本スターシャ(Stasia)による写真と着付けサービスのよくある質問",
+      faq_description: "写真撮影のためのよくある質問をまとめました。",
     },
     general: {
       blog: "有料記事",
@@ -36,7 +38,8 @@ export const ja = {
       quality: "品質について",
       contact_me: "お問い合わせ",
       shop: "ショップ",
-      reserve: "空きを確認"
+      reserve: "空きを確認",
+      faq: "よくある質問",
     },
     home: {
       title: "Hello,World!",
