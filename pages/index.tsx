@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from "next/types";
 import Link from 'next/link'
 import Head from 'next/head'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -20,7 +21,12 @@ import { getRandomImages } from '../src/repositories'
 import { fetchDescriptions } from '../src/repositories'
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: GetServerSidePropsContext) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=86400 maxage=86400, stale-while-revalidate=600'
+  )
+
   const urls = await getRandomImages(3)
   const description = await fetchDescriptions()
   return { props: { imageUrls: urls, aboutMe: {en: JSON.stringify(description[0].fields.aboutme_en), ja: JSON.stringify(description[0].fields.aboutme_ja)}, description } }

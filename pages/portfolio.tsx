@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from "next/types"
 import Head from 'next/head'
 import Container from '@mui/material/Container'
 import ImageGrid from '../components/ImageGrid'
@@ -5,7 +6,12 @@ import { fetchPortfolioImages } from '../src/repositories'
 import TopImage from '../components/TopImage'
 import { useLocale } from '../src/hooks/useLocale'
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: GetServerSidePropsContext) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=86400 maxage=86400, stale-while-revalidate=600'
+  )
+
   const urls = await fetchPortfolioImages()
   return { props: { imageUrls: urls } }
 }

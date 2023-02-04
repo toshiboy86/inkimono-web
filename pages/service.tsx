@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from "next/types"
 import Head from 'next/head'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Box from '@mui/material/Box'
@@ -12,7 +13,12 @@ import { fetchDescriptions, fetchServices, fetchServiceCategories, fetchServiceO
 import { lang, useLocale } from '../src/hooks/useLocale'
 import { TService } from '../types/'
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: GetServerSidePropsContext) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=86400 maxage=86400, stale-while-revalidate=600'
+  )
+
   const services = await fetchServices()
 
   let group_service: Record<string, TService[]> = {}
