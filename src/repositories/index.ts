@@ -101,3 +101,23 @@ export const fetchQuestionAndAnswer = () => {
     return entries[0].items
   }).catch(console.error)
 }
+
+export const fetchLocations = () => {
+  return Promise.all([
+    client.getEntries({
+      'content_type':'locations',
+    })
+  ]).then((entries) => {
+    return entries[0].items
+  }).catch(console.error)
+}
+
+export const fetchLocation = () => {
+  return Promise.all([
+    client.getEntries({
+      'content_type':'location',
+    })
+  ]).then((entries) => {
+    return entries[0].items
+  }).catch(console.error)
+}

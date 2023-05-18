@@ -72,3 +72,22 @@ export type TService = {
     reservation_url: string
   }
 }
+
+export type TLocation = {
+  fields: {
+    title_en: string
+    title_ja: string
+    description_en: { content: [{content: [{value: string}]}] },
+    description_ja: { content: [{content: [{value: string}]}] },
+    main_image: {
+      fields: {
+        file: {
+          url: string
+        }
+      }
+    }
+  }
+  sys: {
+    id: number
+  }
+}
