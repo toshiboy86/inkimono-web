@@ -77,8 +77,8 @@ export type TLocation = {
   fields: {
     title_en: string
     title_ja: string
-    description_en: { content: [{content: [{value: string}]}] },
-    description_ja: { content: [{content: [{value: string}]}] },
+    description_en: { content: [{value: string}] },
+    description_ja: { content: [{value: string}] },
     main_image: {
       fields: {
         file: {

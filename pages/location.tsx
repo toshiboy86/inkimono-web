@@ -11,6 +11,25 @@ import { fetchDescriptions, fetchLocation, fetchLocations } from '../src/reposit
 import { lang, useLocale } from '../src/hooks/useLocale'
 import { TLocation } from '../types'
 
+export type TLocations = {
+  fields: {
+    title_en: string
+    title_ja: string
+    description_en: { content: [{content: [{value: string}]}] },
+    description_ja: { content: [{content: [{value: string}]}] },
+    main_image: {
+      fields: {
+        file: {
+          url: string
+        }
+      }
+    }
+  }
+  sys: {
+    id: number
+  }
+}
+
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   res.setHeader(
     'Cache-Control',
@@ -31,7 +50,7 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
 }
 
 const Location = (props: {
-  locations: TLocation[],
+  locations: any,
   location: any,
   chooseYourPlan: {
     [K in lang]: string;
@@ -56,13 +75,13 @@ const Location = (props: {
               sx={{ pt: 3 }}
             >
             <Box fontSize={16} color="text.secondary">
-              {getWordsOnLocale(props.location[0].fields, 'description').content.map((f) => f.content.map((e) => e.value).map((e) => e)).join('')}
+              {getWordsOnLocale(props.location[0].fields, 'description').content.map((f: any) => f.content.map((e: any) => e.value).map((e: any) => e)).join('')}
             </Box>
             </Box>
           </Grid>
         </Grid>
         <Grid container spacing={1} sx={{ mt: 3 }} >
-          {props.locations.map((loc: TLocation) => {
+          {props.locations.map((loc: any) => {
             return (
               <>
               <Grid item xs={12} md={6}>
