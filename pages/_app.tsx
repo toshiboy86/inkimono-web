@@ -40,6 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Item><Link href='/service' locale={getCurrentLocale()}>Plans & Pricing</Link></Item>
         <Item><Link href='/inquiry' locale={getCurrentLocale()}>Contact Me</Link></Item>
         <Item><Link href='/portfolio' locale={getCurrentLocale()}>Portfolio</Link></Item>
+        <Item><Link href='/location' locale={getCurrentLocale()}>Location</Link></Item>
         <Item><Link href='/faq' locale={getCurrentLocale()}>FAQ</Link></Item>
         
       </Stack>

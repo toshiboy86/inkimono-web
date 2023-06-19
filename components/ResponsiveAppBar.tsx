@@ -22,19 +22,23 @@ const pages = [
   {
   link: 'service',
   text: 'Plans & Pricing'
-},
-{
-  link: 'portfolio',
-  text: 'portfolio'
-},
-{
-  link: 'inquiry',
-  text: 'inquiry'
-},
-{
-  link: 'faq',
-  text: 'faq'
-}
+  },
+  {
+    link: 'portfolio',
+    text: 'portfolio'
+  },
+  {
+    link: 'location',
+    text: 'location'
+  },
+  {
+    link: 'inquiry',
+    text: 'inquiry'
+  },
+  {
+    link: 'faq',
+    text: 'faq'
+  }
 ]
 
 const ResponsiveAppBar = () => {
