@@ -57,7 +57,6 @@ const Location = (props: {
   }
 }) => {
   const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
-  
   return (
     <div>
       <Head>
@@ -67,7 +66,7 @@ const Location = (props: {
         <meta property="og:image" content='/wrapper-img.jpg' />
         <meta name="twitter:card" content={wi18n().t('meta.location_description')}/>
       </Head>
-      <TopImage title='Location' />
+      <TopImage title={getWordsOnLocale(props.location[0].fields, 'title')} />
       <Container maxWidth="lg">
         <Grid container spacing={1} textAlign='center' sx={{ mt: 3 }}>
           <Grid item>
