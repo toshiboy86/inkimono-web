@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "codegen": "contentful-typescript-codegen --output @types/generated/contentful.d.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -35,6 +36,8 @@
     "@types/react-dom": "18.0.5",
     "babel-loader": "^8.2.5",
     "contentful": "^9.2.9",
+    "contentful-management": "^10.45.0",
+    "contentful-typescript-codegen": "^3.4.0",
     "eslint": "8.17.0",
     "eslint-config-next": "12.1.6",
     "eslint-plugin-storybook": "^0.5.12",
