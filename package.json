@@ -35,7 +35,7 @@
     "@types/react": "18.0.12",
     "@types/react-dom": "18.0.5",
     "babel-loader": "^8.2.5",
-    "contentful": "^9.2.9",
+    "contentful": "^10.5.2",
     "contentful-management": "^10.45.0",
     "contentful-typescript-codegen": "^3.4.0",
     "eslint": "8.17.0",
