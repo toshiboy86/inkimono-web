@@ -7,28 +7,8 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import LocationCard from '../components/LocationCard'
 import TopImage from '../components/TopImage'
-import { fetchDescriptions, fetchLocation, fetchLocations } from '../src/repositories'
+import { fetch2Descriptions, fetch2Location, fetch2Locations } from '../src/repositories'
 import { lang, useLocale } from '../src/hooks/useLocale'
-import { TLocation } from '../types'
-
-export type TLocations = {
-  fields: {
-    title_en: string
-    title_ja: string
-    description_en: { content: [{content: [{value: string}]}] },
-    description_ja: { content: [{content: [{value: string}]}] },
-    main_image: {
-      fields: {
-        file: {
-          url: string
-        }
-      }
-    }
-  }
-  sys: {
-    id: number
-  }
-}
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   res.setHeader(
@@ -36,9 +16,9 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
     'public, s-maxage=86400 maxage=86400, stale-while-revalidate=600'
   )
 
-  const locations = await fetchLocations()
-  const location = await fetchLocation()
-  const description = await fetchDescriptions()
+  const locations = await fetch2Locations()
+  const location = await fetch2Location()
+  const description = await fetch2Descriptions()
 
   return {
     props: {

@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Inquiry from '../components/Inquiry'
 import TopImage from '../components/TopImage'
-import { fetchQuestionAndAnswer } from '../src/repositories'
+import { fetch2QuestionAndAnswer } from '../src/repositories'
 import { useLocale } from '../src/hooks/useLocale'
 
 type TQnA = {
@@ -22,7 +22,7 @@ type TQnA = {
 }
 
 export async function getServerSideProps() {
-  const faq = await fetchQuestionAndAnswer()  
+  const faq = await fetch2QuestionAndAnswer()  
   return {
     props: {
       faq

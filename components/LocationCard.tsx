@@ -10,16 +10,10 @@ import Typography from '@mui/material/Typography';
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useLocale } from '../src/hooks/useLocale'
-import { TLocation } from '../types'
+import { TLocationsRepository } from '../src/entities/repositories';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
-}
-
-interface IServices {
-  content: [
-    {value: string[]}
-  ]
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
@@ -33,9 +27,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function ServiceCard(props: {location: TLocation}) {
+export default function ServiceCard(props: {location: TLocationsRepository}) {
   const [expanded, setExpanded] = React.useState(false)
-  console.log(props.location.fields)
   const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -45,6 +38,7 @@ export default function ServiceCard(props: {location: TLocation}) {
     if (!url) return
     return <Box mt={1} ml={3}><a target='_blank' rel="noreferrer" href={url}><CalendarMonthIcon fontSize='large' color="secondary"/></a></Box>
   }
+  const image = (props.location.fields.main_image?.fields.file?.url || 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg') as string
 
   return (
     <Card>
@@ -55,16 +49,16 @@ export default function ServiceCard(props: {location: TLocation}) {
       <CardMedia
         component="img"
         height="550"
-        image={props.location.fields.main_image?.fields.file.url || 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg'}
+        image={image}
         alt="Service image"
       />
       <CardContent>
-        {getWordsOnLocale(props.location.fields, 'description').content.map((e: TLocation['fields']['description_en'], i: number) => {
+        {getWordsOnLocale(props.location.fields, 'description').content.map((e: any, i: number) => {
           return (
             <>
             <Box mt={ i > 0 ? 2: 0}>
               <Typography variant="body2" color="text.secondary">
-                {e.content.map((f) => f.value).join('')}
+                {e.content.map((f:any) => f.value).join('')}
               </Typography>
             </Box>
             </>

@@ -17,8 +17,8 @@ import { Button } from '@mui/material';
 import Inquiry from '../components/Inquiry'
 import ImageGrid from '../components/ImageGrid'
 import { lang, useLocale } from '../src/hooks/useLocale'
-import { getRandomImages } from '../src/repositories'
-import { fetchDescriptions } from '../src/repositories'
+import { fetch2Descriptions, fetchPortfolioImages2 } from '../src/repositories'
+import { generateRandomImages } from "../src/utils";
 
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
@@ -26,9 +26,10 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
     'Cache-Control',
     'public, s-maxage=86400 maxage=86400, stale-while-revalidate=600'
   )
-
-  const urls = await getRandomImages(3)
-  const description = await fetchDescriptions()
+  
+  const images = await fetchPortfolioImages2()
+  const urls = await generateRandomImages(images, 3)
+  const description = await fetch2Descriptions()
   return { props: { imageUrls: urls, aboutMe: {en: JSON.stringify(description[0].fields.aboutme_en), ja: JSON.stringify(description[0].fields.aboutme_ja)}, description } }
 }
 

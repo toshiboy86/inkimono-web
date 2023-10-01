@@ -36,7 +36,6 @@ const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: 
   return (
     <Grid container spacing={1} height={'auto'} p={3} mt={2} {...props}>
       {images.map((img: string) => {
-        console.log(img)
         return (
           <Grid item xs={12} md={4} key={img}>
             <Image

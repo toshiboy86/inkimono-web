@@ -9,9 +9,10 @@ import CardContent from '@mui/material/CardContent';
 import Inquiry from '../components/Inquiry'
 import ServiceCard from '../components/ServiceCard'
 import TopImage from '../components/TopImage'
-import { fetchDescriptions, fetchServices, fetchServiceCategories, fetchServiceOptions } from '../src/repositories'
+import { fetchServiceCategories2, fetchServices2, fetch2ServiceOptions, fetch2Descriptions } from '../src/repositories'
+import { TService, TServiceCategory, TServiceOptionRepository, TServiceRepository } from '../src/entities/repositories'
 import { lang, useLocale } from '../src/hooks/useLocale'
-import { TService } from '../types/'
+import { makeServiceFactory, makeServiceCategoryFactory } from "../src/factories";
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   res.setHeader(
@@ -19,24 +20,31 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
     'public, s-maxage=86400 maxage=86400, stale-while-revalidate=600'
   )
 
-  const services = await fetchServices()
+  const services2 = await fetchServices2()
+  const serviceDto = makeServiceFactory(services2)
+ 
 
   let group_service: Record<string, TService[]> = {}
-  services.forEach((e: TService) => {
-    if (!group_service[e.fields.serviceCategory.sys.id]) {
-      group_service = { ...group_service, [e.fields.serviceCategory.sys.id]: [e] }
+  serviceDto.forEach((e: TService) => {
+    const catId = e.serviceCategory?.sys.id
+    if (catId === undefined) console.error('serviceCategory Id is not defined')
+
+    if (!group_service[catId!]) {
+      group_service = { ...group_service, [catId!]: [e] }
     } else {
-      group_service[e.fields.serviceCategory.sys.id].push(e)
+      group_service[catId!].push(e)
     }
+    
   })
   
-  const categories = await fetchServiceCategories() as TService['fields']['serviceCategory'][]
-  const options = await fetchServiceOptions()
-  const description = await fetchDescriptions()
+  const categoriesRepo = await fetchServiceCategories2()
+  const categories = await makeServiceCategoryFactory(categoriesRepo)
+  const options = await fetch2ServiceOptions()
+  const description = await fetch2Descriptions()
 
   return {
     props: {
-      service: group_service,
+      services: group_service,
       category: categories,
       option: options,
       chooseYourPlan: {en: JSON.stringify(description[0].fields.chooseYourPlan_en), ja: JSON.stringify(description[0].fields.chooseYourPlan_ja)},
@@ -45,9 +53,9 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
 }
 
 const Service = (props: {
-  service: Record<string, TService[]>,
-  category: TService['fields']['serviceCategory'][],
-  option: { sys: { id: number}, fields: { title: string }}[],
+  services: Record<any, TService[]>,
+  category: TServiceCategory[],
+  option: TServiceOptionRepository[],
   chooseYourPlan: {
     [K in lang]: string;
   }
@@ -128,22 +136,22 @@ const Service = (props: {
         </Grid>
         {props.category.map((cat) => {
           return (
-            <>
-            <Typography variant="h5" sx={{ textAlign: 'center', mt: 8, mb: 6 }} key={cat.sys.id}>
-              {cat.fields.title}
-            </Typography>
-            <Grid container spacing={1} sx={{ mt: 3 }} key={cat.sys.id}>
-              {props.service[cat.sys.id].map((s) => {
-                return (
-                  <>
-                  <Grid item xs={12} md={4}>
-                    <ServiceCard service={s} key={s.fields.title}></ServiceCard>
-                  </Grid>
-                  </>
-                )
-              })}
-            </Grid>
-            </>
+            <div key={cat.id}>
+              <Typography variant="h5" sx={{ textAlign: 'center', mt: 8, mb: 6 }}>
+                {cat.title}
+              </Typography>
+              <Grid container spacing={1} sx={{ mt: 3 }} key={cat.id}>
+                {props.services[cat.id].map((service) => {
+                  return (
+                    <>
+                    <Grid item xs={12} md={4} key={service.id + cat.id}>
+                      <ServiceCard service={service}></ServiceCard>
+                    </Grid>
+                    </>
+                  )
+                })}
+              </Grid>
+            </div>
           )
         })}
         <Typography variant="h5" sx={{ textAlign: 'center', mt: 8 }}>

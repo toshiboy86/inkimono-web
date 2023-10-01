@@ -20,5 +20,5 @@ export const fetchApi = async <T>(param: TGetApi): Promise<{data: T}> => {
     }
   )
   const entries = await Promise.all([api])
-  return {data: entries[0].items as T}
+  return {data: entries[0].items as unknown as T}
 }
