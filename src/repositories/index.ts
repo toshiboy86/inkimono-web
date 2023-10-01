@@ -1,123 +1,61 @@
-const contentful = require("contentful")
+import { TDescriptionRepository, TLocationRepository, TLocationsRepository, TQAndARepository, TServiceCategoryRepository, TServiceOptionRepository, TServiceRepository } from '../entities/repositories'
+import { fetchApi, fetchAsset } from './apiAdapter'
 
-const CTF_SPACE_ID = process.env.CTF_SPACE_ID
-const CTF_CDA_ACCESS_TOKEN = process.env.CTF_CDA_ACCESS_TOKEN
-
-const config = {
-  space: CTF_SPACE_ID,
-  accessToken: CTF_CDA_ACCESS_TOKEN
+export const fetchPortfolioImages2 = async (): Promise<string[]> => {
+  const res = await fetchAsset({
+    table: 'assets',
+    option: { limit: 500 }
+  })
+  return res.data
 }
 
-const client = contentful.createClient(config)
-
-interface IPortfolioImage {
-  metadata: {
-    tags: [
-      {
-        sys: {
-          id: string
-        }
-      }
-    ]
-  }
+export const fetchServices2 = async (): Promise<TServiceRepository[]> => {
+  const res = await fetchApi<TServiceRepository[]>({
+    table: 'service',
+    option: { order: 'fields.order' }
+  })
+  return res.data
 }
 
-export const fetchPortfolioImages = (): Promise<string[]> => {
-  return Promise.all([
-    client.getAssets({limit: 500})
-  ]).then((entries) => {
-    const portfolioTagAssets = entries[0].items.filter((i: IPortfolioImage) => i.metadata.tags.length > 0 && i.metadata.tags.filter((t) => t.sys.id === 'portfolio') )
-    return portfolioTagAssets.map((e: { fields: { file: { url: string }}}) => `https:${e.fields.file.url}`)
-  }).catch(console.error)
+export const fetchServiceCategories2 = async (): Promise<TServiceCategoryRepository[]> => {
+  const res = await fetchApi<TServiceCategoryRepository[]>({
+    table: 'serviceCategories',
+    option: { order: 'fields.order' }
+  })
+  return res.data
 }
 
-export const getRandomImages = async (limit: number) => {
-  const myfun = function(x: string,y: string){
-    return 0.5 - Math.random()
-  }
-  const images = await fetchPortfolioImages()
-  return images.sort(myfun).slice(0, 3)
+export const fetch2ServiceOptions = async (): Promise<TServiceOptionRepository[]> => {
+  const res = await fetchApi<TServiceOptionRepository[]>({
+    table: 'serviceOption',
+  })
+  return res.data
 }
 
-export const fetchServices = () => {
-  return Promise.all([
-    client.getEntries({
-      'content_type':'service',
-      order: 'fields.order'
-    })
-  ]).then((entries) => {
-    return entries[0].items
-  }).catch(console.error)
+export const fetch2Descriptions = async (): Promise<TDescriptionRepository[]> => {
+  const res = await fetchApi<TDescriptionRepository[]>({
+    table: 'description',
+  })
+  return res.data
 }
 
-export const fetchServiceCategories = () => {
-  return Promise.all([
-    client.getEntries({
-      'content_type':'serviceCategories',
-      order: 'fields.order'
-    })
-  ]).then((entries) => {
-    return entries[0].items
-  }).catch(console.error)
+export const fetch2Locations = async (): Promise<TLocationsRepository[]> => {
+  const res = await fetchApi<TLocationsRepository[]>({
+    table: 'locations',
+  })
+  return res.data
 }
 
-export const fetchServiceById = (id: number) => {
-  return Promise.all([
-    client.getEntries({
-      'content_type':'service',
-      'sys.id': id.toString()
-    })
-  ]).then((entries) => {
-    return entries[0].items[0]
-  }).catch(console.error)
+export const fetch2Location = async (): Promise<TLocationRepository[]> => {
+  const res = await fetchApi<TLocationRepository[]>({
+    table: 'location',
+  })
+  return res.data
 }
 
-export const fetchServiceOptions = () => {
-  return Promise.all([
-    client.getEntries({
-      'content_type':'serviceOption',
-    })
-  ]).then((entries) => {
-    return entries[0].items
-  }).catch(console.error)
-}
-
-export const fetchDescriptions = () => {
-  return Promise.all([
-    client.getEntries({
-      'content_type':'description',
-    })
-  ]).then((entries) => {
-    return entries[0].items
-  }).catch(console.error)
-}
-
-export const fetchQuestionAndAnswer = () => {
-  return Promise.all([
-    client.getEntries({
-      'content_type':'question',
-    })
-  ]).then((entries) => {
-    return entries[0].items
-  }).catch(console.error)
-}
-
-export const fetchLocations = () => {
-  return Promise.all([
-    client.getEntries({
-      'content_type':'locations',
-    })
-  ]).then((entries) => {
-    return entries[0].items
-  }).catch(console.error)
-}
-
-export const fetchLocation = () => {
-  return Promise.all([
-    client.getEntries({
-      'content_type':'location',
-    })
-  ]).then((entries) => {
-    return entries[0].items
-  }).catch(console.error)
+export const fetch2QuestionAndAnswer = async (): Promise<TQAndARepository[]> => {
+  const res = await fetchApi<TQAndARepository[]>({
+    table: 'question',
+  })
+  return res.data
 }
