@@ -9,10 +9,11 @@ import CardContent from '@mui/material/CardContent';
 import Inquiry from '../components/Inquiry'
 import ServiceCard from '../components/ServiceCard'
 import TopImage from '../components/TopImage'
-import { fetchServiceCategories2, fetchServices2, fetch2ServiceOptions, fetch2Descriptions } from '../src/repositories'
-import { TService, TServiceCategory, TServiceOptionRepository, TServiceRepository } from '../src/entities/repositories'
+import { fetchServiceCategories, fetchServices, fetchPortfolioImagesById, fetchServiceOptions, fetchDescriptions, fetchServiceDetails } from '../src/repositories'
+import { TService, TServiceCategory, TServiceOptionRepository } from '../src/entities/repositories'
 import { lang, useLocale } from '../src/hooks/useLocale'
-import { makeServiceFactory, makeServiceCategoryFactory } from "../src/factories";
+import { makeServiceFactory, makeServiceCategoryFactory, makeServiceDetailsFactory } from "../src/factories";
+import { IServiceDetailFields } from "../@types/generated/contentful";
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   res.setHeader(
@@ -20,9 +21,10 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
     'public, s-maxage=86400 maxage=86400, stale-while-revalidate=600'
   )
 
-  const services2 = await fetchServices2()
+  const services2 = await fetchServices()
   const serviceDto = makeServiceFactory(services2)
- 
+
+  const images = await fetchPortfolioImagesById()
 
   let group_service: Record<string, TService[]> = {}
   serviceDto.forEach((e: TService) => {
@@ -34,18 +36,21 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
     } else {
       group_service[catId!].push(e)
     }
-    
   })
   
-  const categoriesRepo = await fetchServiceCategories2()
+  const categoriesRepo = await fetchServiceCategories()
   const categories = await makeServiceCategoryFactory(categoriesRepo)
-  const options = await fetch2ServiceOptions()
-  const description = await fetch2Descriptions()
+  const options = await fetchServiceOptions()
+  const description = await fetchDescriptions()
+  const serviceDetails = await fetchServiceDetails() // here end today!
+  const serviceDetailsDto = makeServiceDetailsFactory(serviceDetails)
 
   return {
     props: {
       services: group_service,
+      serviceDetails: serviceDetailsDto,
       category: categories,
+      images: images,
       option: options,
       chooseYourPlan: {en: JSON.stringify(description[0].fields.chooseYourPlan_en), ja: JSON.stringify(description[0].fields.chooseYourPlan_ja)},
     }
@@ -54,7 +59,9 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
 
 const Service = (props: {
   services: Record<any, TService[]>,
+  serviceDetails: Record<string, IServiceDetailFields>
   category: TServiceCategory[],
+  images: Record<string, string>,
   option: TServiceOptionRepository[],
   chooseYourPlan: {
     [K in lang]: string;
@@ -145,7 +152,7 @@ const Service = (props: {
                   return (
                     <>
                     <Grid item xs={12} md={4} key={service.id + cat.id}>
-                      <ServiceCard service={service}></ServiceCard>
+                      <ServiceCard service={service} serviceDetails={props.serviceDetails} images={props.images}></ServiceCard>
                     </Grid>
                     </>
                   )

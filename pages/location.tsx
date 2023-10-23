@@ -1,13 +1,11 @@
 import { GetServerSidePropsContext } from "next/types"
 import Head from 'next/head'
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
 import LocationCard from '../components/LocationCard'
 import TopImage from '../components/TopImage'
-import { fetch2Descriptions, fetch2Location, fetch2Locations } from '../src/repositories'
+import { fetchDescriptions, fetchLocation, fetchLocations, fetchPortfolioImagesById } from '../src/repositories'
 import { lang, useLocale } from '../src/hooks/useLocale'
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
@@ -16,14 +14,16 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
     'public, s-maxage=86400 maxage=86400, stale-while-revalidate=600'
   )
 
-  const locations = await fetch2Locations()
-  const location = await fetch2Location()
-  const description = await fetch2Descriptions()
+  const locations = await fetchLocations()
+  const location = await fetchLocation()
+  const description = await fetchDescriptions()
+  const images = await fetchPortfolioImagesById()
 
   return {
     props: {
       locations,
       location,
+      images,
       chooseYourPlan: {en: JSON.stringify(description[0].fields.chooseYourPlan_en), ja: JSON.stringify(description[0].fields.chooseYourPlan_ja)},
     }
   }
@@ -32,6 +32,7 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
 const Location = (props: {
   locations: any,
   location: any,
+  images: Record<string, string>,
   chooseYourPlan: {
     [K in lang]: string;
   }
@@ -64,7 +65,7 @@ const Location = (props: {
             return (
               <>
               <Grid item xs={12} md={6}>
-                <LocationCard location={loc} key={getWordsOnLocale(loc.fields, 'title')}></LocationCard>
+                <LocationCard images={props.images} location={loc} key={getWordsOnLocale(loc.fields, 'title')}></LocationCard>
               </Grid>
               </>
             )

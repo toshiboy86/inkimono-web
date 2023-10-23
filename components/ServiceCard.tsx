@@ -17,6 +17,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import { useLocale } from '../src/hooks/useLocale'
 import { TService } from '../src/entities/repositories'
+import { IServiceDetailFields } from '../@types/generated/contentful';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -27,6 +28,7 @@ interface IServices {
     {value: string[]}
   ]
 }
+
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
@@ -39,7 +41,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function ServiceCard(props: {service: TService}) {
+export default function ServiceCard(props: {service: TService, serviceDetails: Record<string, IServiceDetailFields>, images: Record<string, string>}) {
   const [expanded, setExpanded] = React.useState(false)
   const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
   const handleExpandClick = () => {
@@ -50,8 +52,8 @@ export default function ServiceCard(props: {service: TService}) {
     if (!url) return
     return <Box mt={1} ml={3}><a target='_blank' rel="noreferrer" href={url}><CalendarMonthIcon fontSize='large' color="secondary"/></a></Box>
   }
-  const imageUrl = (props.service.mainImage?.fields.file?.url || 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg') as string
 
+  const imageUrl = props.images[props.service.mainImage!.sys.id] || 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg'
   return (
     <Card>
       <CardHeader
@@ -98,9 +100,9 @@ export default function ServiceCard(props: {service: TService}) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             {
-              props.service.serviceDetails.map((e: any) => {
+              props.service.serviceDetails.map((e) => {
                 return (
-                  <Typography paragraph sx={{ borderBottom: '1px solid' }} key={e.title_en}>{getWordsOnLocale(e.fields, 'title')}</Typography>
+                  <Typography paragraph sx={{ borderBottom: '1px solid' }} key={e.sys.id}>{getWordsOnLocale(props.serviceDetails[e.sys.id], 'title')}</Typography>
                 )
               })
             }
@@ -108,5 +110,5 @@ export default function ServiceCard(props: {service: TService}) {
         </Collapse>
       }
     </Card>
-  );
+  )
 }

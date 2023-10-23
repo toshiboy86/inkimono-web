@@ -1,4 +1,4 @@
-import { TService, TServiceCategory, TServiceCategoryRepository, TServiceRepository } from "./entities/repositories";
+import { TService, TServiceCategory, TServiceCategoryRepository, TServiceDetail, TServiceDetailRepository, TServiceRepository } from "./entities/repositories";
 
 export const makeServiceFactory = (data: TServiceRepository[]): TService[] => {
   return data.map((e) => {
@@ -10,4 +10,12 @@ export const makeServiceCategoryFactory = (data: TServiceCategoryRepository[]): 
   return data.map((e) => {
     return { ...e.fields,  id: e.sys.id }
   })
+}
+
+export const makeServiceDetailsFactory = (data: TServiceDetailRepository[]): TServiceDetail => {
+  let res: TServiceDetail = {}
+  data.forEach((e) => {
+    res = { ...res, [e.sys.id]: e.fields }
+  })
+  return res
 }

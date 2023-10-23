@@ -27,7 +27,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function ServiceCard(props: {location: TLocationsRepository}) {
+export default function ServiceCard(props: {location: TLocationsRepository, images: Record<string, string>}) {
   const [expanded, setExpanded] = React.useState(false)
   const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
   const handleExpandClick = () => {
@@ -38,7 +38,8 @@ export default function ServiceCard(props: {location: TLocationsRepository}) {
     if (!url) return
     return <Box mt={1} ml={3}><a target='_blank' rel="noreferrer" href={url}><CalendarMonthIcon fontSize='large' color="secondary"/></a></Box>
   }
-  const image = (props.location.fields.main_image?.fields.file?.url || 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg') as string
+  const imageId = props.location.fields.main_image?.sys.id as string
+  const image = (props.images[imageId] || 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg')
 
   return (
     <Card>

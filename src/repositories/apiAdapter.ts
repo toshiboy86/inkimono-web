@@ -1,24 +1,49 @@
-import { TGetApi } from '../entities/repositories'
-import { client } from './api'
-import { Asset } from "contentful";
+import { TGetApi, TImages } from '../entities/repositories'
 
+export const fetchAsset = async (): Promise<{data: TImages}> => {
+  const res = await fetch(
+    `https://cdn.contentful.com/spaces/${process.env.CTF_SPACE_ID}/environments/master/assets?limit=1000`,
+    {
+      credentials: 'omit',
+      headers: { Authorization: `Bearer ${process.env.CTF_CDA_ACCESS_TOKEN}` }
+    }
+  )
 
-export const fetchAsset = async (param: TGetApi) => {
-  const api = client.getAssets(param.option)
-  const assets = await Promise.all([api])
-  const temp = assets[0].items.filter((i) => i.metadata.tags.length > 0 && i.metadata.tags.filter((t) => t.sys.id === 'portfolio'))
-  const strings = temp.map((e: Asset) => `https:${e?.fields?.file?.url}`)
-  return { data: strings }
+  if(res.ok){
+    const data = await res.json();
+
+    return {data: data}
+  } else {
+    throw new Error('error')
+  }
 }
 
 export const fetchApi = async <T>(param: TGetApi): Promise<{data: T}> => {
-  const api = client.getEntries(
+  let query: string
+
+  const queryOption = {...param.option, include: '2'}
+  
+  if (queryOption) {
+    const obj = queryOption as {[key: string]: string}
+
+    query = Object.keys(queryOption).map((e) => {
+      return `${e}=${obj[e]}`
+    }).join('&')
+  }
+
+
+  const res = await fetch(
+    `https://cdn.contentful.com/spaces/${process.env.CTF_SPACE_ID}/environments/master/entries?content_type=${param.table}&${query}`,
     {
-      'content_type': param.table,
-      ...param.query,
-      ...param.option
+      credentials: 'omit',
+      headers: { Authorization: `Bearer ${process.env.CTF_CDA_ACCESS_TOKEN}` }
     }
   )
-  const entries = await Promise.all([api])
-  return {data: entries[0].items as unknown as T}
+
+  if(res.ok){
+    const data = await res.json();
+    return {data: data.items as unknown as T}
+  } else {
+    return {data: `${res.status}: ${res.statusText}` as unknown as T}
+  }
 }
