@@ -30,7 +30,7 @@ const Portfolio = (props: { imageUrls: string[] }) => {
       </Head>
       <TopImage title='Portfolio' />
       <Container maxWidth="lg">
-        <ImageGrid images={props.imageUrls} />
+        <ImageGrid props={{ sx: { backgroundColor: 'black' } }} images={props.imageUrls} isModal={true}/>
       </Container>
     </div>
   )

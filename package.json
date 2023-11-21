@@ -12,8 +12,9 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
-    "@mui/material": "^5.8.4",
-    "next": "12.1.6",
+    "@mui/material": "^5.14.17",
+    "next": "14.0.3",
+    "node-gyp": "^10.0.1",
     "react": "18.1.0",
     "react-dom": "18.1.0"
   },

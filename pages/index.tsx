@@ -97,7 +97,7 @@ const Home = (props: { imageUrls: string[], aboutMe: {
               <Box fontSize={16} color="text.secondary">
                 {documentToReactComponents(JSON.parse(props.aboutMe[getCurrentLocale()]))}
               </Box>
-              <Stack
+              {/* <Stack
                 direction={{ xs: 'column', sm: 'row' }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
               >
@@ -105,7 +105,7 @@ const Home = (props: { imageUrls: string[], aboutMe: {
                 <Item><a target='_blank' rel="noreferrer" href='https://www.instagram.com/inkimono'><Box><InstagramIcon /><Box>@InKimono</Box></Box></a></Item>
                 <Item><a target='_blank' rel="noreferrer" href='https://www.facebook.com/profile.php?id=100010395427461'><Box><Facebook /><Box>@stasia.matsumoto</Box></Box></a></Item>
                 <Item><a target='_blank' rel="noreferrer" href='https://twitter.com/inkimono1'><Box><Twitter /><Box>@inkimono1</Box></Box></a></Item>
-              </Stack>
+              </Stack> */}
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>

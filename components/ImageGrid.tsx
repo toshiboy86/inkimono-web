@@ -21,7 +21,7 @@ const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: 
   const [modalImage, setModalImage] = useState('')
   const [open, setOpen] = useState(false)
   const handleOpen = (image: string) => {
-    setOpen(true)
+        setOpen(true)
     setModalImage(image)
   }
   const handleClose = () => {
@@ -37,18 +37,23 @@ const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: 
     <Grid container spacing={1} height={'auto'} p={3} mt={2} {...props}>
       {images.map((img: string) => {
         return (
-          <Grid item xs={12} md={4} key={img}>
+          <Grid item xs={12} md={4} key={img} onClick={() => { handleOpen(img)}}>
             <Image
-              onClick={() => { if(isModal) handleOpen(img)}}
+              // onClick={() => console.log('hey yo')}
               loader={myLoader}
-              src={img}
+              unoptimized
+              src="https://images.ctfassets.net/ofubuqdlqhhx/3U2S5aoJrB20tlrYDvAxtX/c23c4db84f32eb9ab20e7784ec4c2b1f/IMG_1487-Edit.jpg"
               alt={`Portfolio picture: ${img}`}
               width={700}
               height={height || 1000}
               loading='lazy'
-              objectFit='cover'
+              style={{
+                width: '100%',
+                height: 'auto',
+              }}
             />
           </Grid>
+          
         )
       })}
       <Modal

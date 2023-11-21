@@ -5,9 +5,9 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
+        {/* <Head>
           <link rel="InKimono favicon" href="/favicon.ico" />
-				</Head>
+				</Head> */}
         <body>
           <Box id="background"/>
             <Main />

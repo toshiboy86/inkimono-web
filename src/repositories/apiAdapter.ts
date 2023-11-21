@@ -19,7 +19,7 @@ export const fetchAsset = async (): Promise<{data: TImages}> => {
 }
 
 export const fetchApi = async <T>(param: TGetApi): Promise<{data: T}> => {
-  let query: string
+  let query: string = ''
 
   const queryOption = {...param.option, include: '2'}
   
