@@ -16,7 +16,7 @@ import { convertFirstLetterCapital, getNextLocale } from '../src/utils'
 import { TLocale } from '../src/entities';
 const pages = [
   {
-    link: '',
+    link: '/home', // TODO: fix the issue that '/' link href is causes server side error.
     text: 'home'
   },
   {
