@@ -16,7 +16,7 @@ import { convertFirstLetterCapital, getNextLocale } from '../src/utils'
 import { TLocale } from '../src/entities';
 const pages = [
   {
-    link: '/',
+    link: '',
     text: 'home'
   },
   {
@@ -77,6 +77,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
               InKimono
             </Typography>
           </Link>
+          { /* For Mobile */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -108,9 +109,18 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
             >
               {pages.map((page) => (
                 <MenuItem key={page.text} onClick={handleCloseNavMenu}>
-                  <Link href={page.link} locale={lang}>
-                    <Typography textAlign="center">{convertFirstLetterCapital(page.text)}</Typography>
-                  </Link>
+                  {
+                    (page.link === '/') && 
+                    <Link href = '' onClick={() => {console.log('home')}} locale={lang}>
+                      <Typography textAlign="center">{convertFirstLetterCapital(page.text)}</Typography>
+                    </Link>
+                  }
+                  {
+                    (page.link !== '/') && 
+                    <Link href={page.link} locale={lang}>
+                      <Typography textAlign="center">{convertFirstLetterCapital(page.text)}</Typography>
+                    </Link>
+                  }
                 </MenuItem>
               ))}
               <MenuItem key={nextLocale.path} onClick={handleCloseNavMenu}>
@@ -138,6 +148,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
               InKimono
             </Typography>
           </Link>
+          { /* For Desktop */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Link href={page.link} key={page.text} locale={lang}>
