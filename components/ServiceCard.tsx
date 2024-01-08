@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react'
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -15,9 +16,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PortraitIcon from '@mui/icons-material/Portrait';
-import { useLocale } from '../src/hooks/useLocale'
 import { TService } from '../src/entities/repositories'
 import { IServiceDetailFields } from '../@types/generated/contentful';
+import { TI18n, TLocale } from '../src/entities';
+import { getWordsOnLocale } from '../src/utils';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -41,9 +43,17 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function ServiceCard(props: {service: TService, serviceDetails: Record<string, IServiceDetailFields>, images: Record<string, string>}) {
-  const [expanded, setExpanded] = React.useState(false)
-  const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
+export default async function ServiceCard(props: {
+  service: TService,
+  serviceDetails: Record<string,IServiceDetailFields>,
+  images: Record<string, string>,
+  locale: TLocale,
+  i18n: TI18n
+}) {
+  const { locale, i18n } = props
+
+  const [expanded, setExpanded] = 
+  React.useState(false)
   const handleExpandClick = () => {
     setExpanded(!expanded);
   }
@@ -57,7 +67,7 @@ export default function ServiceCard(props: {service: TService, serviceDetails: R
   return (
     <Card>
       <CardHeader
-        title={getWordsOnLocale(props.service, 'title')}
+        title={getWordsOnLocale(props.service, 'title', locale)}
         subheader={`¥${props.service.price}`}
         action={ showReservationIcon(props.service.reservation_url) }
       />
@@ -68,7 +78,7 @@ export default function ServiceCard(props: {service: TService, serviceDetails: R
         alt="Service image"
       />
       <CardContent>
-        {getWordsOnLocale(props.service, 'description').content.map((e: IServices, i: number) => {
+        {getWordsOnLocale(props.service, 'description', locale).content.map((e: IServices, i: number) => {
           return (
             <>
             <Box mt={ i > 0 ? 2: 0}>
@@ -82,10 +92,10 @@ export default function ServiceCard(props: {service: TService, serviceDetails: R
       </CardContent>
       <CardActions disableSpacing>
         <Box mb={2} ml={1} textAlign={'center'} display={props.service.reservation_url ? 'block' : 'none' }>
-          <a target='_blank' rel="noreferrer" href={props.service.reservation_url || '/'}><Button variant="contained">{ wi18n().t('general.reserve')}</Button></a>
+          <a target='_blank' rel="noreferrer" href={props.service.reservation_url || '/'}><Button variant="contained">{ i18n['general']['reserve'] }</Button></a>
         </Box>
         <Box mb={1.5} ml={1} textAlign={'center'}>
-        <Link href='/portfolio' locale={getCurrentLocale()}><PortraitIcon fontSize='large' /></Link>
+        <Link href='/portfolio' locale={locale}><PortraitIcon fontSize='large' /></Link>
         </Box>
         <ExpandMore
           expand={expanded}
@@ -102,7 +112,7 @@ export default function ServiceCard(props: {service: TService, serviceDetails: R
             {
               props.service.serviceDetails.map((e) => {
                 return (
-                  <Typography paragraph sx={{ borderBottom: '1px solid' }} key={e.sys.id}>{getWordsOnLocale(props.serviceDetails[e.sys.id], 'title')}</Typography>
+                  <Typography paragraph sx={{ borderBottom: '1px solid' }} key={e.sys.id}>{getWordsOnLocale(props.serviceDetails[e.sys.id], 'title', locale)}</Typography>
                 )
               })
             }

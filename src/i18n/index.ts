@@ -12,6 +12,6 @@ i18n
       en,
       ja
     },
-    fallbackLng: 'en',
+    fallbackLng: ['en', 'ja'],
   })
 export { i18n }

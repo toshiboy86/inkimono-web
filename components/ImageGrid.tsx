@@ -1,3 +1,4 @@
+'use client'
 import {useState} from 'react';
 import Image, { ImageLoaderProps } from 'next/image'
 import type { FC } from 'react'
@@ -42,7 +43,7 @@ const ImageGrid: FC<{ images: string[], props?: GridTypeMap['props'], isModal?: 
               // onClick={() => console.log('hey yo')}
               loader={myLoader}
               unoptimized
-              src="https://images.ctfassets.net/ofubuqdlqhhx/3U2S5aoJrB20tlrYDvAxtX/c23c4db84f32eb9ab20e7784ec4c2b1f/IMG_1487-Edit.jpg"
+              src={`${img}?w=700&h=1000&q=75`}
               alt={`Portfolio picture: ${img}`}
               width={700}
               height={height || 1000}

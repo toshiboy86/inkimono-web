@@ -1,28 +1,20 @@
-import { GetServerSidePropsContext } from "next/types"
-import Head from 'next/head'
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent';
-import Inquiry from '../components/Inquiry'
-import ServiceCard from '../components/ServiceCard'
-import TopImage from '../components/TopImage'
-import { fetchServiceCategories, fetchServices, fetchPortfolioImagesById, fetchServiceOptions, fetchDescriptions, fetchServiceDetails } from '../src/repositories'
-import { TService, TServiceCategory, TServiceOptionRepository } from '../src/entities/repositories'
-import { lang, useLocale } from '../src/hooks/useLocale'
-import { makeServiceFactory, makeServiceCategoryFactory, makeServiceDetailsFactory } from "../src/factories";
-import { IServiceDetailFields } from "../@types/generated/contentful";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { Container, Grid, Typography, Box, CardContent } from "@mui/material"
+import Inquiry from '../../../components/Inquiry'
+import ServiceCard from "../../../components/ServiceCard"
+import TopImage from "../../../components/TopImage"
+import { TLocale } from "../../../src/entities"
+import { TService } from "../../../src/entities/repositories"
+import { makeServiceFactory, makeServiceCategoryFactory, makeServiceDetailsFactory } from "../../../src/factories"
+import { fetchServices, fetchPortfolioImagesById, fetchServiceCategories, fetchServiceOptions, fetchDescriptions, fetchServiceDetails } from "../../../src/repositories"
+import { getDictionary } from "../dictionaries"
 
-export async function getServerSideProps({ res }: GetServerSidePropsContext) {
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=86400 maxage=86400, stale-while-revalidate=600'
-  )
-
-  const services2 = await fetchServices()
-  const serviceDto = makeServiceFactory(services2)
+export default async function ServicePage(params: { lang: TLocale }) {
+  const locale = params.lang
+  const dict = await getDictionary(locale)
+  
+  const services = await fetchServices()
+  const serviceDto = makeServiceFactory(services)
 
   const images = await fetchPortfolioImagesById()
 
@@ -44,70 +36,40 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   const description = await fetchDescriptions()
   const serviceDetails = await fetchServiceDetails() // here end today!
   const serviceDetailsDto = makeServiceDetailsFactory(serviceDetails)
-
-  return {
-    props: {
-      services: group_service,
-      serviceDetails: serviceDetailsDto,
-      category: categories,
-      images: images,
-      option: options,
-      chooseYourPlan: {en: JSON.stringify(description[0].fields.chooseYourPlan_en), ja: JSON.stringify(description[0].fields.chooseYourPlan_ja)},
-    }
-  }
-}
-
-const Service = (props: {
-  services: Record<any, TService[]>,
-  serviceDetails: Record<string, IServiceDetailFields>
-  category: TServiceCategory[],
-  images: Record<string, string>,
-  option: TServiceOptionRepository[],
-  chooseYourPlan: {
-    [K in lang]: string;
-  }
-}) => {
-  const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
+  const yourPlan = description[0].fields[`chooseYourPlan_${locale}`]
 
   return (
     <div>
-      <Head>
-        <title>{wi18n().t('meta.service_title')}</title>
-        <meta property="og:title" content={wi18n().t('meta.service_title')} />
-        <meta property="og:description" content={wi18n().t('meta.service_description')} />
-        <meta property="og:image" content='/wrapper-img.jpg' />
-        <meta name="twitter:card" content={wi18n().t('meta.service_description')}/>
-      </Head>
       <TopImage title='Plans & Pricing' />
       <Container maxWidth="lg">
         <Grid container spacing={1} sx={{ mt: 3 }}>
           <Grid item xs={12} md={7}>
             <Typography variant="h4">
-              {wi18n().t('general.about_my_service')}
+              { dict['translation']['general']['about_my_service'] }
             </Typography>
             <Box
               sx={{ pt: 3 }}
             >
               <Typography variant="body1" color="text.secondary">
-                {wi18n().t('service.about_1')}
+                { dict['translation']['service']['about_1'] }
                 <br /><br />
-                {wi18n().t('service.about_2')}
+                { dict['translation']['service']['about_2'] }
                 <br /><br />
-                {wi18n().t('service.about_3')}
+                { dict['translation']['service']['about_3'] }
               </Typography>
               <br />
             </Box>
             <Box mt={4}>
               <Typography variant="h5">
-                {wi18n().t('general.quality')}
+                { dict['translation']['general']['quality'] }
               </Typography>
               <Box
                 sx={{ pt: 3 }}
               >
                 <Typography variant="body1" color="text.secondary">
-                  {wi18n().t('service.quality_1')}
+                  { dict['translation']['service']['quality_1'] }
                   <br />
-                  {wi18n().t('service.quality_2')}
+                  { dict['translation']['service']['quality_2'] }
                 </Typography>
               </Box>
             </Box>
@@ -130,29 +92,34 @@ const Service = (props: {
         <Grid container spacing={1} textAlign='center' sx={{ mt: 3 }}>
           <Grid item>
             <Typography variant="h4">
-              {wi18n().t('service.plan_top_1')}
+              { dict['translation']['service']['plan_top_1'] }
+              {/* {wi18n().t('service.plan_top_1')} */}
             </Typography>
             <Box
               sx={{ pt: 3 }}
             >
             <Box fontSize={16} color="text.secondary">
-              {documentToReactComponents(JSON.parse(props.chooseYourPlan[getCurrentLocale()]))}
+              { yourPlan && 
+                // TODO: fix any
+                documentToReactComponents(yourPlan as any)
+              }
             </Box>
             </Box>
           </Grid>
         </Grid>
-        {props.category.map((cat) => {
+        {categories.map((cat) => {
           return (
             <div key={cat.id}>
               <Typography variant="h5" sx={{ textAlign: 'center', mt: 8, mb: 6 }}>
                 {cat.title}
               </Typography>
               <Grid container spacing={1} sx={{ mt: 3 }} key={cat.id}>
-                {props.services[cat.id].map((service) => {
+                {group_service[cat.id].map((service) => {
                   return (
                     <>
                     <Grid item xs={12} md={4} key={service.id + cat.id}>
-                      <ServiceCard service={service} serviceDetails={props.serviceDetails} images={props.images}></ServiceCard>
+                      {/* @ts-expect-error Server Component */}
+                      <ServiceCard service={service} serviceDetails={serviceDetailsDto} images={images} locale={locale} i18n={dict['translation']} />
                     </Grid>
                     </>
                   )
@@ -168,9 +135,9 @@ const Service = (props: {
           <Grid item>
             <CardContent>
               {
-                props.option.map((opt) => {
+                options.map((opt) => {
                   return (
-                    <Typography paragraph sx={{ borderBottom: '1px solid' }} key={opt.sys.id}>{getWordsOnLocale(opt.fields, 'body')}</Typography>
+                    <Typography paragraph sx={{ borderBottom: '1px solid' }} key={opt.sys.id}>{opt.fields[`body_${locale}`]}</Typography>
                   )
                 })
               }
@@ -189,9 +156,9 @@ const Service = (props: {
             lg: '300px',
           }
         }}>
-        <Inquiry></Inquiry>
+        {/* @ts-expect-error Server Component */}
+        <Inquiry lang={params.lang}/>
       </Box>
     </div>
   )
 }
-export default Service

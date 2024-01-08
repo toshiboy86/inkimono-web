@@ -3,22 +3,27 @@ import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { Button } from '@mui/material'
-import { useLocale } from '../src/hooks/useLocale'
+import { getDictionary } from '../app/[lang]/dictionaries'
+import { TLocale } from '../src/entities'
 
-const Inquiry = () => {
-  const { getCurrentLocale, wi18n } = useLocale()
+const Inquiry = async (params: { lang: TLocale }) => {
+  const dict = await getDictionary(params.lang)
   return (
     <Container>
       <Box>
         <Box textAlign={'center'} pt={9} sx={{ display: 'table-cell', verticalAlign: 'middle', color: '#f8fffc', fontWeight: '900'}}>
           <Typography variant="h4">
-            {wi18n().t('general.inquiry')}
+            { dict['translation']['general']['inquiry'] }
           </Typography>
           <Box mt={4} mb={4}>
-            <p>{wi18n().t('index.inquiry_body_1')}</p>
-            <p>{wi18n().t('index.inquiry_body_2')}</p>
+            { dict['translation']['index']['inquiry_body_1'] }
+            { dict['translation']['index']['inquiry_body_2'] }
           </Box>
-          <Link href='/inquiry' locale={getCurrentLocale()}><Button variant="contained">{wi18n().t('general.inquiry')}</Button></Link>
+          <Link href='/inquiry'>
+            <Button variant="contained">
+              { dict['translation']['general']['inquiry'] }
+            </Button>
+          </Link>
           </Box>
         </Box>
     </Container>

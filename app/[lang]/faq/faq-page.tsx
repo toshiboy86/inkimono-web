@@ -1,3 +1,4 @@
+'use client'
 import Head from 'next/head'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid';
@@ -7,10 +8,11 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Inquiry from '../components/Inquiry'
-import TopImage from '../components/TopImage'
-import { fetchQuestionAndAnswer } from '../src/repositories'
-import { useLocale } from '../src/hooks/useLocale'
+import { TLocale } from "../../../src/entities"
+import { fetchQuestionAndAnswer } from "../../../src/repositories"
+import { getDictionary } from '../dictionaries'
+import TopImage from '../../../components/TopImage';
+import Inquiry from '../../../components/Inquiry';
 
 type TQnA = {
   fields: {
@@ -21,38 +23,16 @@ type TQnA = {
   }
 }
 
-export async function getServerSideProps() {
-  const faq = await fetchQuestionAndAnswer()  
-  return {
-    props: {
-      faq
-    }
-  }
-  
-}
-
-const Service = (props: {
-  faq: {
-    fields: {
-      question_ja: string,
-      question_en: string,
-      answer_en: string,
-      answer_ja: string,
-    }
-  }[],
-}) => {
-  const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
+// TODO: Under migration.
+export default async function FAQPage(params: { lang: TLocale }) {
+  // const faq = await fetchQuestionAndAnswer()
+  // const locale = params.lang
+  // const dict = await getDictionary(locale)
 
   return (
     <div>
-      <Head>
-        <title>{wi18n().t('meta.faq_title')}</title>
-        <meta property="og:title" content={wi18n().t('meta.faq_title')} />
-        <meta property="og:description" content={wi18n().t('meta.faq_description')} />
-        <meta property="og:image" content='/wrapper-img.jpg' />
-        <meta name="twitter:card" content={wi18n().t('meta.faq_description')}/>
-      </Head>
-      <TopImage title={wi18n().t('general.faq')} />
+      <h1>Under Preparation</h1>
+      {/* <TopImage title='FAQ' />
       <Container maxWidth="lg">
         <Grid container spacing={1} sx={{ mt: 3 }}>
         {
@@ -93,9 +73,8 @@ const Service = (props: {
             lg: '300px',
           }
         }}>
-        <Inquiry></Inquiry>
-      </Box>
+        <Inquiry />
+      </Box> */}
     </div>
   )
 }
-export default Service

@@ -1,6 +1,7 @@
+'use client'
 import * as React from 'react';
-import { useRouter } from 'next/router'
-import AppBar from '@mui/material/AppBar';
+import { usePathname } from 'next/navigation'
+import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -11,9 +12,8 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link'
-import { convertFirstLetterCapital } from '../src/utils'
-import { useLocale } from '../src/hooks/useLocale'
-
+import { convertFirstLetterCapital, getNextLocale } from '../src/utils'
+import { TLocale } from '../src/entities';
 const pages = [
   {
     link: '/',
@@ -41,8 +41,8 @@ const pages = [
   }
 ]
 
-const ResponsiveAppBar = () => {
-  const { getCurrentLocale, getNextLocale, wi18n } = useLocale()
+export default function ResponsiveAppBar(params: { lang: TLocale }) {
+  const { lang } = params
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -54,16 +54,16 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(null);
   };
 
+  const nextLocale = getNextLocale(lang, usePathname())
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link href='/' locale={getCurrentLocale()}>
+          <Link href='/' locale={lang}>
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -108,24 +108,22 @@ const ResponsiveAppBar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page.text} onClick={handleCloseNavMenu}>
-                  <Link href={page.link} locale={getCurrentLocale()}>
+                  <Link href={page.link} locale={lang}>
                     <Typography textAlign="center">{convertFirstLetterCapital(page.text)}</Typography>
                   </Link>
                 </MenuItem>
               ))}
-              <MenuItem key={getNextLocale()} onClick={handleCloseNavMenu}>
-                <Link href={useRouter().pathname} locale={getNextLocale()}>
-                  <Typography textAlign="center" color={'rgb(197, 74, 25)'}>{convertFirstLetterCapital(wi18n().t('links.nextLocale'))}</Typography>
+              <MenuItem key={nextLocale.path} onClick={handleCloseNavMenu}>
+                <Link href={nextLocale.path}>
+                  <Typography textAlign="center" color={'rgb(197, 74, 25)'}>{convertFirstLetterCapital(nextLocale.value)}</Typography>
                 </Link>
               </MenuItem>
             </Menu>
           </Box>
-          <Link href='/' locale={getCurrentLocale()}>
+          <Link href='/' locale={lang} >
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/"
               sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
@@ -142,7 +140,7 @@ const ResponsiveAppBar = () => {
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link href={page.link} key={page.text} locale={getCurrentLocale()}>
+              <Link href={page.link} key={page.text} locale={lang}>
                 <Button
                   key={page.text}
                   sx={{ my: 2, color: 'white', display: 'block' }}
@@ -151,13 +149,13 @@ const ResponsiveAppBar = () => {
                 </Button>
               </Link>
             ))}
-            <Link href={useRouter().pathname} locale={getNextLocale()}>
+            <Link href={`${nextLocale.path}`}>
               <Button
-                key={wi18n().t('links.nextLocale')}
+                key={nextLocale.path}
                 color="secondary"
                 sx={{ my: 2, display: 'block', fontWeight: 'bold' }}
               >
-                {convertFirstLetterCapital(wi18n().t('links.nextLocale'))}
+                {convertFirstLetterCapital(nextLocale.value)}
               </Button>
             </Link>
           </Box>
@@ -166,4 +164,3 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;

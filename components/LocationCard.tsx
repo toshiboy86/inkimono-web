@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react'
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -9,27 +10,16 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { useLocale } from '../src/hooks/useLocale'
 import { TLocationsRepository } from '../src/entities/repositories';
+import { getWordsOnLocale } from '../src/utils';
+import { TLocale } from '../src/entities';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
-export default function ServiceCard(props: {location: TLocationsRepository, images: Record<string, string>}) {
+export default function LocationCard(props: {location: TLocationsRepository, images: Record<string, string>, locale: TLocale}) {
   const [expanded, setExpanded] = React.useState(false)
-  const { getCurrentLocale, getWordsOnLocale, wi18n } = useLocale()
   const handleExpandClick = () => {
     setExpanded(!expanded);
   }
@@ -44,8 +34,7 @@ export default function ServiceCard(props: {location: TLocationsRepository, imag
   return (
     <Card>
       <CardHeader
-        title={getWordsOnLocale(props.location.fields, 'title')}
-        // action={ showReservationIcon(props.location.fields.reservation_url) }
+        title={getWordsOnLocale(props.location.fields, 'title', props.locale)}
       />
       <CardMedia
         component="img"
@@ -54,7 +43,7 @@ export default function ServiceCard(props: {location: TLocationsRepository, imag
         alt="Service image"
       />
       <CardContent>
-        {getWordsOnLocale(props.location.fields, 'description').content.map((e: any, i: number) => {
+        {getWordsOnLocale(props.location.fields, 'description', props.locale).content.map((e: any, i: number) => {
           return (
             <>
             <Box mt={ i > 0 ? 2: 0}>
