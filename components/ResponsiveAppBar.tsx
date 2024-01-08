@@ -16,7 +16,7 @@ import { convertFirstLetterCapital, getNextLocale } from '../src/utils'
 import { TLocale } from '../src/entities';
 const pages = [
   {
-    link: '/home', // TODO: fix the issue that '/' link href is causes server side error.
+    link: 'home', // TODO: fix the issue that '/' link href is causes server side error.
     text: 'home'
   },
   {
@@ -60,7 +60,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link href='/' locale={lang}>
+          <Link href='home' locale={lang} prefetch={!(nextLocale.path === 'home')}>
             <Typography
               variant="h6"
               noWrap
@@ -109,18 +109,9 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
             >
               {pages.map((page) => (
                 <MenuItem key={page.text} onClick={handleCloseNavMenu}>
-                  {
-                    (page.link === '/') && 
-                    <Link href = '' onClick={() => {console.log('home')}} locale={lang}>
-                      <Typography textAlign="center">{convertFirstLetterCapital(page.text)}</Typography>
-                    </Link>
-                  }
-                  {
-                    (page.link !== '/') && 
-                    <Link href={page.link} locale={lang}>
-                      <Typography textAlign="center">{convertFirstLetterCapital(page.text)}</Typography>
-                    </Link>
-                  }
+                  <Link href={page.link} locale={lang} prefetch={!(nextLocale.path === 'home')}>
+                    <Typography textAlign="center">{convertFirstLetterCapital(page.text)}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
               <MenuItem key={nextLocale.path} onClick={handleCloseNavMenu}>
@@ -130,7 +121,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
               </MenuItem>
             </Menu>
           </Box>
-          <Link href='/' locale={lang} >
+          <Link href='home' locale={lang} prefetch={!(nextLocale.path === 'home')} >
             <Typography
               variant="h6"
               noWrap
@@ -160,7 +151,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
                 </Button>
               </Link>
             ))}
-            <Link href={`${nextLocale.path}`}>
+            <Link href={`${nextLocale.path}`} prefetch={!(nextLocale.path === 'home')}>
               <Button
                 key={nextLocale.path}
                 color="secondary"
