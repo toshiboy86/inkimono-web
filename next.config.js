@@ -28,6 +28,11 @@ const nextConfig = {
         source: '/faq',
         destination: '/en/faq',
       },
+      // TODO: remove it after fixing redirect issue
+      {
+        source: '/redirect',
+        destination: '/en/redirect',
+      },
     ]
   },
 }
