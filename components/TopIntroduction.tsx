@@ -1,4 +1,5 @@
-import { Container, Box, Typography } from "@mui/material";
+import dynamic from 'next/dynamic'
+import { Box, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid'
 import CardMedia from '@mui/material/CardMedia'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -6,6 +7,8 @@ import { TDescriptionRepository } from "../src/entities/repositories";
 import Link from 'next/link'
 import { Button } from '@mui/material';
 import { TI18n, TLocale } from "../src/entities";
+
+const MapComponent = dynamic(() => import('./MapCard'))
 
 
 const TopIntroduction = (props: 
@@ -61,12 +64,7 @@ const TopIntroduction = (props:
             </Typography>
           </Box>
           <Box mt={4} mr={2}>
-            <CardMedia
-              component='iframe'
-              image='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12957.077060825!2d139.8002235!3d35.7195958!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf0811fa9b89cd301!2sinKIMONO!5e0!3m2!1sja!2sjp!4v1641210479819!5m2!1sja!2sjp'
-              height={300}
-              sx={{ border: 0 }}
-            ></CardMedia>
+            <MapComponent />
           </Box>
           <Box mt={6} mb={5} textAlign={'center'}>
             <Link href='/service' locale={lang}><Button variant="contained">{i18n['index']['view_service']}</Button></Link>
