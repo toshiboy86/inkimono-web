@@ -46,6 +46,7 @@ const TopIntroduction = (props:
                 lg: '700px',
               }
             }}
+            alt='Stasia self portrait image sitting in the Studio'
             src='/wrapper-img.jpg'>
           </Box>
         </Grid>
@@ -67,7 +68,7 @@ const TopIntroduction = (props:
             <MapComponent />
           </Box>
           <Box mt={6} mb={5} textAlign={'center'}>
-            <Link href='/service' locale={lang}><Button variant="contained">{i18n['index']['view_service']}</Button></Link>
+            <Link href='/service' locale={lang}><Button variant="contained">{i18n['general']['view_service']}</Button></Link>
           </Box>
         </Grid>
         <Grid item xs={12} md={5}>
@@ -80,6 +81,7 @@ const TopIntroduction = (props:
               lg: '700px',
             }
           }}
+          alt='Stasia in front of the Studio'
           src='/studio.jpg'>
           </Box>
         </Grid>
