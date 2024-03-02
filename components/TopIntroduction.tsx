@@ -1,14 +1,13 @@
 import dynamic from 'next/dynamic'
 import { Box, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid'
-import CardMedia from '@mui/material/CardMedia'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { TDescriptionRepository } from "../src/entities/repositories";
 import Link from 'next/link'
 import { Button } from '@mui/material';
 import { TI18n, TLocale } from "../src/entities";
 
-const MapComponent = dynamic(() => import('./MapCard'))
+const MapComponent = dynamic(() => import('./MapCard'), { ssr: false })
 
 
 const TopIntroduction = (props: 

@@ -1,3 +1,4 @@
+'use client'
 import CardMedia from '@mui/material/CardMedia'
 
 export default function MapCard() {
