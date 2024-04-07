@@ -36,7 +36,8 @@ export const fetchApi = async <T>(param: TGetApi): Promise<{data: T}> => {
     `https://cdn.contentful.com/spaces/${process.env.CTF_SPACE_ID}/environments/master/entries?content_type=${param.table}&${query}`,
     {
       credentials: 'omit',
-      headers: { Authorization: `Bearer ${process.env.CTF_CDA_ACCESS_TOKEN}` }
+      headers: { Authorization: `Bearer ${process.env.CTF_CDA_ACCESS_TOKEN}` },
+      next: { revalidate: 600 },
     }
   )
 
