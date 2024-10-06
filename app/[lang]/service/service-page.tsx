@@ -119,7 +119,7 @@ export default async function ServicePage(params: { lang: TLocale }) {
                     <>
                     <Grid item xs={12} md={4} key={service.id + cat.id}>
                       {/* @ts-expect-error Server Component */}
-                      <ServiceCard service={service} serviceDetails={serviceDetailsDto} images={images} locale={locale} i18n={dict['translation']} />
+                      <ServiceCard service={service} serviceDetails={serviceDetailsDto} images={images} locale={locale} i18n={dict['translation']} key={cat.id} />
                     </Grid>
                     </>
                   )

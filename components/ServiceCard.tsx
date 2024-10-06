@@ -27,8 +27,9 @@ export default async function ServiceCard(props: {
   images: Record<string, string>,
   locale: TLocale,
   i18n: TI18n
+  key: string
 }) {
-  const { locale, i18n } = props
+  const { locale, i18n, key } = props
 
   const [expanded, setExpanded] = 
   React.useState(false)
@@ -43,7 +44,7 @@ export default async function ServiceCard(props: {
 
   const imageUrl = props.images[props.service.mainImage!.sys.id] || 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg'
   return (
-    <Card>
+    <Card key={key}>
       <CardHeader
         title={getWordsOnLocale(props.service, 'title', locale)}
         subheader={`¥${props.service.price}`}
