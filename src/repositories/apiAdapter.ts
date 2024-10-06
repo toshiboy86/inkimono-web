@@ -37,7 +37,7 @@ export const fetchApi = async <T>(param: TGetApi): Promise<{data: T}> => {
     {
       credentials: 'omit',
       headers: { Authorization: `Bearer ${process.env.CTF_CDA_ACCESS_TOKEN}` },
-      next: { revalidate: 600 },
+      next: { revalidate: false },
     }
   )
 
