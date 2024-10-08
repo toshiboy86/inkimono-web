@@ -32,7 +32,7 @@ export default async function ServicePage(params: { lang: TLocale }) {
   
   const categoriesRepo = await fetchServiceCategories()
   const categories = await makeServiceCategoryFactory(categoriesRepo)
-  const options = await fetchServiceOptions()
+  // const options = await fetchServiceOptions() TODO: remove it later.
   const description = await fetchDescriptions()
   const serviceDetails = await fetchServiceDetails() // here end today!
   const serviceDetailsDto = makeServiceDetailsFactory(serviceDetails)
@@ -43,7 +43,7 @@ export default async function ServicePage(params: { lang: TLocale }) {
       <TopImage title='Plans & Pricing' />
       <Container maxWidth="lg">
         <Grid container spacing={1} sx={{ mt: 3 }}>
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} md={7} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Typography variant="h4">
               { dict['translation']['general']['about_my_service'] }
             </Typography>
@@ -54,24 +54,8 @@ export default async function ServicePage(params: { lang: TLocale }) {
                 { dict['translation']['service']['about_1'] }
                 <br /><br />
                 { dict['translation']['service']['about_2'] }
-                <br /><br />
-                { dict['translation']['service']['about_3'] }
               </Typography>
               <br />
-            </Box>
-            <Box mt={4}>
-              <Typography variant="h5">
-                { dict['translation']['general']['quality'] }
-              </Typography>
-              <Box
-                sx={{ pt: 3 }}
-              >
-                <Typography variant="body1" color="text.secondary">
-                  { dict['translation']['service']['quality_1'] }
-                  <br />
-                  { dict['translation']['service']['quality_2'] }
-                </Typography>
-              </Box>
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>
@@ -128,22 +112,6 @@ export default async function ServicePage(params: { lang: TLocale }) {
             </div>
           )
         })}
-        <Typography variant="h5" sx={{ textAlign: 'center', mt: 8 }}>
-          Options
-        </Typography>
-        <Grid container spacing={1} sx={{ mt: 3 }}>
-          <Grid item>
-            <CardContent>
-              {
-                options.map((opt) => {
-                  return (
-                    <Typography paragraph sx={{ borderBottom: '1px solid' }} key={opt.sys.id}>{opt.fields[`body_${locale}`]}</Typography>
-                  )
-                })
-              }
-            </CardContent>
-          </Grid>
-        </Grid>
       </Container>
       <Box
         mt={8}
