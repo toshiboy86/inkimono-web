@@ -1,7 +1,7 @@
-'use client'
+'use client';
 import * as React from 'react';
-import { usePathname } from 'next/navigation'
-import AppBar from '@mui/material/AppBar'
+import { usePathname } from 'next/navigation';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -11,40 +11,45 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import Link from 'next/link'
-import { convertFirstLetterCapital, getNextLocale } from '../src/utils'
+import Link from 'next/link';
+import { convertFirstLetterCapital, getNextLocale } from '../src/utils';
 import { TLocale } from '../src/entities';
 const pages = [
   {
     link: 'redirect', // TODO: fix the issue that '/' link href is causes server side error.
-    text: 'home'
+    text: 'home',
   },
   {
     link: 'service',
-    text: 'Plans & Pricing'
+    text: 'Plans & Pricing',
   },
   {
     link: 'portfolio',
-    text: 'portfolio'
+    text: 'portfolio',
+  },
+  {
+    link: 'workshop',
+    text: 'workshop',
   },
   {
     link: 'location',
-    text: 'location'
+    text: 'location',
   },
   {
     link: 'inquiry',
-    text: 'inquiry'
+    text: 'inquiry',
   },
   {
     link: 'faq',
-    text: 'faq'
-  }
-]
+    text: 'faq',
+  },
+];
 
 export default function ResponsiveAppBar(params: { lang: TLocale }) {
-  const { lang } = params
+  const { lang } = params;
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] =
+    React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -54,13 +59,13 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
     setAnchorElNav(null);
   };
 
-  const nextLocale = getNextLocale(lang, usePathname())
+  const nextLocale = getNextLocale(lang, usePathname());
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link href='redirect' locale={lang}>
+          <Link href="redirect" locale={lang}>
             <Typography
               variant="h6"
               noWrap
@@ -77,7 +82,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
               InKimono
             </Typography>
           </Link>
-          { /* For Mobile */}
+          {/* For Mobile */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -110,18 +115,22 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
               {pages.map((page) => (
                 <MenuItem key={page.text} onClick={handleCloseNavMenu}>
                   <Link href={page.link} locale={lang}>
-                    <Typography textAlign="center">{convertFirstLetterCapital(page.text)}</Typography>
+                    <Typography textAlign="center">
+                      {convertFirstLetterCapital(page.text)}
+                    </Typography>
                   </Link>
                 </MenuItem>
               ))}
               <MenuItem key={nextLocale.path} onClick={handleCloseNavMenu}>
                 <Link href={nextLocale.path}>
-                  <Typography textAlign="center" color={'rgb(197, 74, 25)'}>{convertFirstLetterCapital(nextLocale.value)}</Typography>
+                  <Typography textAlign="center" color={'rgb(197, 74, 25)'}>
+                    {convertFirstLetterCapital(nextLocale.value)}
+                  </Typography>
                 </Link>
               </MenuItem>
             </Menu>
           </Box>
-          <Link href='redirect' locale={lang} >
+          <Link href="redirect" locale={lang}>
             <Typography
               variant="h6"
               noWrap
@@ -139,7 +148,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
               InKimono
             </Typography>
           </Link>
-          { /* For Desktop */}
+          {/* For Desktop */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Link href={page.link} key={page.text} locale={lang}>
@@ -165,4 +174,4 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
       </Container>
     </AppBar>
   );
-};
+}

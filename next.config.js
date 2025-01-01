@@ -1,7 +1,7 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
-})
-  
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -32,13 +32,17 @@ const nextConfig = {
         source: '/faq',
         destination: '/en/faq',
       },
+      {
+        source: '/workshop',
+        destination: '/en/workshop',
+      },
       // TODO: remove it after fixing redirect issue
       {
         source: '/redirect',
         destination: '/en/redirect',
       },
-    ]
+    ];
   },
-}
+};
 
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = withBundleAnalyzer(nextConfig);
