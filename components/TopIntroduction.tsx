@@ -27,8 +27,8 @@ const TopIntroduction = (props: {
         imageSrc="/wrapper-img.jpg"
         imageAlt="Stasia self portrait image sitting in the Studio"
       >
-        <Grid item xs={12} md={7}>
-          <Typography variant="h4">{i18n['index']['aboutme_title']}</Typography>
+        <Grid>
+          <Typography variant="h4">About Me</Typography>
           <Box sx={{ pt: 3 }}>
             <Box fontSize={16} color="text.secondary">
               {description &&
