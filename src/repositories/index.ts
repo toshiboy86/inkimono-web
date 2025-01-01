@@ -100,6 +100,7 @@ export const fetchLocation = async (): Promise<TLocationRepository[]> => {
 export const fetchQuestionAndAnswer = async (): Promise<TQAndARepository[]> => {
   const res = await fetchApi<TQAndARepository[]>({
     table: 'question',
+    option: { order: 'sys.createdAt' },
   });
   return res.data;
 };
