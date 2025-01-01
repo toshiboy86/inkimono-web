@@ -171,6 +171,18 @@ export interface IPageFields {
 
   /** image_2 */
   image_en_2?: Asset | undefined;
+
+  /** meta_title_en */
+  meta_title_en?: string | undefined;
+
+  /** meta_title_ja */
+  meta_title_ja?: string | undefined;
+
+  /** meta_description_en */
+  meta_description_en?: string | undefined;
+
+  /** meta_description_ja */
+  meta_description_ja?: string | undefined;
 }
 
 export interface IPage extends Entry<IPageFields> {
