@@ -170,7 +170,7 @@ export interface IPageFields {
   description_ja_2?: Document | undefined;
 
   /** image_2 */
-  image_en_2?: Asset | undefined;
+  image_2?: Asset | undefined;
 
   /** meta_title_en */
   meta_title_en?: string | undefined;
