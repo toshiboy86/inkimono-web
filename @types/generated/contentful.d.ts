@@ -48,6 +48,12 @@ export interface IDescriptionFields {
 
   /** choose_your_plan_ja */
   chooseYourPlan_ja?: Document | undefined;
+
+  /** workshop_title_en */
+  workshop_title_en?: Document | undefined;
+
+  /** workshop_title_ja */
+  workshop_title_ja?: Document | undefined;
 }
 
 export interface IDescription extends Entry<IDescriptionFields> {
@@ -131,6 +137,52 @@ export interface ILocations extends Entry<ILocationsFields> {
     contentType: {
       sys: {
         id: "locations";
+        linkType: "ContentType";
+        type: "Link";
+      };
+    };
+  };
+}
+
+export interface IPageFields {
+  /** type */
+  type: string;
+
+  /** desc_title_en_1 */
+  desc_title_en_1?: string | undefined;
+
+  /** desc_title_ja_1 */
+  desc_title_ja_1?: string | undefined;
+
+  /** description_en_1 */
+  description_en_1: Document;
+
+  /** description_ja_1 */
+  description_ja_1?: Document | undefined;
+
+  /** image_1 */
+  image_1?: Asset | undefined;
+
+  /** description_en_2 */
+  description_en_2?: Document | undefined;
+
+  /** description_ja_2 */
+  description_ja_2?: Document | undefined;
+
+  /** image_2 */
+  image_en_2?: Asset | undefined;
+}
+
+export interface IPage extends Entry<IPageFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: "page";
         linkType: "ContentType";
         type: "Link";
       };
@@ -306,6 +358,7 @@ export type CONTENT_TYPE =
   | "description"
   | "location"
   | "locations"
+  | "page"
   | "question"
   | "service"
   | "serviceCategories"
@@ -317,6 +370,7 @@ export type IEntry =
   | IDescription
   | ILocation
   | ILocations
+  | IPage
   | IQuestion
   | IService
   | IServiceCategories
