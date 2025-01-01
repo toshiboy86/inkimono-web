@@ -20,7 +20,7 @@ export default async function WorkshopPage(params: { lang: TLocale }) {
   const mainDescription = workshop.fields[`description_${locale}_1`];
   const mainDescTitle = workshop.fields[`desc_title_${locale}_1`];
   const mainDescImage = workshop.fields.image_1;
-  console.log(mainDescImage);
+
   const images = await fetchPortfolioImagesById2(
     mainDescImage?.sys.id as string
   );
@@ -47,7 +47,11 @@ export default async function WorkshopPage(params: { lang: TLocale }) {
             {dict['translation']['general']['inquiry']}
           </Typography>
           <Box mt={2} textAlign={'center'}>
-            <Link href="/service">
+            <Link
+              href="https://inkimono.as.me/schedule/fdfa7192/?appointmentTypeIds[]=72094965"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button variant="contained">
                 {dict['translation']['general']['check_schedule']}
               </Button>
