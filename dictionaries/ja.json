@@ -37,11 +37,12 @@
       "about_my_service": "サービスについて",
       "inc_tax": "All Tax Included",
       "per_person": "per person",
-      "check_schedule": "check_schedule",
+      "check_schedule": "スケジュールを確認する",
       "contact_me": "お問い合わせ",
       "shop": "ショップ",
       "reserve": "空きを確認",
-      "faq": "よくある質問"
+      "faq": "よくある質問",
+      "dm": "お問い合わせはこちらから"
     },
     "home": {
       "title": "Hello,World!",
@@ -114,7 +115,7 @@
       "plan_6_body_2": "お母さんへの着付けと、赤ちゃんへのかけ着。赤ちゃんは生後6ヶ月まででお願いします。",
       "plan_6_body_3": "浅草の街並みや寺社仏閣を利用したロケーション撮影",
       "plan_6_body_5": "拘束時間:約2.5〜3時間",
-      "plan_7_title": "個人 浴衣撮影" ,
+      "plan_7_title": "個人 浴衣撮影",
       "plan_7_description": "コレクションの中から気に入った浴衣を一つ選んでもらいます -- スタイリングのアドバイスを行わせていただきます*",
       "plan_7_price": "38,000",
       "plan_7_body_1": "1人",

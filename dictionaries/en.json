@@ -43,7 +43,8 @@
       "contact_me": "Contact Me",
       "shop": "Shop",
       "reserve": "Check Availability",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "dm": "DM to Stasia"
     },
     "home": {
       "title": "Hello,World!",
@@ -190,7 +191,6 @@
       "plan_15_body_6": "OPTION: Hairset / Makeup / Furisode upgrade",
       "plan_15_body_7": "Weekend or evening photoshoot request +¥5000",
       "plan_16_title": "*Summer Limited July~August* INDIVIDUAL NIGHT KIMONO SHOOT"
-  
     },
     "contact": {
       "title": "Contact",
@@ -209,5 +209,4 @@
       "content-7": "Featured in Polish TV and radio 📺 📻"
     }
   }
-  
 }
