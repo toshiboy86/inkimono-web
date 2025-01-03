@@ -28,7 +28,7 @@ const TopIntroduction = (props: {
         imageAlt="Stasia self portrait image sitting in the Studio"
       >
         <Grid>
-          <Typography variant="h4">About Me</Typography>
+          <Typography variant="h2">About Me</Typography>
           <Box sx={{ pt: 3 }}>
             <Box fontSize={16} color="text.secondary">
               {description &&
@@ -40,7 +40,12 @@ const TopIntroduction = (props: {
 
       <Grid container spacing={1} sx={{ mt: 3 }}>
         <Grid item xs={12} md={7}>
-          <Typography variant="h4">{i18n['index']['studio_title']}</Typography>
+          <Typography
+            variant="h2"
+            sx={{ fontWeight: 400, fontSize: '2.125rem', lineHeight: 1.235 }}
+          >
+            {i18n['index']['studio_title']}
+          </Typography>
           <Box sx={{ pt: 3 }}>
             <Typography variant="body1" color="text.secondary">
               {i18n['index']['studio_me_1']}

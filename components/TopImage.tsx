@@ -1,32 +1,44 @@
-import type { FC } from 'react'
+import type { FC } from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
-const TopImage: FC<{title: string}> = ({ title }) => {
+const TopImage: FC<{ title: string }> = ({ title }) => {
   return (
     <Box
-        sx={{
-          backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
-          'object-fit': 'cover',
-          'height': {
-            xs: '300px',
-            lg: '350px',
-          }
-        }}>
-        <Container>
-          <Box>
-            <Box textAlign={'center'} pt={18} sx={{ verticalAlign: 'middle', color: '#f8fffc', fontWeight: '900'}}>
-              <Box sx={{ backgroundColor: 'rgba(48, 37, 37, 0.7)' }}>
-                <Typography variant="h4">
-                  {title}
-                </Typography>
-              </Box>
+      sx={{
+        backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
+        'object-fit': 'cover',
+        height: {
+          xs: '300px',
+          lg: '350px',
+        },
+      }}
+    >
+      <Container>
+        <Box>
+          <Box
+            textAlign={'center'}
+            pt={18}
+            sx={{
+              verticalAlign: 'middle',
+              color: '#f8fffc',
+              fontWeight: '900',
+            }}
+          >
+            <Box sx={{ backgroundColor: 'rgba(48, 37, 37, 0.7)' }}>
+              <Typography
+                variant="h1"
+                sx={{ fontWeight: 400, fontSize: '2.125rem' }}
+              >
+                {title}
+              </Typography>
             </Box>
           </Box>
-        </Container>
-      </Box>
-  )
-}
+        </Box>
+      </Container>
+    </Box>
+  );
+};
 
-export default TopImage
+export default TopImage;

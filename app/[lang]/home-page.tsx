@@ -35,7 +35,7 @@ export default async function HomePage(params: { lang: TLocale }) {
           i18n={dict['translation']}
         />
         <Box sx={{ mt: 6 }}>
-          <Typography variant="h4">
+          <Typography variant="h2">
             {dict['translation']['general']['portfolio']}
           </Typography>
           <ImageGrid
@@ -53,7 +53,7 @@ export default async function HomePage(params: { lang: TLocale }) {
         </Box>
 
         <Box sx={{ mt: 6 }}>
-          <Typography variant="h4">
+          <Typography variant="h2">
             {dict['translation']['index']['about_media']}
           </Typography>
           <ImageGrid

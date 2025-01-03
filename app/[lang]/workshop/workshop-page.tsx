@@ -41,7 +41,7 @@ export default async function WorkshopPage(params: { lang: TLocale }) {
           imageAlt="Stasia for the workshop"
         >
           <Grid item xs={12} md={7}>
-            <Typography variant="h4">{mainDescTitle}</Typography>
+            <Typography variant="h2">{mainDescTitle}</Typography>
             <Box sx={{ pt: 3 }}>
               <Box fontSize={16} color="text.secondary">
                 {mainDescription && documentToReactComponents(mainDescription)}
@@ -51,7 +51,7 @@ export default async function WorkshopPage(params: { lang: TLocale }) {
         </Article>
         <Grid xs={12}>
           <Box sx={{ mt: 6 }}>
-            <Typography variant="h4" mb={2}>
+            <Typography variant="h2" mb={2}>
               Price
             </Typography>
             <Image
@@ -73,7 +73,7 @@ export default async function WorkshopPage(params: { lang: TLocale }) {
           </Box>
         </Grid>
         <Box textAlign={'center'} pt={3}>
-          <Typography variant="h4">
+          <Typography variant="h2">
             {dict['translation']['general']['inquiry']}
           </Typography>
           <Box mt={2} textAlign={'center'}>
