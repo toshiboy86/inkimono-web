@@ -13,6 +13,15 @@
     <loc>https://www.inkimono.com/inquiry</loc>
   </url>
   <url>
+    <loc>https://www.inkimono.com/faq</loc>
+  </url>
+  <url>
+    <loc>https://www.inkimono.com/location</loc>
+  </url>
+  <url>
+    <loc>https://www.inkimono.com/workshop</loc>
+  </url>
+  <url>
     <loc>https://www.inkimono.com/ja</loc>
   </url>
   <url>
@@ -23,5 +32,14 @@
   </url>
   <url>
     <loc>https://www.inkimono.com/ja/inquiry</loc>
+  </url>
+  <url>
+    <loc>https://www.inkimono.com/ja/faq</loc>
+  </url>
+  <url>
+    <loc>https://www.inkimono.com/ja/location</loc>
+  </url>
+  <url>
+    <loc>https://www.inkimono.com/ja/workshop</loc>
   </url>
 </urlset>
