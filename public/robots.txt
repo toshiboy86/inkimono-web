@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://inkimono.com/sitemap.xml
