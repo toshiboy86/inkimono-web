@@ -18,6 +18,12 @@ jobs:
         with:
           bun-version: latest
 
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Run Tests
+        run: bun all:test
+
       - name: Install Vercel CLI
         run: bun install -g vercel@latest
 
