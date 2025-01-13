@@ -31,6 +31,7 @@ jobs:
         run: bunx playwright test
         env:
           CI: true
+          NODE_ENV: test
 
       - name: Install Vercel CLI
         run: bun install -g vercel@latest
