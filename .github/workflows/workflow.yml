@@ -21,14 +21,14 @@ jobs:
       - name: Install Dependencies
         run: bun install
 
+      - name: Run Unit Tests
+        run: bun unit:test
+
       - name: Install Playwright Browsers
         run: bunx playwright install --with-deps
 
-      - name: Run Unit Tests
-        run: bun test
-
       - name: Run E2E Tests
-        run: bun e2e:test
+        run: bunx playwright test
         env:
           CI: true
 
