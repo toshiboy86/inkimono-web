@@ -1,7 +1,8 @@
 name: Github Auto Deploy
 
-on: push
-  branches:
+on:
+  push:
+    branches:
       - main
 
 env:
