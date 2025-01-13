@@ -17,10 +17,14 @@ export const fetchAsset = async (param?: {
 
   if (res.ok) {
     const data = await res.json();
-
     return { data: data };
   } else {
-    throw new Error('error');
+    const errorData = await res.json();
+    throw new Error(
+      `API Error: ${res.status} ${res.statusText} - ${
+        errorData.message || 'Unknown error'
+      }`
+    );
   }
 };
 
