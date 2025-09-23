@@ -7,38 +7,62 @@ const TopHeader = (props: { i18n: TI18n }) => {
     <Box
       sx={{
         backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
-        'object-fit': 'cover',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        position: 'relative',
         height: {
-          xs: 'auto',
-          lg: '300px',
+          xs: '400px',
+          md: '500px',
+          lg: '600px',
+        },
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          backdropFilter: 'blur(1px)',
         },
       }}
     >
-      <Container>
-        <Box>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Box
+          textAlign={'center'}
+          sx={{
+            color: 'white',
+            maxWidth: '800px',
+            mx: 'auto',
+          }}
+        >
           <Box
-            textAlign={'center'}
-            pt={9}
             sx={{
-              display: 'table-cell',
-              verticalAlign: 'middle',
-              color: '#f8fffc',
-              fontWeight: '900',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '2rem',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              p: { xs: 3, md: 4 },
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
             }}
           >
-            <Box
-              p={1}
-              mt={4}
-              mb={4}
-              sx={{ backgroundColor: 'rgba(48, 37, 37, 0.7)' }}
+            <Typography
+              variant="h1"
+              sx={{
+                fontWeight: 600,
+                fontSize: { xs: '2rem', md: '2.5rem', lg: '3rem' },
+                lineHeight: 1.2,
+                letterSpacing: '-0.025em',
+                fontFamily: 'Inter, Noto Sans JP, system-ui, sans-serif',
+                mb: 2,
+              }}
             >
-              <Typography
-                variant="h1"
-                sx={{ fontWeight: 400, fontSize: '2.125rem' }}
-              >
-                {i18n['index']['top_title']}
-              </Typography>
-            </Box>
+              {i18n['index']['top_title']}
+            </Typography>
           </Box>
         </Box>
       </Container>

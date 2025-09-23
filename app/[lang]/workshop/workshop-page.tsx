@@ -33,27 +33,69 @@ export default async function WorkshopPage(params: { lang: TLocale }) {
     : null;
 
   return (
-    <div>
+    <Box sx={{ minHeight: '100vh' }}>
       <TopImage title="Workshop" />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ py: 8 }}>
         <Article
           imageSrc={images ? Object.values(images)[0] : DEFAULT_IMAGE}
           imageAlt="Stasia for the workshop"
         >
           <Grid item xs={12} md={7}>
-            <Typography variant="h2">{mainDescTitle}</Typography>
-            <Box sx={{ pt: 3 }}>
-              <Box fontSize={16} color="text.secondary">
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 600,
+                fontSize: { xs: '1.875rem', md: '2.25rem' },
+                lineHeight: 1.3,
+                letterSpacing: '-0.025em',
+                color: 'oklch(35.9% 0.023 210)',
+                mb: 3,
+              }}
+            >
+              {mainDescTitle}
+            </Typography>
+            <Box sx={{ pt: 2 }}>
+              <Box
+                sx={{
+                  fontSize: 16,
+                  color: 'oklch(45.3% 0.026 210)',
+                  lineHeight: 1.6,
+                  '& p': {
+                    mb: 2,
+                  },
+                }}
+              >
                 {mainDescription && documentToReactComponents(mainDescription)}
               </Box>
             </Box>
           </Grid>
         </Article>
-        <Grid xs={12}>
-          <Box sx={{ mt: 6 }}>
-            <Typography variant="h2" mb={2}>
-              Price
-            </Typography>
+
+        <Box sx={{ mt: 12, mb: 8 }}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: 600,
+              fontSize: { xs: '1.875rem', md: '2.25rem' },
+              lineHeight: 1.3,
+              letterSpacing: '-0.025em',
+              color: 'oklch(35.9% 0.023 210)',
+              mb: 4,
+              textAlign: 'center',
+            }}
+          >
+            Workshop Pricing
+          </Typography>
+          <Box
+            sx={{
+              borderRadius: '1.5rem',
+              overflow: 'hidden',
+              boxShadow:
+                '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+              maxWidth: '600px',
+              mx: 'auto',
+            }}
+          >
             <Image
               unoptimized
               src={
@@ -61,59 +103,151 @@ export default async function WorkshopPage(params: { lang: TLocale }) {
                   ? `${Object.values(second_images)[0]}?w=700&h=1000&q=75`
                   : DEFAULT_IMAGE
               }
-              alt={`Workshop price`}
+              alt="Workshop price"
               width={700}
               height={1000}
               loading="lazy"
               style={{
                 width: '100%',
                 height: 'auto',
+                display: 'block',
               }}
             />
           </Box>
-        </Grid>
-        <Box textAlign={'center'} pt={3}>
-          <Typography variant="h2">
+        </Box>
+
+        <Box
+          textAlign="center"
+          sx={{
+            backgroundColor: 'oklch(95.9% 0.006 210)',
+            borderRadius: '2rem',
+            p: { xs: 4, md: 6 },
+            border: '1px solid oklch(91.9% 0.011 210)',
+            boxShadow:
+              '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 600,
+              fontSize: { xs: '1.5rem', md: '2rem' },
+              lineHeight: 1.3,
+              letterSpacing: '-0.025em',
+              color: 'oklch(35.9% 0.023 210)',
+              mb: 4,
+            }}
+          >
             {dict['translation']['general']['inquiry']}
           </Typography>
-          <Box mt={2} textAlign={'center'}>
+
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: 3,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             <Link
               href="https://inkimono.as.me/schedule/fdfa7192/?appointmentTypeIds[]=72094965"
               target="_blank"
               rel="noopener noreferrer"
+              style={{ textDecoration: 'none' }}
             >
-              <Button variant="contained">
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: 'oklch(58.2% 0.196 30.2)',
+                  color: 'white',
+                  borderRadius: '1.5rem',
+                  px: 4,
+                  py: 1.5,
+                  fontWeight: 600,
+                  fontSize: '0.875rem',
+                  textTransform: 'none',
+                  boxShadow:
+                    '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                  '&:hover': {
+                    backgroundColor: 'oklch(51.4% 0.176 30.2)',
+                    transform: 'translateY(-1px)',
+                    boxShadow:
+                      '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                  },
+                }}
+              >
                 {dict['translation']['general']['check_schedule']}
               </Button>
             </Link>
-          </Box>
-          <Typography variant="body1" mt={2}>
-            OR
-          </Typography>
-          <Box mt={2} textAlign={'center'}>
-            <Link href="/inquiry">
-              <Button variant="contained" color="secondary">
+
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'oklch(45.3% 0.026 210)',
+                fontWeight: 500,
+              }}
+            >
+              OR
+            </Typography>
+
+            <Link href="/inquiry" style={{ textDecoration: 'none' }}>
+              <Button
+                variant="outlined"
+                sx={{
+                  borderColor: 'oklch(58.2% 0.196 30.2)',
+                  color: 'oklch(58.2% 0.196 30.2)',
+                  borderRadius: '1.5rem',
+                  px: 4,
+                  py: 1.5,
+                  fontWeight: 600,
+                  fontSize: '0.875rem',
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: 'oklch(58.2% 0.196 30.2)',
+                    color: 'white',
+                    transform: 'translateY(-1px)',
+                    boxShadow: '0 4px 8px rgba(217, 119, 87, 0.3)',
+                  },
+                }}
+              >
                 {dict['translation']['general']['dm']}
               </Button>
             </Link>
           </Box>
         </Box>
       </Container>
+
       <Box
-        mt={8}
         sx={{
           backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
-          backgroundColor: 'rgba(48, 37, 37,0.9)',
-          backgroundBlendMode: 'multiply',
-          'object-fit': 'cover',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          position: 'relative',
           height: {
-            lg: '300px',
+            xs: '400px',
+            md: '500px',
+            lg: '600px',
+          },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(1px)',
           },
         }}
       >
         {/* @ts-expect-error Server Component */}
         <Inquiry lang={params.lang} />
       </Box>
-    </div>
+    </Box>
   );
 }

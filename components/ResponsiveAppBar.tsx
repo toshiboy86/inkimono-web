@@ -62,9 +62,17 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
   const nextLocale = getNextLocale(lang, usePathname());
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      elevation={0}
+      sx={{
+        backgroundColor: 'oklch(100% 0 0)',
+        borderBottom: '1px solid oklch(91.9% 0.011 210)',
+        backdropFilter: 'blur(8px)',
+      }}
+    >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ py: 1 }}>
           <Link href="redirect" locale={lang}>
             <Typography
               variant="h6"
@@ -72,11 +80,12 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
+                fontFamily: 'Inter, Noto Sans JP, system-ui, sans-serif',
+                fontWeight: 600,
+                letterSpacing: '-0.025em',
+                color: 'oklch(35.9% 0.023 210)',
                 textDecoration: 'none',
+                fontSize: '1.25rem',
               }}
             >
               InKimono
@@ -90,7 +99,12 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              sx={{
+                color: 'oklch(35.9% 0.023 210)',
+                '&:hover': {
+                  backgroundColor: 'oklch(95.9% 0.006 210)',
+                },
+              }}
             >
               <MenuIcon />
             </IconButton>
@@ -110,20 +124,63 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
+                '& .MuiPaper-root': {
+                  borderRadius: '1.5rem',
+                  border: '1px solid oklch(91.9% 0.011 210)',
+                  boxShadow:
+                    '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                  mt: 1,
+                },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.text} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page.text}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    borderRadius: '0.75rem',
+                    mx: 1,
+                    my: 0.5,
+                    '&:hover': {
+                      backgroundColor: 'oklch(95.9% 0.006 210)',
+                    },
+                  }}
+                >
                   <Link href={page.link} locale={lang}>
-                    <Typography textAlign="center">
+                    <Typography
+                      textAlign="center"
+                      sx={{
+                        color: 'oklch(35.9% 0.023 210)',
+                        fontWeight: 500,
+                        fontSize: '0.875rem',
+                      }}
+                    >
                       {convertFirstLetterCapital(page.text)}
                     </Typography>
                   </Link>
                 </MenuItem>
               ))}
-              <MenuItem key={nextLocale.path} onClick={handleCloseNavMenu}>
+              <MenuItem
+                key={nextLocale.path}
+                onClick={handleCloseNavMenu}
+                sx={{
+                  borderRadius: '0.75rem',
+                  mx: 1,
+                  my: 0.5,
+                  '&:hover': {
+                    backgroundColor: 'oklch(95.9% 0.006 210)',
+                  },
+                }}
+              >
                 <Link href={nextLocale.path}>
-                  <Typography textAlign="center" color={'rgb(197, 74, 25)'}>
+                  <Typography
+                    textAlign="center"
+                    sx={{
+                      color: 'oklch(58.2% 0.196 30.2)',
+                      fontWeight: 600,
+                      fontSize: '0.875rem',
+                    }}
+                  >
                     {convertFirstLetterCapital(nextLocale.value)}
                   </Typography>
                 </Link>
@@ -138,23 +195,40 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
                 flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
+                fontFamily: 'Inter, Noto Sans JP, system-ui, sans-serif',
+                fontWeight: 600,
+                letterSpacing: '-0.025em',
+                color: 'oklch(35.9% 0.023 210)',
                 textDecoration: 'none',
+                fontSize: '1.25rem',
               }}
             >
               InKimono
             </Typography>
           </Link>
           {/* For Desktop */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box
+            sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: 1 }}
+          >
             {pages.map((page) => (
               <Link href={page.link} key={page.text} locale={lang}>
                 <Button
                   key={page.text}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{
+                    my: 2,
+                    color: 'oklch(35.9% 0.023 210)',
+                    display: 'block',
+                    fontWeight: 500,
+                    fontSize: '0.875rem',
+                    textTransform: 'none',
+                    borderRadius: '1.5rem',
+                    px: 3,
+                    py: 1,
+                    '&:hover': {
+                      backgroundColor: 'oklch(95.9% 0.006 210)',
+                      color: 'oklch(58.2% 0.196 30.2)',
+                    },
+                  }}
                 >
                   {convertFirstLetterCapital(page.text)}
                 </Button>
@@ -163,8 +237,22 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
             <Link href={`${nextLocale.path}`}>
               <Button
                 key={nextLocale.path}
-                color="secondary"
-                sx={{ my: 2, display: 'block', fontWeight: 'bold' }}
+                sx={{
+                  my: 2,
+                  display: 'block',
+                  fontWeight: 600,
+                  fontSize: '0.875rem',
+                  textTransform: 'none',
+                  borderRadius: '1.5rem',
+                  px: 3,
+                  py: 1,
+                  backgroundColor: 'oklch(58.2% 0.196 30.2)',
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: 'oklch(51.4% 0.176 30.2)',
+                    transform: 'translateY(-1px)',
+                  },
+                }}
               >
                 {convertFirstLetterCapital(nextLocale.value)}
               </Button>

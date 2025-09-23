@@ -50,10 +50,10 @@ export default async function ServicePage(params: { lang: TLocale }) {
   const yourPlan = description[0].fields[`chooseYourPlan_${locale}`];
 
   return (
-    <div>
+    <Box sx={{ minHeight: '100vh' }}>
       <TopImage title="Plans & Pricing" />
-      <Container maxWidth="lg">
-        <Grid container spacing={1} sx={{ mt: 3 }}>
+      <Container maxWidth="lg" sx={{ py: 8 }}>
+        <Grid container spacing={4} sx={{ mt: 2 }}>
           <Grid
             item
             xs={12}
@@ -64,17 +64,41 @@ export default async function ServicePage(params: { lang: TLocale }) {
               justifyContent: 'center',
             }}
           >
-            <Typography variant="h2">
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 600,
+                fontSize: { xs: '1.875rem', md: '2.25rem' },
+                lineHeight: 1.3,
+                letterSpacing: '-0.025em',
+                color: 'oklch(35.9% 0.023 210)',
+                mb: 3,
+              }}
+            >
               {dict['translation']['general']['about_my_service']}
             </Typography>
-            <Box sx={{ pt: 3 }}>
-              <Typography variant="body1" color="text.secondary">
+            <Box sx={{ pt: 1 }}>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'oklch(45.3% 0.026 210)',
+                  lineHeight: 1.6,
+                  fontSize: '1rem',
+                  mb: 2,
+                }}
+              >
                 {dict['translation']['service']['about_1']}
-                <br />
-                <br />
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'oklch(45.3% 0.026 210)',
+                  lineHeight: 1.6,
+                  fontSize: '1rem',
+                }}
+              >
                 {dict['translation']['service']['about_2']}
               </Typography>
-              <br />
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>
@@ -82,78 +106,119 @@ export default async function ServicePage(params: { lang: TLocale }) {
               component="img"
               sx={{
                 width: '100%',
-                'object-fit': 'cover',
+                objectFit: 'cover',
                 height: {
-                  lg: '700px',
+                  xs: '400px',
+                  md: '500px',
+                  lg: '600px',
                 },
+                borderRadius: '1.5rem',
+                boxShadow:
+                  '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
               }}
               src="https://firebasestorage.googleapis.com/v0/b/inkimono-7d929.appspot.com/o/service%2Ftop.JPG?alt=media&token=21f80381-71eb-4fd5-bda8-b13e578d7986"
-            ></Box>
+              alt="Service overview image"
+            />
           </Grid>
         </Grid>
 
-        <Grid container spacing={1} textAlign="center" sx={{ mt: 3 }}>
-          <Grid item>
-            <Typography variant="h4">
-              {dict['translation']['service']['plan_top_1']}
-              {/* {wi18n().t('service.plan_top_1')} */}
-            </Typography>
-            <Box sx={{ pt: 3 }}>
-              <Box fontSize={16} color="text.secondary">
-                {yourPlan &&
-                  // TODO: fix any
-                  documentToReactComponents(yourPlan as any)}
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
+        <Box textAlign="center" sx={{ mt: 8, mb: 6 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 600,
+              fontSize: { xs: '1.5rem', md: '2rem' },
+              lineHeight: 1.3,
+              letterSpacing: '-0.025em',
+              color: 'oklch(35.9% 0.023 210)',
+              mb: 4,
+            }}
+          >
+            {dict['translation']['service']['plan_top_1']}
+          </Typography>
+          <Box
+            sx={{
+              maxWidth: '800px',
+              mx: 'auto',
+              fontSize: '1rem',
+              color: 'oklch(45.3% 0.026 210)',
+              lineHeight: 1.6,
+            }}
+          >
+            {yourPlan &&
+              // TODO: fix any
+              documentToReactComponents(yourPlan as any)}
+          </Box>
+        </Box>
         {categories.map((cat) => {
           return (
-            <div key={cat.id}>
+            <Box key={cat.id} sx={{ mb: 8 }}>
               <Typography
                 variant="h5"
-                sx={{ textAlign: 'center', mt: 8, mb: 6 }}
+                sx={{
+                  textAlign: 'center',
+                  mt: 8,
+                  mb: 6,
+                  fontWeight: 600,
+                  fontSize: { xs: '1.25rem', md: '1.5rem' },
+                  color: 'oklch(35.9% 0.023 210)',
+                  letterSpacing: '-0.025em',
+                }}
               >
                 {cat.title}
               </Typography>
-              <Grid container spacing={1} sx={{ mt: 3 }} key={cat.id}>
+              <Grid container spacing={3} sx={{ mt: 2 }}>
                 {group_service[cat.id].map((service) => {
                   return (
-                    <>
-                      <Grid item xs={12} md={4} key={service.id + cat.id}>
-                        {/* @ts-expect-error Server Component */}
-                        <ServiceCard
-                          service={service}
-                          serviceDetails={serviceDetailsDto}
-                          images={images}
-                          locale={locale}
-                          i18n={dict['translation']}
-                          key={cat.id}
-                        />
-                      </Grid>
-                    </>
+                    <Grid item xs={12} md={4} key={service.id + cat.id}>
+                      {/* @ts-expect-error Server Component */}
+                      <ServiceCard
+                        service={service}
+                        serviceDetails={serviceDetailsDto}
+                        images={images}
+                        locale={locale}
+                        i18n={dict['translation']}
+                        key={cat.id}
+                      />
+                    </Grid>
                   );
                 })}
               </Grid>
-            </div>
+            </Box>
           );
         })}
       </Container>
+
       <Box
-        mt={8}
         sx={{
           backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
-          backgroundColor: 'rgba(48, 37, 37,0.9)',
-          backgroundBlendMode: 'multiply',
-          'object-fit': 'cover',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          position: 'relative',
           height: {
-            lg: '300px',
+            xs: '400px',
+            md: '500px',
+            lg: '600px',
+          },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(1px)',
           },
         }}
       >
         {/* @ts-expect-error Server Component */}
         <Inquiry lang={params.lang} />
       </Box>
-    </div>
+    </Box>
   );
 }

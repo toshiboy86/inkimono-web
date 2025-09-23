@@ -11,11 +11,15 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 500,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
+  width: { xs: '90%', sm: 500 },
+  maxWidth: '90vw',
+  maxHeight: '90vh',
+  bgcolor: 'oklch(100% 0 0)',
+  border: 'none',
+  borderRadius: '1.5rem',
+  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+  p: 2,
+  outline: 'none',
 };
 
 const ImageGrid: FC<{
@@ -40,7 +44,7 @@ const ImageGrid: FC<{
   };
 
   return (
-    <Grid container spacing={1} height={'auto'} p={3} mt={2} {...props}>
+    <Grid container spacing={2} height={'auto'} p={2} {...props}>
       {images.map((img: string) => {
         return (
           <Grid
@@ -49,23 +53,48 @@ const ImageGrid: FC<{
             md={4}
             key={img}
             onClick={() => {
-              handleOpen(img);
+              if (isModal) handleOpen(img);
+            }}
+            sx={{
+              cursor: isModal ? 'pointer' : 'default',
+              '&:hover': isModal
+                ? {
+                    transform: 'translateY(-2px)',
+                    transition: 'transform 200ms ease-out',
+                  }
+                : {},
             }}
           >
-            <Image
-              // onClick={() => console.log('hey yo')}
-              loader={myLoader}
-              unoptimized
-              src={`${img}?w=700&h=1000&q=75`}
-              alt={`Portfolio picture: ${img}`}
-              width={700}
-              height={height || 1000}
-              loading="lazy"
-              style={{
-                width: '100%',
-                height: 'auto',
+            <Box
+              sx={{
+                borderRadius: '1rem',
+                overflow: 'hidden',
+                boxShadow:
+                  '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                transition: 'all 200ms ease-out',
+                '&:hover': isModal
+                  ? {
+                      boxShadow:
+                        '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                  : {},
               }}
-            />
+            >
+              <Image
+                loader={myLoader}
+                unoptimized
+                src={`${img}?w=700&h=1000&q=75`}
+                alt={`Portfolio picture: ${img}`}
+                width={700}
+                height={height || 1000}
+                loading="lazy"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  display: 'block',
+                }}
+              />
+            </Box>
           </Grid>
         );
       })}
@@ -74,16 +103,22 @@ const ImageGrid: FC<{
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        sx={{
+          backdropFilter: 'blur(4px)',
+        }}
       >
         <Box sx={style}>
           <Box
             component="img"
             sx={{
               width: '100%',
-              'object-fit': 'cover',
+              height: 'auto',
+              maxHeight: '80vh',
+              objectFit: 'contain',
+              borderRadius: '0.75rem',
             }}
             src={modalImage}
-          ></Box>
+          />
         </Box>
       </Modal>
     </Grid>
