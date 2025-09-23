@@ -1,4 +1,5 @@
 'use client';
+
 import '../../styles/globals.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ResponsiveAppBar from '../../components/ResponsiveAppBar';
