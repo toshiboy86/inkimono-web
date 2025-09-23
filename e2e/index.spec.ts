@@ -83,7 +83,7 @@ test('Navigation bar links work correctly', async ({ page }) => {
   ];
 
   // Get the navigation container
-  const navContainer = page.locator('.css-1t6c9ts');
+  const navContainer = page.locator('.css-zgx43k');
 
   for (const { name, path } of navigationTests) {
     // Look for the button within the navigation container
