@@ -24,7 +24,6 @@ export default function Page(params: { params: { lang: TLocale } }) {
   const locale = (params as any).params.lang as TLocale;
   return (
     <>
-      {/* @ts-expect-error Server Component */}
       <InquiryPage lang={locale} />
     </>
   );

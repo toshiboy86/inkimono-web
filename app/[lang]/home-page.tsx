@@ -1,15 +1,11 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import Inquiry from '../../components/Inquiry';
-import ImageGrid from '../../components/ImageGrid';
+import { ImageGrid } from '../../components/ImageGrid';
 import TopHeader from '../../components/TopHeader';
 import TopIntroduction from '../../components/TopIntroduction';
 import * as repositories from '../../src/repositories';
 import { generateRandomImages } from '../../src/utils';
 import { getDictionary } from './dictionaries';
 import Link from 'next/link';
-import Button from '@mui/material/Button';
 import { TLocale } from '../../src/entities';
 
 export default async function HomePage(params: { lang: TLocale }) {
@@ -26,165 +22,63 @@ export default async function HomePage(params: { lang: TLocale }) {
   ];
 
   return (
-    <Box sx={{ minHeight: '100vh' }}>
+    <main className="min-h-screen">
       <TopHeader i18n={dict['translation']} />
-      <Container maxWidth="lg" sx={{ py: 8 }}>
+      <div className="mx-auto max-w-5xl px-6 py-16">
         <TopIntroduction
           description={description[0]}
           lang={locale}
           i18n={dict['translation']}
         />
 
-        <Box sx={{ mt: 12, mb: 8 }}>
-          <Typography
-            variant="h2"
-            sx={{
-              fontWeight: 600,
-              fontSize: { xs: '1.875rem', md: '2.25rem' },
-              lineHeight: 1.3,
-              letterSpacing: '-0.025em',
-              color: 'oklch(35.9% 0.023 210)',
-              mb: 4,
-              textAlign: 'center',
-            }}
-          >
+        <section className="mb-16 mt-24">
+          <h2 className="mb-8 text-center font-semibold text-[1.875rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2.25rem]">
             {dict['translation']['general']['portfolio']}
-          </Typography>
-          <Box
-            sx={{
-              borderRadius: '1.5rem',
-              overflow: 'hidden',
-              boxShadow:
-                '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-              mb: 4,
-            }}
-          >
-            <ImageGrid
-              images={urls}
-              props={{ sx: { backgroundColor: 'oklch(21.8% 0.014 210)' } }}
-              isModal={false}
-            />
-          </Box>
-          <Box textAlign={'center'}>
-            <Link href="/portfolio">
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: 'oklch(58.2% 0.196 30.2)',
-                  color: 'white',
-                  borderRadius: '1.5rem',
-                  px: 4,
-                  py: 1.5,
-                  fontWeight: 600,
-                  fontSize: '0.875rem',
-                  textTransform: 'none',
-                  boxShadow:
-                    '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                  '&:hover': {
-                    backgroundColor: 'oklch(51.4% 0.176 30.2)',
-                    transform: 'translateY(-1px)',
-                    boxShadow:
-                      '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-                  },
-                }}
-              >
-                {dict['translation']['general']['see_portfolio']}
-              </Button>
+          </h2>
+          <div className="mb-6 overflow-hidden rounded-2xl shadow-lg">
+            <ImageGrid images={urls} className="bg-neutral-900" />
+          </div>
+          <div className="text-center">
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center rounded-2xl bg-accent-500 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:-translate-y-px hover:bg-accent-600 hover:shadow-lg"
+            >
+              {dict['translation']['general']['see_portfolio']}
             </Link>
-          </Box>
-        </Box>
+          </div>
+        </section>
 
-        <Box sx={{ mt: 12, mb: 8 }}>
-          <Typography
-            variant="h2"
-            sx={{
-              fontWeight: 600,
-              fontSize: { xs: '1.875rem', md: '2.25rem' },
-              lineHeight: 1.3,
-              letterSpacing: '-0.025em',
-              color: 'oklch(35.9% 0.023 210)',
-              mb: 4,
-              textAlign: 'center',
-            }}
-          >
+        <section className="mb-16 mt-24">
+          <h2 className="mb-8 text-center font-semibold text-[1.875rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2.25rem]">
             {dict['translation']['index']['about_media']}
-          </Typography>
-          <Box
-            sx={{
-              borderRadius: '1.5rem',
-              overflow: 'hidden',
-              boxShadow:
-                '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-              mb: 4,
-            }}
-          >
+          </h2>
+          <div className="mb-6 overflow-hidden rounded-2xl shadow-lg">
             <ImageGrid
               images={tempMediaImages}
-              props={{ sx: { backgroundColor: 'oklch(21.8% 0.014 210)' } }}
-              isModal={false}
+              className="bg-neutral-900"
               height={400}
             />
-          </Box>
-          <Box textAlign={'center'}>
-            <Link href="/service">
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: 'oklch(58.2% 0.196 30.2)',
-                  color: 'white',
-                  borderRadius: '1.5rem',
-                  px: 4,
-                  py: 1.5,
-                  fontWeight: 600,
-                  fontSize: '0.875rem',
-                  textTransform: 'none',
-                  boxShadow:
-                    '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                  '&:hover': {
-                    backgroundColor: 'oklch(51.4% 0.176 30.2)',
-                    transform: 'translateY(-1px)',
-                    boxShadow:
-                      '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-                  },
-                }}
-              >
-                {dict['translation']['general']['view_service']}
-              </Button>
+          </div>
+          <div className="text-center">
+            <Link
+              href="/service"
+              locale={locale}
+              className="inline-flex items-center rounded-2xl bg-accent-500 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:-translate-y-px hover:bg-accent-600 hover:shadow-lg"
+            >
+              {dict['translation']['general']['view_service']}
             </Link>
-          </Box>
-        </Box>
-      </Container>
+          </div>
+        </section>
+      </div>
 
-      <Box
-        sx={{
-          backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          position: 'relative',
-          height: {
-            xs: '400px',
-            md: '500px',
-            lg: '600px',
-          },
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            backdropFilter: 'blur(1px)',
-          },
-        }}
+      <div
+        className="relative flex h-[400px] items-center justify-center bg-cover bg-center bg-no-repeat md:h-[500px] lg:h-[600px]"
+        style={{ backgroundImage: 'url(//www.inkimono.com/slider-bg.jpg)' }}
       >
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]" />
         {/* @ts-expect-error Server Component */}
         <Inquiry lang={params.lang} />
-      </Box>
-    </Box>
+      </div>
+    </main>
   );
 }

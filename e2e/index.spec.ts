@@ -30,7 +30,7 @@ test('h2 tag titles"', async ({ page }) => {
 test('Click first service button and go to navigation"', async ({ page }) => {
   await page.goto(url('/'));
   const button = page
-    .getByRole('button', { name: 'View Plans & Pricing' })
+    .getByRole('link', { name: 'View Plans & Pricing' })
     .first();
   await expect(button).toBeVisible();
   await button.click();
@@ -39,7 +39,7 @@ test('Click first service button and go to navigation"', async ({ page }) => {
 
 test('Click portfolio button and go to navigation"', async ({ page }) => {
   await page.goto(url('/'));
-  const button = page.getByRole('button', { name: 'See Portfolio' }).first();
+  const button = page.getByRole('link', { name: 'See Portfolio' }).first();
   await expect(button).toBeVisible();
   await button.click();
   await page.waitForURL(url('/portfolio'));
@@ -48,7 +48,7 @@ test('Click portfolio button and go to navigation"', async ({ page }) => {
 test('Click second service button and go to navigation"', async ({ page }) => {
   await page.goto(url('/'));
   const button = page
-    .getByRole('button', { name: 'View Plans & Pricing' })
+    .getByRole('link', { name: 'View Plans & Pricing' })
     .nth(1);
   await expect(button).toBeVisible();
   await button.click();
@@ -57,7 +57,7 @@ test('Click second service button and go to navigation"', async ({ page }) => {
 
 test('Click Inquiry button and go to navigation"', async ({ page }) => {
   await page.goto(url('/'));
-  const button = page.getByRole('button', { name: 'Inquiry' }).first();
+  const button = page.getByRole('link', { name: 'Inquiry' }).first();
   await expect(button).toBeVisible();
   await button.click();
   await page.waitForURL(url('/inquiry'));
@@ -83,13 +83,13 @@ test('Navigation bar links work correctly', async ({ page }) => {
   ];
 
   // Get the navigation container
-  const navContainer = page.locator('.css-zgx43k');
+  const navContainer = page.locator('[data-testid="main-nav"]');
 
   for (const { name, path } of navigationTests) {
-    // Look for the button within the navigation container
-    const button = navContainer.getByRole('button', { name });
-    await expect(button).toBeVisible();
-    await button.click();
+    // Look for the link within the navigation container
+    const link = navContainer.getByRole('link', { name });
+    await expect(link).toBeVisible();
+    await link.click();
     await page.waitForURL(url(path));
 
     // Go back to home page for next test

@@ -1,5 +1,4 @@
-import { Container, Box, Typography } from '@mui/material';
-import ImageGrid from '../../../components/ImageGrid';
+import { ModalImageGrid } from '../../../components/ImageGrid';
 import TopImage from '../../../components/TopImage';
 import { TLocale } from '../../../src/entities';
 import { fetchPortfolioImages } from '../../../src/repositories';
@@ -10,55 +9,24 @@ export default async function PortfolioPage(params: { lang: TLocale }) {
   const dict = await getDictionary(params.lang);
 
   return (
-    <Box sx={{ minHeight: '100vh' }}>
+    <main className="min-h-screen">
       <TopImage title="Portfolio" />
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Box textAlign="center" sx={{ mb: 8 }}>
-          <Typography
-            variant="h4"
-            sx={{
-              fontWeight: 600,
-              fontSize: { xs: '1.5rem', md: '2rem' },
-              lineHeight: 1.3,
-              letterSpacing: '-0.025em',
-              color: 'oklch(35.9% 0.023 210)',
-              mb: 4,
-            }}
-          >
+      <div className="mx-auto max-w-5xl px-6 py-16">
+        <div className="mb-16 text-center">
+          <h4 className="mb-6 font-semibold text-[1.5rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2rem]">
             My Work
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'oklch(45.3% 0.026 210)',
-              lineHeight: 1.6,
-              fontSize: '1rem',
-              maxWidth: '600px',
-              mx: 'auto',
-            }}
-          >
+          </h4>
+          <p className="mx-auto max-w-[600px] text-base leading-relaxed text-neutral-600">
             Explore our collection of professional photography and styling work.
             Each image tells a story of elegance, tradition, and modern
             sophistication.
-          </Typography>
-        </Box>
+          </p>
+        </div>
 
-        <Box
-          sx={{
-            borderRadius: '1.5rem',
-            overflow: 'hidden',
-            boxShadow:
-              '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-            backgroundColor: 'oklch(21.8% 0.014 210)',
-          }}
-        >
-          <ImageGrid
-            props={{ sx: { backgroundColor: 'oklch(21.8% 0.014 210)' } }}
-            images={urls}
-            isModal={true}
-          />
-        </Box>
-      </Container>
-    </Box>
+        <div className="overflow-hidden rounded-2xl bg-neutral-900 shadow-lg">
+          <ModalImageGrid images={urls} className="bg-neutral-900" />
+        </div>
+      </div>
+    </main>
   );
 }

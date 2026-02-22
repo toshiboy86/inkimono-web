@@ -1,15 +1,10 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import Inquiry from '../../../components/Inquiry';
 import * as repositories from '../../../src/repositories';
 import { getDictionary } from '../dictionaries';
 import Link from 'next/link';
-import Button from '@mui/material/Button';
 import { TLocale } from '../../../src/entities';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { Grid } from '@mui/material';
 import Article from '../../../components/Typography/Article';
 import TopImage from '../../../components/TopImage';
 import { fetchPortfolioImagesById2 } from '../../../src/repositories';
@@ -33,69 +28,28 @@ export default async function WorkshopPage(params: { lang: TLocale }) {
     : null;
 
   return (
-    <Box sx={{ minHeight: '100vh' }}>
+    <main className="min-h-screen">
       <TopImage title="Workshop" />
-      <Container maxWidth="lg" sx={{ py: 8 }}>
+      <div className="mx-auto max-w-5xl px-6 py-16">
         <Article
           imageSrc={images ? Object.values(images)[0] : DEFAULT_IMAGE}
           imageAlt="Stasia for the workshop"
         >
-          <Grid item xs={12} md={7}>
-            <Typography
-              variant="h2"
-              sx={{
-                fontWeight: 600,
-                fontSize: { xs: '1.875rem', md: '2.25rem' },
-                lineHeight: 1.3,
-                letterSpacing: '-0.025em',
-                color: 'oklch(35.9% 0.023 210)',
-                mb: 3,
-              }}
-            >
-              {mainDescTitle}
-            </Typography>
-            <Box sx={{ pt: 2 }}>
-              <Box
-                sx={{
-                  fontSize: 16,
-                  color: 'oklch(45.3% 0.026 210)',
-                  lineHeight: 1.6,
-                  '& p': {
-                    mb: 2,
-                  },
-                }}
-              >
-                {mainDescription && documentToReactComponents(mainDescription)}
-              </Box>
-            </Box>
-          </Grid>
+          <h2 className="mb-6 font-semibold text-[1.875rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2.25rem]">
+            {mainDescTitle}
+          </h2>
+          <div className="pt-2">
+            <div className="text-base leading-relaxed text-neutral-600 [&_p]:mb-4">
+              {mainDescription && documentToReactComponents(mainDescription)}
+            </div>
+          </div>
         </Article>
 
-        <Box sx={{ mt: 12, mb: 8 }}>
-          <Typography
-            variant="h2"
-            sx={{
-              fontWeight: 600,
-              fontSize: { xs: '1.875rem', md: '2.25rem' },
-              lineHeight: 1.3,
-              letterSpacing: '-0.025em',
-              color: 'oklch(35.9% 0.023 210)',
-              mb: 4,
-              textAlign: 'center',
-            }}
-          >
+        <section className="mb-16 mt-24">
+          <h2 className="mb-8 text-center font-semibold text-[1.875rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2.25rem]">
             Workshop Pricing
-          </Typography>
-          <Box
-            sx={{
-              borderRadius: '1.5rem',
-              overflow: 'hidden',
-              boxShadow:
-                '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-              maxWidth: '600px',
-              mx: 'auto',
-            }}
-          >
+          </h2>
+          <div className="mx-auto max-w-[600px] overflow-hidden rounded-2xl shadow-lg">
             <Image
               unoptimized
               src={
@@ -107,147 +61,43 @@ export default async function WorkshopPage(params: { lang: TLocale }) {
               width={700}
               height={1000}
               loading="lazy"
-              style={{
-                width: '100%',
-                height: 'auto',
-                display: 'block',
-              }}
+              className="block h-auto w-full"
             />
-          </Box>
-        </Box>
+          </div>
+        </section>
 
-        <Box
-          textAlign="center"
-          sx={{
-            backgroundColor: 'oklch(95.9% 0.006 210)',
-            borderRadius: '2rem',
-            p: { xs: 4, md: 6 },
-            border: '1px solid oklch(91.9% 0.011 210)',
-            boxShadow:
-              '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-          }}
-        >
-          <Typography
-            variant="h4"
-            sx={{
-              fontWeight: 600,
-              fontSize: { xs: '1.5rem', md: '2rem' },
-              lineHeight: 1.3,
-              letterSpacing: '-0.025em',
-              color: 'oklch(35.9% 0.023 210)',
-              mb: 4,
-            }}
-          >
+        <div className="rounded-[2rem] border border-neutral-200 bg-neutral-100 p-8 text-center shadow-md md:p-12">
+          <h4 className="mb-8 font-semibold text-[1.5rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2rem]">
             {dict['translation']['general']['inquiry']}
-          </Typography>
-
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', sm: 'row' },
-              gap: 3,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          </h4>
+          <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
             <Link
               href="https://inkimono.as.me/schedule/fdfa7192/?appointmentTypeIds[]=72094965"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ textDecoration: 'none' }}
+              className="inline-flex items-center rounded-2xl bg-accent-500 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:-translate-y-px hover:bg-accent-600 hover:shadow-lg"
             >
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: 'oklch(58.2% 0.196 30.2)',
-                  color: 'white',
-                  borderRadius: '1.5rem',
-                  px: 4,
-                  py: 1.5,
-                  fontWeight: 600,
-                  fontSize: '0.875rem',
-                  textTransform: 'none',
-                  boxShadow:
-                    '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                  '&:hover': {
-                    backgroundColor: 'oklch(51.4% 0.176 30.2)',
-                    transform: 'translateY(-1px)',
-                    boxShadow:
-                      '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-                  },
-                }}
-              >
-                {dict['translation']['general']['check_schedule']}
-              </Button>
+              {dict['translation']['general']['check_schedule']}
             </Link>
-
-            <Typography
-              variant="body1"
-              sx={{
-                color: 'oklch(45.3% 0.026 210)',
-                fontWeight: 500,
-              }}
+            <span className="font-medium text-neutral-600">OR</span>
+            <Link
+              href="/inquiry"
+              className="inline-flex items-center rounded-2xl border-2 border-accent-500 px-6 py-3 text-sm font-semibold text-accent-500 transition-all duration-200 hover:-translate-y-px hover:bg-accent-500 hover:text-white hover:shadow-[0_4px_8px_rgba(217,119,87,0.3)]"
             >
-              OR
-            </Typography>
-
-            <Link href="/inquiry" style={{ textDecoration: 'none' }}>
-              <Button
-                variant="outlined"
-                sx={{
-                  borderColor: 'oklch(58.2% 0.196 30.2)',
-                  color: 'oklch(58.2% 0.196 30.2)',
-                  borderRadius: '1.5rem',
-                  px: 4,
-                  py: 1.5,
-                  fontWeight: 600,
-                  fontSize: '0.875rem',
-                  textTransform: 'none',
-                  '&:hover': {
-                    backgroundColor: 'oklch(58.2% 0.196 30.2)',
-                    color: 'white',
-                    transform: 'translateY(-1px)',
-                    boxShadow: '0 4px 8px rgba(217, 119, 87, 0.3)',
-                  },
-                }}
-              >
-                {dict['translation']['general']['dm']}
-              </Button>
+              {dict['translation']['general']['dm']}
             </Link>
-          </Box>
-        </Box>
-      </Container>
+          </div>
+        </div>
+      </div>
 
-      <Box
-        sx={{
-          backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          position: 'relative',
-          height: {
-            xs: '400px',
-            md: '500px',
-            lg: '600px',
-          },
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            backdropFilter: 'blur(1px)',
-          },
-        }}
+      <div
+        className="relative flex h-[400px] items-center justify-center bg-cover bg-center bg-no-repeat md:h-[500px] lg:h-[600px]"
+        style={{ backgroundImage: 'url(//www.inkimono.com/slider-bg.jpg)' }}
       >
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]" />
         {/* @ts-expect-error Server Component */}
         <Inquiry lang={params.lang} />
-      </Box>
-    </Box>
+      </div>
+    </main>
   );
 }
