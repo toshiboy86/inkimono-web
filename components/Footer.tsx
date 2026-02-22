@@ -9,6 +9,7 @@ const footerLinks = [
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/location', label: 'Location' },
   { href: '/faq', label: 'FAQ' },
+  { href: '/media', label: 'Media' },
 ];
 
 export default function Footer(params: { lang: TLocale }) {

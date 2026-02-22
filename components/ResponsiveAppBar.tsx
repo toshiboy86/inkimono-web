@@ -20,6 +20,7 @@ const pages = [
   { link: 'location', text: 'location' },
   { link: 'inquiry', text: 'inquiry' },
   { link: 'faq', text: 'faq' },
+  { link: 'media', text: 'media' },
 ];
 
 export default function ResponsiveAppBar(params: { lang: TLocale }) {
