@@ -38,10 +38,10 @@ const nextConfig = {
         source: '/workshop',
         destination: '/en/workshop',
       },
-      {
-        source: '/media',
-        destination: '/en/media',
-      },
+      // {
+      //   source: '/media',
+      //   destination: '/en/media',
+      // },
       // TODO: remove it after fixing redirect issue
       {
         source: '/redirect',

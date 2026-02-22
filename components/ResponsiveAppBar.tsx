@@ -4,11 +4,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
 import InstagramButton from './ui/InstagramButton';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from './ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { convertFirstLetterCapital, getNextLocale } from '../src/utils';
 import { TLocale } from '../src/entities';
 
@@ -20,7 +16,7 @@ const pages = [
   { link: 'location', text: 'location' },
   { link: 'inquiry', text: 'inquiry' },
   { link: 'faq', text: 'faq' },
-  { link: 'media', text: 'media' },
+  // { link: 'media', text: 'media' },
 ];
 
 export default function ResponsiveAppBar(params: { lang: TLocale }) {
@@ -41,7 +37,10 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
         </Link>
 
         {/* Desktop nav */}
-        <nav data-testid="main-nav" className="hidden items-center gap-1 md:flex">
+        <nav
+          data-testid="main-nav"
+          className="hidden items-center gap-1 md:flex"
+        >
           {pages.map((page) => (
             <Link
               key={page.text}
