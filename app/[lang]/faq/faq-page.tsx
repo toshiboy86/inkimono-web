@@ -17,32 +17,36 @@ export default async function FAQPage(params: { lang: TLocale }) {
   const dict = await getDictionary(locale);
 
   return (
-    <main className="min-h-screen">
-      <TopImage title="FAQ" />
+    <main className="min-h-screen bg-white">
+      <TopImage
+        title="FAQ"
+        tag="Help"
+        subtitle="Find answers to common questions about our services, booking process, and studio."
+      />
+
       <div className="mx-auto max-w-5xl px-6 py-16">
-        <div className="mb-16 text-center">
-          <h4 className="mb-6 font-semibold text-[1.5rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2rem]">
+        <div className="mb-12 flex items-center gap-4">
+          <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-400">
             Frequently Asked Questions
-          </h4>
-          <p className="mx-auto max-w-[600px] text-base leading-relaxed text-neutral-600">
-            Find answers to common questions about our services, booking process,
-            and studio policies.
-          </p>
+          </h2>
+          <div className="h-px flex-1 bg-neutral-200" />
         </div>
 
         <div className="mx-auto max-w-[800px]">
           <Accordion type="single" collapsible className="space-y-3">
             {faq.map((e: { fields: IQuestionFields }, index: number) => {
-              const question = locale === 'en' ? e.fields.question_en : e.fields.question_ja;
-              const answer = locale === 'en' ? e.fields.answer_en : e.fields.answer_ja;
+              const question =
+                locale === 'en' ? e.fields.question_en : e.fields.question_ja;
+              const answer =
+                locale === 'en' ? e.fields.answer_en : e.fields.answer_ja;
               if (!question) return null;
               return (
                 <AccordionItem
                   key={question}
                   value={`item-${index}`}
-                  className="rounded-2xl border border-neutral-200 shadow-sm"
+                  className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md"
                 >
-                  <AccordionTrigger className="rounded-2xl px-6 py-4 text-base font-semibold text-neutral-700 hover:no-underline">
+                  <AccordionTrigger className="px-6 py-4 text-base font-semibold text-neutral-700 hover:text-accent-500 hover:no-underline [&[data-state=open]]:text-accent-500">
                     {question}
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-5 text-sm leading-relaxed text-neutral-600">

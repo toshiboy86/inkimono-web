@@ -23,7 +23,8 @@ export default async function HomePage(params: { lang: TLocale }) {
 
   return (
     <main className="min-h-screen">
-      <TopHeader i18n={dict['translation']} />
+      <TopHeader i18n={dict['translation']} images={urls} />
+
       <div className="mx-auto max-w-5xl px-6 py-16">
         <TopIntroduction
           description={description[0]}
@@ -31,10 +32,14 @@ export default async function HomePage(params: { lang: TLocale }) {
           i18n={dict['translation']}
         />
 
-        <section className="mb-16 mt-24">
-          <h2 className="mb-8 text-center font-semibold text-[1.875rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2.25rem]">
-            {dict['translation']['general']['portfolio']}
-          </h2>
+        {/* Portfolio section */}
+        <section className="mb-20 mt-24">
+          <div className="mb-10 flex items-center gap-4">
+            <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-400">
+              {dict['translation']['general']['portfolio']}
+            </h2>
+            <div className="h-px flex-1 bg-neutral-200" />
+          </div>
           <div className="mb-6 overflow-hidden rounded-2xl shadow-lg">
             <ImageGrid images={urls} className="bg-neutral-900" />
           </div>
@@ -48,10 +53,14 @@ export default async function HomePage(params: { lang: TLocale }) {
           </div>
         </section>
 
-        <section className="mb-16 mt-24">
-          <h2 className="mb-8 text-center font-semibold text-[1.875rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2.25rem]">
-            {dict['translation']['index']['about_media']}
-          </h2>
+        {/* Media section */}
+        <section className="mb-20 mt-4">
+          <div className="mb-10 flex items-center gap-4">
+            <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-400">
+              {dict['translation']['index']['about_media']}
+            </h2>
+            <div className="h-px flex-1 bg-neutral-200" />
+          </div>
           <div className="mb-6 overflow-hidden rounded-2xl shadow-lg">
             <ImageGrid
               images={tempMediaImages}

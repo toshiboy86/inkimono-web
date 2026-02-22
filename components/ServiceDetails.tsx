@@ -26,38 +26,35 @@ const ServiceDetails = (props: {
 
   return (
     <Collapsible open={isExpanded} onOpenChange={setExpanded}>
-      <div className="flex flex-col gap-2 px-4 pb-4">
+      <div className="flex flex-col gap-2 px-5 pb-5">
         {props.service.reservation_url && (
-          <div className="mb-1 text-center">
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={props.service.reservation_url}
-            >
-              <Button className="rounded-2xl bg-accent-500 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent-600 hover:-translate-y-px hover:shadow-md">
-                {i18n['general']['reserve']}
-              </Button>
-            </a>
-          </div>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={props.service.reservation_url}
+            className="flex w-full items-center justify-center rounded-xl bg-accent-500 px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-px hover:bg-accent-600 hover:shadow-[0_4px_12px_rgba(217,119,87,0.35)]"
+          >
+            {i18n['general']['reserve']}
+          </a>
         )}
 
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between pt-1">
           <Link
             href="/portfolio"
             locale={locale}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-accent-500 transition-all duration-200 hover:bg-accent-500 hover:text-white hover:scale-105"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-neutral-400 transition-all duration-200 hover:bg-accent-500/20 hover:text-accent-400"
             aria-label="View portfolio"
           >
-            <User size={20} />
+            <User size={16} />
           </Link>
 
           <CollapsibleTrigger asChild>
             <button
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-accent-500 transition-colors hover:bg-neutral-100"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-white/10 hover:text-white"
               aria-label="Show more details"
             >
               <ChevronDown
-                size={20}
+                size={16}
                 className={cn(
                   'transition-transform duration-200',
                   isExpanded && 'rotate-180'
@@ -70,11 +67,11 @@ const ServiceDetails = (props: {
 
       {props.service.serviceDetails && (
         <CollapsibleContent>
-          <div className="px-4 pb-4 pt-0">
+          <div className="border-t border-white/10 px-5 pb-5 pt-4">
             {props.service.serviceDetails.map((e) => (
               <p
                 key={e.sys.id}
-                className="mb-4 border-b border-neutral-200 pb-3 text-sm leading-[1.5] text-neutral-600 last:mb-0"
+                className="mb-3 border-b border-white/10 pb-3 text-xs leading-relaxed text-neutral-400 last:mb-0 last:border-0"
               >
                 {getWordsOnLocale(
                   props.serviceDetails[e.sys.id],

@@ -1,23 +1,68 @@
 import { TI18n } from '../src/entities';
 
-const TopHeader = (props: { i18n: TI18n }) => {
-  const { i18n } = props;
+const TopHeader = (props: { i18n: TI18n; images?: string[] }) => {
+  const { i18n, images = [] } = props;
+
+  // Use provided images or fall back to placeholders
+  // TODO: The fallback placeholders below can be removed once real images are always passed
+  const [img1, img2, img3] =
+    images.length >= 3
+      ? images
+      : [
+          'https://picsum.photos/seed/inkimono-home1/720/960',
+          'https://picsum.photos/seed/inkimono-home2/720/470',
+          'https://picsum.photos/seed/inkimono-home3/720/470',
+        ];
+
   return (
-    <div
-      className="relative flex h-[400px] items-center justify-center bg-cover bg-center bg-no-repeat md:h-[500px] lg:h-[600px]"
-      style={{ backgroundImage: 'url(//www.inkimono.com/slider-bg.jpg)' }}
-    >
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6">
-        <div className="mx-auto max-w-[800px] text-center text-white">
-          <div className="rounded-[2rem] border border-white/20 bg-white/10 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-xl md:p-8">
-            <h1 className="mb-2 font-semibold text-[2rem] leading-[1.2] tracking-[-0.025em] md:text-[2.5rem] lg:text-[3rem]">
-              {i18n['index']['top_title']}
-            </h1>
+    <section className="overflow-hidden bg-neutral-950">
+      <div className="mx-auto grid max-w-screen-xl grid-cols-1 md:grid-cols-2">
+        {/* Left: text */}
+        <div className="flex flex-col justify-center px-8 py-20 md:px-16 md:py-28">
+          <span className="mb-5 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-accent-400">
+            <span className="h-px w-8 bg-accent-500" />
+            Tokyo · Asakusa
+          </span>
+          <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-[3.25rem]">
+            {i18n['index']['top_title']}
+          </h1>
+          <p className="mt-6 max-w-sm text-base leading-relaxed text-neutral-400">
+            {i18n['index']['about_me_1']}
+          </p>
+        </div>
+
+        {/* Right: photo mosaic — hidden on mobile */}
+        <div className="relative hidden h-[540px] gap-2 p-4 md:grid md:grid-cols-2 md:grid-rows-2">
+          {/* Tall left photo spans both rows */}
+          <div className="row-span-2 overflow-hidden rounded-2xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img1}
+              alt="Kimono portrait"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          {/* Top-right */}
+          <div className="overflow-hidden rounded-2xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img2}
+              alt="Kimono detail"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          {/* Bottom-right */}
+          <div className="overflow-hidden rounded-2xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img3}
+              alt="Location shoot"
+              className="h-full w-full object-cover"
+            />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

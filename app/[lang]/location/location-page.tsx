@@ -14,21 +14,26 @@ export default async function LocationPage(params: { lang: TLocale }) {
   const location = await fetchLocation();
   const images = await fetchPortfolioImagesById();
 
+  const locationDescription = getWordsOnLocale(location[0].fields, 'description', locale)
+    .content.map((f: any) =>
+      f.content.map((e: any) => e.value).map((e: any) => e)
+    )
+    .join('');
+
   return (
-    <main className="min-h-screen">
-      <TopImage title="Location" />
+    <main className="min-h-screen bg-white">
+      <TopImage
+        title="Location"
+        tag="Studio"
+        subtitle={locationDescription.slice(0, 120) + (locationDescription.length > 120 ? '…' : '')}
+      />
+
       <div className="mx-auto max-w-5xl px-6 py-16">
-        <div className="mb-16 text-center">
-          <h4 className="mb-6 font-semibold text-[1.5rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2rem]">
+        <div className="mb-12 flex items-center gap-4">
+          <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-400">
             Studio Locations
-          </h4>
-          <p className="mx-auto max-w-[800px] text-base leading-relaxed text-neutral-600">
-            {getWordsOnLocale(location[0].fields, 'description', locale)
-              .content.map((f: any) =>
-                f.content.map((e: any) => e.value).map((e: any) => e)
-              )
-              .join('')}
-          </p>
+          </h2>
+          <div className="h-px flex-1 bg-neutral-200" />
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">

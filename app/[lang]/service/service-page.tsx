@@ -46,14 +46,24 @@ export default async function ServicePage(params: { lang: TLocale }) {
   const yourPlan = description[0].fields[`chooseYourPlan_${locale}`];
 
   return (
-    <main className="min-h-screen">
-      <TopImage title="Plans & Pricing" />
+    <main className="min-h-screen bg-white">
+      <TopImage
+        title="Plans & Pricing"
+        tag="Services"
+        subtitle={dict['translation']['service']['about_1'].slice(0, 100) + '…'}
+      />
+
       <div className="mx-auto max-w-5xl px-6 py-16">
-        <div className="mt-2 grid grid-cols-1 gap-8 md:grid-cols-12">
+
+        {/* About section */}
+        <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-12">
           <div className="flex flex-col justify-center md:col-span-7">
-            <h2 className="mb-6 font-semibold text-[1.875rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2.25rem]">
-              {dict['translation']['general']['about_my_service']}
-            </h2>
+            <div className="mb-8 flex items-center gap-4">
+              <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-400">
+                {dict['translation']['general']['about_my_service']}
+              </h2>
+              <div className="h-px flex-1 bg-neutral-200" />
+            </div>
             <p className="mb-4 text-base leading-relaxed text-neutral-600">
               {dict['translation']['service']['about_1']}
             </p>
@@ -62,6 +72,7 @@ export default async function ServicePage(params: { lang: TLocale }) {
             </p>
           </div>
           <div className="md:col-span-5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://firebasestorage.googleapis.com/v0/b/inkimono-7d929.appspot.com/o/service%2Ftop.JPG?alt=media&token=21f80381-71eb-4fd5-bda8-b13e578d7986"
               alt="Service overview image"
@@ -70,21 +81,29 @@ export default async function ServicePage(params: { lang: TLocale }) {
           </div>
         </div>
 
-        <div className="mb-12 mt-16 text-center">
-          <h4 className="mb-8 font-semibold text-[1.5rem] leading-[1.3] tracking-[-0.025em] text-neutral-700 md:text-[2rem]">
-            {dict['translation']['service']['plan_top_1']}
-          </h4>
+        {/* Choose your plan */}
+        <div className="mb-16">
+          <div className="mb-10 flex items-center gap-4">
+            <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-400">
+              {dict['translation']['service']['plan_top_1']}
+            </h2>
+            <div className="h-px flex-1 bg-neutral-200" />
+          </div>
           <div className="mx-auto max-w-[800px] text-base leading-relaxed text-neutral-600 [&_p]:mb-4">
             {yourPlan && documentToReactComponents(yourPlan as any)}
           </div>
         </div>
 
+        {/* Service categories */}
         {categories.map((cat) => (
           <div key={cat.id} className="mb-16">
-            <h5 className="mb-10 mt-16 text-center font-semibold text-[1.25rem] tracking-[-0.025em] text-neutral-700 md:text-[1.5rem]">
-              {cat.title}
-            </h5>
-            <div className="mt-2 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="mb-10 mt-4 flex items-center gap-4">
+              <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-400">
+                {cat.title}
+              </h2>
+              <div className="h-px flex-1 bg-neutral-200" />
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {group_service[cat.id].map((service) => (
                 /* @ts-expect-error Server Component */
                 <ServiceCard
