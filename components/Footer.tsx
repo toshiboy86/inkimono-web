@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import InstagramButton from './ui/InstagramButton';
 import Link from 'next/link';
 import { TLocale } from '../src/entities';
 
@@ -160,6 +161,9 @@ export default function Footer(params: { lang: TLocale }) {
           </Link>
         </Item>
       </Stack>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+        <InstagramButton />
+      </Box>
       <Box
         sx={{
           color: 'oklch(56.5% 0.027 210)',
