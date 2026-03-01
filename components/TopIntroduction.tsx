@@ -1,11 +1,46 @@
 import dynamic from 'next/dynamic';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import {
+  documentToReactComponents,
+  Options,
+} from '@contentful/rich-text-react-renderer';
+import { BLOCKS } from '@contentful/rich-text-types';
 import Link from 'next/link';
 import { TDescriptionRepository } from '../src/entities/repositories';
 import { TI18n, TLocale } from '../src/entities';
 import Article from './Typography/Article';
+import InstagramIcon from './ui/InstagramIcon';
 
 const MapComponent = dynamic(() => import('./MapCard'), { ssr: false });
+
+function extractText(node: any): string {
+  if (node.nodeType === 'text') return node.value || '';
+  if (node.content) return node.content.map(extractText).join('');
+  return '';
+}
+
+const richTextOptions: Options = {
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (node, children) => {
+      const text = extractText(node);
+      if (/instagram\.com\/inkimono/i.test(text)) {
+        return (
+          <p className="mb-4 flex items-center gap-2">
+            <a
+              href="https://www.instagram.com/inkimono"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-semibold text-accent-500 transition-colors hover:text-accent-600"
+            >
+              <InstagramIcon />
+              @inkimono
+            </a>
+          </p>
+        );
+      }
+      return <p>{children}</p>;
+    },
+  },
+};
 
 const TopIntroduction = (props: {
   description: TDescriptionRepository;
@@ -30,7 +65,7 @@ const TopIntroduction = (props: {
           </h2>
           <div className="pt-2">
             <div className="text-base leading-relaxed text-neutral-600 [&_p]:mb-4">
-              {description && documentToReactComponents(JSON.parse(description))}
+              {description && documentToReactComponents(JSON.parse(description), richTextOptions)}
             </div>
           </div>
         </Article>
