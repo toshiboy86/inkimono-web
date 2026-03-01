@@ -1,4 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 14% 22%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 14% 22%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 14% 22%;
+    --primary: 222 14% 22%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 9% 95%;
+    --secondary-foreground: 222 14% 22%;
+    --muted: 220 9% 95%;
+    --muted-foreground: 220 9% 45%;
+    --accent-foreground: 222 14% 22%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 24 78% 60%;
+    --radius: 0.5rem;
+  }
+}
 
 * {
   box-sizing: border-box;

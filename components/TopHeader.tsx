@@ -1,72 +1,68 @@
-import { Container, Box, Typography } from '@mui/material';
 import { TI18n } from '../src/entities';
 
-const TopHeader = (props: { i18n: TI18n }) => {
-  const { i18n } = props;
+const TopHeader = (props: { i18n: TI18n; images?: string[] }) => {
+  const { i18n, images = [] } = props;
+
+  // Use provided images or fall back to placeholders
+  // TODO: The fallback placeholders below can be removed once real images are always passed
+  const [img1, img2, img3] =
+    images.length >= 3
+      ? images
+      : [
+          'https://picsum.photos/seed/inkimono-home1/720/960',
+          'https://picsum.photos/seed/inkimono-home2/720/470',
+          'https://picsum.photos/seed/inkimono-home3/720/470',
+        ];
+
   return (
-    <Box
-      sx={{
-        backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        position: 'relative',
-        height: {
-          xs: '400px',
-          md: '500px',
-          lg: '600px',
-        },
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          backdropFilter: 'blur(1px)',
-        },
-      }}
-    >
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box
-          textAlign={'center'}
-          sx={{
-            color: 'white',
-            maxWidth: '800px',
-            mx: 'auto',
-          }}
-        >
-          <Box
-            sx={{
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-              borderRadius: '2rem',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              p: { xs: 3, md: 4 },
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <Typography
-              variant="h1"
-              sx={{
-                fontWeight: 600,
-                fontSize: { xs: '2rem', md: '2.5rem', lg: '3rem' },
-                lineHeight: 1.2,
-                letterSpacing: '-0.025em',
-                fontFamily: 'Inter, Noto Sans JP, system-ui, sans-serif',
-                mb: 2,
-              }}
-            >
-              {i18n['index']['top_title']}
-            </Typography>
-          </Box>
-        </Box>
-      </Container>
-    </Box>
+    <section className="overflow-hidden bg-neutral-950">
+      <div className="mx-auto grid max-w-screen-xl grid-cols-1 md:grid-cols-2">
+        {/* Left: text */}
+        <div className="flex flex-col justify-center px-8 py-20 md:px-16 md:py-28">
+          <span className="mb-5 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-accent-400">
+            <span className="h-px w-8 bg-accent-500" />
+            Tokyo · Asakusa
+          </span>
+          <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-[3.25rem]">
+            {i18n['index']['top_title']}
+          </h1>
+          <p className="mt-6 max-w-sm text-base leading-relaxed text-neutral-400">
+            {i18n['index']['about_me_1']}
+          </p>
+        </div>
+
+        {/* Right: photo mosaic — hidden on mobile */}
+        <div className="relative hidden h-[540px] gap-2 p-4 md:grid md:grid-cols-2 md:grid-rows-2">
+          {/* Tall left photo spans both rows */}
+          <div className="row-span-2 overflow-hidden rounded-2xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img1}
+              alt="Kimono portrait"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          {/* Top-right */}
+          <div className="overflow-hidden rounded-2xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img2}
+              alt="Kimono detail"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          {/* Bottom-right */}
+          <div className="overflow-hidden rounded-2xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img3}
+              alt="Location shoot"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

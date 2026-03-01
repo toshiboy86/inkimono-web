@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { TLocale, TMetadataProps } from '../../../src/entities';
-import InquiryPage from './inquiry-page';
+import MediaPage from './media-page';
 import { getDictionary } from '../dictionaries';
 
 export async function generateMetadata({
@@ -8,23 +8,19 @@ export async function generateMetadata({
 }: TMetadataProps): Promise<Metadata> {
   const dict = await getDictionary(params.lang);
   return {
-    title: dict['translation']['meta']['inquiry_title'],
-    description: dict['translation']['meta']['inquiry_description'],
+    title: dict['translation']['meta']['media_title'],
+    description: dict['translation']['meta']['media_description'],
     openGraph: {
       images: [dict['translation']['meta']['og_images']],
     },
     alternates: {
-      canonical: '/inquiry',
+      canonical: '/media',
     },
   };
 }
 
 export default function Page(params: { params: { lang: TLocale } }) {
-  // TODO: params is added by next.js
   const locale = (params as any).params.lang as TLocale;
-  return (
-    <>
-      <InquiryPage lang={locale} />
-    </>
-  );
+  // @ts-expect-error Server Component
+  return <MediaPage lang={locale} />;
 }

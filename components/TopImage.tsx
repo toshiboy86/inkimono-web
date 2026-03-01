@@ -1,72 +1,38 @@
 import type { FC } from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 
-const TopImage: FC<{ title: string }> = ({ title }) => {
+const TopImage: FC<{ title: string; subtitle?: string; tag?: string }> = ({
+  title,
+  subtitle,
+  tag,
+}) => {
   return (
-    <Box
-      sx={{
-        backgroundImage: `url(//www.inkimono.com/slider-bg.jpg)`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        position: 'relative',
-        height: {
-          xs: '400px',
-          md: '500px',
-          lg: '600px',
-        },
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          backdropFilter: 'blur(1px)',
-        },
-      }}
-    >
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box
-          textAlign={'center'}
-          sx={{
-            color: 'white',
-            maxWidth: '600px',
-            mx: 'auto',
-          }}
-        >
-          <Box
-            sx={{
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-              borderRadius: '2rem',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              p: { xs: 3, md: 4 },
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <Typography
-              variant="h1"
-              sx={{
-                fontWeight: 600,
-                fontSize: { xs: '2rem', md: '2.5rem', lg: '3rem' },
-                lineHeight: 1.2,
-                letterSpacing: '-0.025em',
-                fontFamily: 'Inter, Noto Sans JP, system-ui, sans-serif',
-              }}
-            >
-              {title}
-            </Typography>
-          </Box>
-        </Box>
-      </Container>
-    </Box>
+    <div className="relative overflow-hidden">
+      {/* Background photo */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url(//www.inkimono.com/slider-bg.jpg)' }}
+      />
+      {/* Dark gradient: opaque on left, transparent on right so photo shows */}
+      <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/95 via-neutral-950/80 to-neutral-950/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/60 to-transparent" />
+
+      <div className="relative z-10 mx-auto min-h-[360px] max-w-screen-xl px-8 py-20 md:py-28">
+        {tag && (
+          <span className="mb-5 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-accent-400">
+            <span className="h-px w-8 bg-accent-500" />
+            {tag}
+          </span>
+        )}
+        <h1 className="max-w-xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-[3.25rem]">
+          {title}
+        </h1>
+        {subtitle && (
+          <p className="mt-5 max-w-md text-base leading-relaxed text-neutral-400">
+            {subtitle}
+          </p>
+        )}
+      </div>
+    </div>
   );
 };
 

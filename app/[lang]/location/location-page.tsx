@@ -1,4 +1,3 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
 import TopImage from '../../../components/TopImage';
 import { TLocale } from '../../../src/entities';
 import {
@@ -15,51 +14,39 @@ export default async function LocationPage(params: { lang: TLocale }) {
   const location = await fetchLocation();
   const images = await fetchPortfolioImagesById();
 
-  return (
-    <Box sx={{ minHeight: '100vh' }}>
-      <TopImage title="Location" />
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Box textAlign="center" sx={{ mb: 8 }}>
-          <Typography
-            variant="h4"
-            sx={{
-              fontWeight: 600,
-              fontSize: { xs: '1.5rem', md: '2rem' },
-              lineHeight: 1.3,
-              letterSpacing: '-0.025em',
-              color: 'oklch(35.9% 0.023 210)',
-              mb: 4,
-            }}
-          >
-            Studio Locations
-          </Typography>
-          <Box
-            sx={{
-              maxWidth: '800px',
-              mx: 'auto',
-              fontSize: '1rem',
-              color: 'oklch(45.3% 0.026 210)',
-              lineHeight: 1.6,
-            }}
-          >
-            {getWordsOnLocale(location[0].fields, 'description', locale)
-              .content.map((f: any) =>
-                f.content.map((e: any) => e.value).map((e: any) => e)
-              )
-              .join('')}
-          </Box>
-        </Box>
+  const locationDescription = getWordsOnLocale(location[0].fields, 'description', locale)
+    .content.map((f: any) =>
+      f.content.map((e: any) => e.value).map((e: any) => e)
+    )
+    .join('');
 
-        <Grid container spacing={4}>
-          {locations.map((loc: any) => {
-            return (
-              <Grid item xs={12} md={6} key={loc.sys.id}>
-                <LocationCard images={images} location={loc} locale={locale} />
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Container>
-    </Box>
+  return (
+    <main className="min-h-screen bg-white">
+      <TopImage
+        title="Location"
+        tag="Studio"
+        subtitle={locationDescription.slice(0, 120) + (locationDescription.length > 120 ? '…' : '')}
+      />
+
+      <div className="mx-auto max-w-5xl px-6 py-16">
+        <div className="mb-12 flex items-center gap-4">
+          <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-neutral-400">
+            Studio Locations
+          </h2>
+          <div className="h-px flex-1 bg-neutral-200" />
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {locations.map((loc: any) => (
+            <LocationCard
+              key={loc.sys.id}
+              images={images}
+              location={loc}
+              locale={locale}
+            />
+          ))}
+        </div>
+      </div>
+    </main>
   );
 }
