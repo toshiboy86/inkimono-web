@@ -31,7 +31,7 @@ const TopHeader = (props: { i18n: TI18n; images?: string[] }) => {
           </p>
         </div>
 
-        {/* Right: photo mosaic — hidden on mobile */}
+        {/* Right: photo mosaic — desktop grid */}
         <div className="relative hidden h-[540px] gap-2 p-4 md:grid md:grid-cols-2 md:grid-rows-2">
           {/* Tall left photo spans both rows */}
           <div className="row-span-2 overflow-hidden rounded-2xl">
@@ -60,6 +60,28 @@ const TopHeader = (props: { i18n: TI18n; images?: string[] }) => {
               className="h-full w-full object-cover"
             />
           </div>
+        </div>
+
+        {/* Mobile: horizontal scroll strip */}
+        <div className="flex gap-3 overflow-x-auto px-4 pb-6 md:hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={img1}
+            alt="Kimono portrait"
+            className="h-48 w-36 flex-shrink-0 rounded-2xl object-cover"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={img2}
+            alt="Kimono detail"
+            className="h-48 w-48 flex-shrink-0 rounded-2xl object-cover"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={img3}
+            alt="Location shoot"
+            className="h-48 w-48 flex-shrink-0 rounded-2xl object-cover"
+          />
         </div>
       </div>
     </section>
