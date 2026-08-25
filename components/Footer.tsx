@@ -1,6 +1,7 @@
 import InstagramButton from './ui/InstagramButton';
 import Link from 'next/link';
 import { TLocale } from '../src/entities';
+import { JOBS_ENABLED } from '../src/config/features';
 
 const footerLinks = [
   { href: '/', label: 'About Me' },
@@ -14,10 +15,22 @@ const footerLinks = [
 
 export default function Footer(params: { lang: TLocale }) {
   const lang = params.lang;
+  const links = [
+    ...footerLinks,
+    ...(JOBS_ENABLED
+      ? [
+          {
+            href: lang === 'ja' ? '/ja/jobs' : '/jobs',
+            label: lang === 'ja' ? '求人' : 'Jobs',
+          },
+        ]
+      : []),
+  ];
+
   return (
     <footer className="w-full border-t border-neutral-200 bg-neutral-100 px-6 py-16 text-center">
       <div className="mb-8 flex flex-wrap justify-center gap-6 sm:gap-8">
-        {footerLinks.map(({ href, label }) => (
+        {links.map(({ href, label }) => (
           <Link
             key={href}
             href={href}
