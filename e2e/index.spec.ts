@@ -63,9 +63,30 @@ test('Click Inquiry button and go to navigation"', async ({ page }) => {
   await page.waitForURL(url('/inquiry'));
 });
 
-// ... existing tests ...
+test('Jobs navigation opens the jobs page with an email copy action', async ({
+  page,
+}) => {
+  await page.goto(url('/'));
 
-// ... existing tests ...
+  const jobsLink = page
+    .locator('[data-testid="main-nav"]')
+    .getByRole('link', { name: 'Jobs' });
+  await expect(jobsLink).toBeVisible();
+  await jobsLink.click();
+
+  await page.waitForURL(url('/jobs'));
+  await expect(
+    page.getByRole('button', { name: 'Copy email address' })
+  ).toBeVisible();
+
+  await page.goto(url('/ja/jobs'));
+  await expect(
+    page.getByRole('heading', { level: 1, name: '求人' })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'メールアドレスをコピー' })
+  ).toBeVisible();
+});
 
 test('Navigation bar links work correctly', async ({ page }) => {
   await page.goto(url('/'));

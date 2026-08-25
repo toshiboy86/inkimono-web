@@ -7,6 +7,7 @@ import InstagramButton from './ui/InstagramButton';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { convertFirstLetterCapital, getNextLocale } from '../src/utils';
 import { TLocale } from '../src/entities';
+import { JOBS_ENABLED } from '../src/config/features';
 
 const pages = [
   { link: 'redirect', text: 'home' },
@@ -23,6 +24,17 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
   const { lang } = params;
   const [open, setOpen] = React.useState(false);
   const nextLocale = getNextLocale(lang, usePathname());
+  const navigationPages = [
+    ...pages,
+    ...(JOBS_ENABLED
+      ? [
+          {
+            link: lang === 'ja' ? '/ja/jobs' : '/jobs',
+            text: lang === 'ja' ? '求人' : 'jobs',
+          },
+        ]
+      : []),
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/80 backdrop-blur-md">
@@ -41,7 +53,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
           data-testid="main-nav"
           className="hidden items-center gap-1 md:flex"
         >
-          {pages.map((page) => (
+          {navigationPages.map((page) => (
             <Link
               key={page.text}
               href={page.link}
@@ -66,6 +78,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <button
+                type="button"
                 className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-neutral-700 transition-colors hover:bg-neutral-100 md:hidden"
                 aria-label="Open navigation menu"
               >
@@ -74,7 +87,7 @@ export default function ResponsiveAppBar(params: { lang: TLocale }) {
             </SheetTrigger>
             <SheetContent side="left" className="w-72 pt-8">
               <nav className="flex flex-col gap-1">
-                {pages.map((page) => (
+                {navigationPages.map((page) => (
                   <Link
                     key={page.text}
                     href={page.link}

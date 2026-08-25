@@ -35,6 +35,10 @@ const nextConfig = {
         destination: '/en/faq',
       },
       {
+        source: '/jobs',
+        destination: '/en/jobs',
+      },
+      {
         source: '/workshop',
         destination: '/en/workshop',
       },
