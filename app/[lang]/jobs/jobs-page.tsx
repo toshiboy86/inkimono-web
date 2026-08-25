@@ -1,6 +1,23 @@
+import {
+	CalendarDays,
+	CheckCircle2,
+	Clock,
+	Coins,
+	Send,
+	Sparkles,
+} from 'lucide-react'
 import TopImage from '../../../components/TopImage'
 import type { TLocale } from '../../../src/entities'
 import CopyEmailButton from './copy-email-button'
+
+const conditionIcons = [
+	Coins,
+	CalendarDays,
+	Clock,
+	CalendarDays,
+	Sparkles,
+	Sparkles,
+]
 
 const email = 'inkimono.com@gmail.com'
 
@@ -110,15 +127,30 @@ const content = {
 	},
 } as const
 
-function BulletList({ items }: { items: readonly string[] }) {
+function CheckList({ items }: { items: readonly string[] }) {
 	return (
-		<ul className="space-y-3">
+		<ul className="grid gap-4 sm:grid-cols-2">
 			{items.map((item) => (
 				<li
 					key={item}
-					className="flex items-start gap-3 leading-relaxed text-neutral-700"
+					className="flex items-start gap-3 rounded-xl border border-neutral-200 bg-white p-4 leading-relaxed text-neutral-700 shadow-sm transition-colors hover:border-accent-200"
 				>
-					<span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
+					<CheckCircle2 size={20} className="mt-0.5 shrink-0 text-accent-500" />
+					<span>{item}</span>
+				</li>
+			))}
+		</ul>
+	)
+}
+
+function NumberedList({ items }: { items: readonly string[] }) {
+	return (
+		<ul className="space-y-3">
+			{items.map((item, index) => (
+				<li key={item} className="flex items-start gap-3 leading-relaxed">
+					<span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs font-semibold text-accent-300">
+						{index + 1}
+					</span>
 					<span>{item}</span>
 				</li>
 			))}
@@ -137,7 +169,7 @@ export default function JobsPage({ lang }: { lang: TLocale }) {
 				subtitle={copy.hero.subtitle}
 			/>
 
-			<div className="mx-auto max-w-4xl space-y-14 px-6 py-16">
+			<div className="mx-auto max-w-4xl space-y-16 px-6 py-16">
 				<section aria-labelledby="candidate-heading">
 					<h2
 						id="candidate-heading"
@@ -145,12 +177,10 @@ export default function JobsPage({ lang }: { lang: TLocale }) {
 					>
 						{copy.lookingForHeading}
 					</h2>
-					<div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm md:p-8">
-						<BulletList items={copy.lookingFor} />
-					</div>
+					<CheckList items={copy.lookingFor} />
 				</section>
 
-				<section className="space-y-5 text-base leading-relaxed text-neutral-700">
+				<section className="space-y-5 rounded-2xl border border-neutral-200 bg-neutral-50/60 p-6 text-base leading-relaxed text-neutral-700 md:p-8">
 					{copy.overview.map((paragraph) => (
 						<p key={paragraph}>{paragraph}</p>
 					))}
@@ -166,32 +196,53 @@ export default function JobsPage({ lang }: { lang: TLocale }) {
 						</h2>
 						<div className="h-px flex-1 bg-neutral-200" />
 					</div>
-					<BulletList items={copy.conditions} />
+					<ul className="grid gap-4 sm:grid-cols-2">
+						{copy.conditions.map((item, index) => {
+							const Icon = conditionIcons[index] ?? Sparkles
+							return (
+								<li
+									key={item}
+									className="flex items-start gap-4 rounded-xl border border-neutral-200 bg-white p-5 shadow-sm"
+								>
+									<span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent-50 text-accent-600">
+										<Icon size={18} />
+									</span>
+									<span className="leading-relaxed text-neutral-700">
+										{item}
+									</span>
+								</li>
+							)
+						})}
+					</ul>
 				</section>
 
 				<section aria-labelledby="application-heading">
-					<div className="rounded-2xl bg-neutral-950 p-7 text-white shadow-sm md:p-10">
-						<h2
-							id="application-heading"
-							className="text-2xl font-semibold tracking-tight"
-						>
-							{copy.applicationHeading}
-						</h2>
-						<p className="mt-4 leading-relaxed text-neutral-300">
-							{copy.applicationIntro}
-						</p>
-						<div className="mt-6 [&_li]:text-neutral-200">
-							<BulletList items={copy.applicationItems} />
-						</div>
+					<div className="relative overflow-hidden rounded-2xl bg-neutral-950 p-7 text-white shadow-lg md:p-10">
+						<div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-accent-500/20 blur-3xl" />
+						<div className="relative">
+							<span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-accent-400">
+								<Send size={12} />
+								{copy.applicationHeading}
+							</span>
+							<h2
+								id="application-heading"
+								className="mt-3 text-2xl font-semibold tracking-tight"
+							>
+								{copy.applicationIntro}
+							</h2>
+							<div className="mt-6 text-neutral-200">
+								<NumberedList items={copy.applicationItems} />
+							</div>
 
-						<div className="mt-8 rounded-2xl bg-white p-5 text-neutral-900">
-							<p className="text-sm font-medium text-neutral-500">
-								{copy.emailIntro}
-							</p>
-							<p className="mt-1 break-all text-lg font-semibold text-accent-600">
-								{email}
-							</p>
-							<div className="mt-4">
+							<div className="mt-8 flex flex-col gap-4 rounded-2xl bg-white p-5 text-neutral-900 sm:flex-row sm:items-center sm:justify-between">
+								<div>
+									<p className="text-sm font-medium text-neutral-500">
+										{copy.emailIntro}
+									</p>
+									<p className="mt-1 break-all text-lg font-semibold text-accent-600">
+										{email}
+									</p>
+								</div>
 								<CopyEmailButton
 									copyLabel={copy.copyLabel}
 									copiedLabel={copy.copiedLabel}
